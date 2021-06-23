@@ -1,0 +1,6 @@
+YACC_GENERATED_FILE_STEM = InputFileStem
+
+
+UNIT (([a-zA-HJ-Z%ΩÅℏ°]+)(\^[-+]?[0-9]+)?)([\*\/](([a-zA-HJ-Z%ΩÅℏ°]+)(\^[-+]?[0-9]+)?))*
+
+

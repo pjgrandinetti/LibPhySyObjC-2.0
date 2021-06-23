@@ -1,0 +1,91 @@
+%{
+#import "PhySyFoundation.h"
+
+void yyerror(char *s, ...);    
+static PSUnitRef final_unit;
+CFErrorRef unitError;
+static double *unit_multiplier_ref;
+int psulex(void);
+%}
+
+%name-prefix="psu"
+
+%union {
+    PSUnitRef unit;
+    int    iVal;
+}
+
+%token <unit> UNIT
+%token <iVal> INTEGER
+%type <unit> exp calclist
+%left '*' '/' 
+%left '^'
+%%
+calclist: /* do nothing */
+    | calclist exp {final_unit = $2;}
+    ;
+    
+exp: '(' exp ')' {$$ = $2;}
+    | exp '*' exp {$$ = PSUnitByMultiplyingWithoutReducing($1,$3,unit_multiplier_ref, &unitError);}
+    | exp '/' exp {$$ = PSUnitByDividingWithoutReducing($1,$3,unit_multiplier_ref);}
+    | exp '^' INTEGER {$$ = PSUnitByRaisingToAPowerWithoutReducing($1,$3,unit_multiplier_ref, &unitError);}
+    | INTEGER '/' exp {
+    if($1 == 1) {$$ = PSUnitByRaisingToAPowerWithoutReducing($3,-1,unit_multiplier_ref, &unitError);}
+        else  {
+            CFStringRef desc = CFSTR("Unknown unit symbol");
+            unitError = CFErrorCreateWithUserInfoKeysAndValues(kCFAllocatorDefault,
+            kPSFoundationErrorDomain,
+            0,
+            (const void* const*)&kCFErrorLocalizedDescriptionKey,
+            (const void* const*)&desc,
+            1);
+            yyerror("Unknown unit symbol");
+        }
+    }
+    | UNIT
+    ;
+
+%%
+
+extern int psu_scan_string(const char *);
+extern void psulex_destroy(void);
+bool psu_syntax_error;
+
+PSUnitRef PSUnitForParsedSymbol(CFStringRef string, double *unit_multiplier, CFErrorRef *error)
+{
+    if(error) if(*error) return NULL;
+
+    CFMutableStringRef  mutString = CFStringCreateMutableCopy (kCFAllocatorDefault,CFStringGetLength(string),string);
+    CFStringTrimWhitespace (mutString);
+    if(CFStringGetLength(string) == 1 && CFStringCompare(string,CFSTR("1"),0) == kCFCompareEqualTo) {
+        CFRelease(mutString);
+        return PSUnitDimensionlessAndUnderived(); 
+    }
+
+    CFStringFindAndReplace (mutString,CFSTR("•"), CFSTR("*"),CFRangeMake(0,CFStringGetLength(mutString)),0);
+    
+    final_unit = NULL;
+    unitError = NULL;
+    unit_multiplier_ref = unit_multiplier;
+    psu_syntax_error = false;
+    CFIndex length = CFStringGetMaximumSizeForEncoding(CFStringGetLength(mutString),kCFStringEncodingUTF8) +1;
+    if(length) {
+        char *cString = malloc(length*2);
+        CFStringGetCString(mutString, cString, length, kCFStringEncodingUTF8);
+        psu_scan_string(cString);               
+        psuparse();
+        psulex_destroy();
+        free(cString);
+        CFRelease(mutString);
+    }
+    if(unitError) *error = unitError;
+    return final_unit;
+}
+
+void yyerror(char *s, ...)
+{
+    fprintf(stderr, "error: %s\n",s);
+    psu_syntax_error = true;
+}
+
+

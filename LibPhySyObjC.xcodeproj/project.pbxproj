@@ -1,0 +1,1098 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D4A2D55626114DE1007D794C /* fftw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D44DEDA926114452008C4602 /* fftw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4A2D55926114DE2007D794C /* fftwf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D44DEDAB26114452008C4602 /* fftwf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4AA30C7257D740E0041AB42 /* PSCFType.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30C5257D740E0041AB42 /* PSCFType.m */; };
+		D4AA30C8257D740E0041AB42 /* PSCFType.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30C6257D740E0041AB42 /* PSCFType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA30CD257D74A60041AB42 /* PSMath.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30CB257D74A60041AB42 /* PSMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA30CE257D74A60041AB42 /* PSMath.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30CC257D74A60041AB42 /* PSMath.m */; };
+		D4AA30D3257D74B80041AB42 /* PSCFArray.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30D1257D74B70041AB42 /* PSCFArray.m */; };
+		D4AA30D4257D74B80041AB42 /* PSCFArray.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30D2257D74B80041AB42 /* PSCFArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA30D9257D74E80041AB42 /* PSIndexSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30D7257D74E80041AB42 /* PSIndexSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA30DA257D74E80041AB42 /* PSIndexSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30D8257D74E80041AB42 /* PSIndexSet.m */; };
+		D4AA30DF257D75100041AB42 /* PSCFNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30DD257D75100041AB42 /* PSCFNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA30E0257D75100041AB42 /* PSCFNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30DE257D75100041AB42 /* PSCFNumber.m */; };
+		D4AA30E5257D753D0041AB42 /* PSCFData.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30E3257D753D0041AB42 /* PSCFData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA30E6257D753D0041AB42 /* PSCFData.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30E4257D753D0041AB42 /* PSCFData.m */; };
+		D4AA30EB257D754D0041AB42 /* PSCFDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30E9257D754D0041AB42 /* PSCFDictionary.m */; };
+		D4AA30EC257D754D0041AB42 /* PSCFDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30EA257D754D0041AB42 /* PSCFDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA30F1257D756A0041AB42 /* PSCFSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30EF257D756A0041AB42 /* PSCFSet.m */; };
+		D4AA30F2257D756A0041AB42 /* PSCFSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30F0257D756A0041AB42 /* PSCFSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3103257D760D0041AB42 /* PSCFString.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3101257D760D0041AB42 /* PSCFString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3104257D760D0041AB42 /* PSCFString.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3102257D760D0041AB42 /* PSCFString.m */; };
+		D4AA3109257D76260041AB42 /* PSComplexFromString.lm in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3107257D76260041AB42 /* PSComplexFromString.lm */; };
+		D4AA310A257D76260041AB42 /* PSComplexFromString.ym in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3108257D76260041AB42 /* PSComplexFromString.ym */; };
+		D4AA314F257D77060041AB42 /* PhySyFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA314E257D77060041AB42 /* PhySyFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3154257D77430041AB42 /* PSDimensionality.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3152257D77430041AB42 /* PSDimensionality.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3155257D77430041AB42 /* PSDimensionality.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3153257D77430041AB42 /* PSDimensionality.m */; };
+		D4AA315B257D775A0041AB42 /* PSDimensionalityParser.lm in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3158257D775A0041AB42 /* PSDimensionalityParser.lm */; };
+		D4AA315C257D775A0041AB42 /* PSDimensionalityParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3159257D775A0041AB42 /* PSDimensionalityParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA315D257D775A0041AB42 /* PSDimensionalityParser.ym in Sources */ = {isa = PBXBuildFile; fileRef = D4AA315A257D775A0041AB42 /* PSDimensionalityParser.ym */; };
+		D4AA3162257D77870041AB42 /* PSUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3160257D77870041AB42 /* PSUnit.m */; };
+		D4AA3163257D77870041AB42 /* PSUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3161257D77870041AB42 /* PSUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3169257D77950041AB42 /* PSUnitParser.lm in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3166257D77950041AB42 /* PSUnitParser.lm */; };
+		D4AA316A257D77950041AB42 /* PSUnitParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3167257D77950041AB42 /* PSUnitParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA316B257D77950041AB42 /* PSUnitParser.ym in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3168257D77950041AB42 /* PSUnitParser.ym */; };
+		D4AA3170257D78120041AB42 /* PSQuantity.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA316E257D78120041AB42 /* PSQuantity.m */; };
+		D4AA3171257D78120041AB42 /* PSQuantity.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA316F257D78120041AB42 /* PSQuantity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3184257D7F680041AB42 /* PSScalarParser.lm in Sources */ = {isa = PBXBuildFile; fileRef = D4AA317C257D7F670041AB42 /* PSScalarParser.lm */; };
+		D4AA3185257D7F680041AB42 /* PSScalarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA317D257D7F670041AB42 /* PSScalarParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3186257D7F680041AB42 /* PSScalar.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA317E257D7F670041AB42 /* PSScalar.m */; };
+		D4AA3187257D7F680041AB42 /* PSScalarParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA317F257D7F670041AB42 /* PSScalarParser.m */; };
+		D4AA3188257D7F680041AB42 /* PSScalar.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3180257D7F670041AB42 /* PSScalar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3189257D7F680041AB42 /* PSScalarConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3181257D7F680041AB42 /* PSScalarConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA318A257D7F680041AB42 /* PSScalarParser.ym in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3182257D7F680041AB42 /* PSScalarParser.ym */; };
+		D4AA318B257D7F680041AB42 /* PSScalarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3183257D7F680041AB42 /* PSScalarConstants.m */; };
+		D4AA318F257D7FFF0041AB42 /* PSFormulaParser.lm in Sources */ = {isa = PBXBuildFile; fileRef = D4AA318E257D7FFF0041AB42 /* PSFormulaParser.lm */; };
+		D4AA3194257D801A0041AB42 /* PSTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3192257D801A0041AB42 /* PSTreeNode.m */; };
+		D4AA3195257D801A0041AB42 /* PSTreeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3193257D801A0041AB42 /* PSTreeNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA319A257D803B0041AB42 /* PSPList.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3198257D803B0041AB42 /* PSPList.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA319B257D803B0041AB42 /* PSPList.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3199257D803B0041AB42 /* PSPList.m */; };
+		D4AA31B0257D80620041AB42 /* PSPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA319F257D80620041AB42 /* PSPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA31B1257D80620041AB42 /* PSDependentVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA31A0257D80620041AB42 /* PSDependentVariable.m */; };
+		D4AA31B2257D80620041AB42 /* PSDimension.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA31A1257D80620041AB42 /* PSDimension.m */; };
+		D4AA31B3257D80620041AB42 /* PSAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31A2257D80620041AB42 /* PSAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA31B4257D80620041AB42 /* PSDataset.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31A3257D80620041AB42 /* PSDataset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA31B5257D80620041AB42 /* PSIndexArray.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31A4257D80620041AB42 /* PSIndexArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA31B6257D80620041AB42 /* PSDatum.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31A5257D80620041AB42 /* PSDatum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA31B7257D80620041AB42 /* PSIndexPairSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA31A6257D80620041AB42 /* PSIndexPairSet.m */; };
+		D4AA31B8257D80620041AB42 /* PhySyDataset.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31A7257D80620041AB42 /* PhySyDataset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA31B9257D80620041AB42 /* PSDataset.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA31A8257D80620041AB42 /* PSDataset.m */; };
+		D4AA31BA257D80620041AB42 /* PSAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA31A9257D80620041AB42 /* PSAxis.m */; };
+		D4AA31BB257D80620041AB42 /* PSDimension.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31AA257D80620041AB42 /* PSDimension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA31BC257D80620041AB42 /* PSDependentVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31AB257D80620041AB42 /* PSDependentVariable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA31BD257D80620041AB42 /* PSPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA31AC257D80620041AB42 /* PSPlot.m */; };
+		D4AA31BE257D80620041AB42 /* PSDatum.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA31AD257D80620041AB42 /* PSDatum.m */; };
+		D4AA31BF257D80620041AB42 /* PSIndexArray.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA31AE257D80620041AB42 /* PSIndexArray.m */; };
+		D4AA31C0257D80620041AB42 /* PSIndexPairSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31AF257D80620041AB42 /* PSIndexPairSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3217257D80C00041AB42 /* PhySyDatasetOperations.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA31DD257D80C00041AB42 /* PhySyDatasetOperations.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3243257D81C00041AB42 /* PSDatasetAddNoise.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3241257D81C00041AB42 /* PSDatasetAddNoise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3244257D81C00041AB42 /* PSDatasetAddNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3242257D81C00041AB42 /* PSDatasetAddNoise.m */; };
+		D4AA3265257D820D0041AB42 /* PSDatasetScaleDimension.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3249257D820B0041AB42 /* PSDatasetScaleDimension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3266257D820D0041AB42 /* PSDatasetFourierTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA324A257D820B0041AB42 /* PSDatasetFourierTransform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3268257D820D0041AB42 /* PSDatasetResponseOffsetAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA324C257D820B0041AB42 /* PSDatasetResponseOffsetAdjust.m */; };
+		D4AA3269257D820D0041AB42 /* PSDatasetShift.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA324D257D820B0041AB42 /* PSDatasetShift.m */; };
+		D4AA326A257D820D0041AB42 /* PSDatasetShift.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA324E257D820B0041AB42 /* PSDatasetShift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA326B257D820D0041AB42 /* PSDatasetFourierTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA324F257D820B0041AB42 /* PSDatasetFourierTransform.m */; };
+		D4AA326C257D820D0041AB42 /* PSDatasetPhasing.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3250257D820B0041AB42 /* PSDatasetPhasing.m */; };
+		D4AA326D257D820D0041AB42 /* PSDatasetFill.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3251257D820B0041AB42 /* PSDatasetFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA326E257D820D0041AB42 /* PSDatasetFill.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3252257D820B0041AB42 /* PSDatasetFill.m */; };
+		D4AA326F257D820D0041AB42 /* PSDatasetScaleDimension.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3253257D820B0041AB42 /* PSDatasetScaleDimension.m */; };
+		D4AA3270257D820D0041AB42 /* PSDatasetTrim.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3254257D820B0041AB42 /* PSDatasetTrim.m */; };
+		D4AA3271257D820D0041AB42 /* PSDatasetMultiplyByScalars.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3255257D820B0041AB42 /* PSDatasetMultiplyByScalars.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3272257D820D0041AB42 /* PSDatasetPhasing.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3256257D820C0041AB42 /* PSDatasetPhasing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3274257D820D0041AB42 /* PSDatasetApodization.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3258257D820C0041AB42 /* PSDatasetApodization.m */; };
+		D4AA3276257D820D0041AB42 /* PSDatasetProjectOutDimension.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA325A257D820C0041AB42 /* PSDatasetProjectOutDimension.m */; };
+		D4AA3277257D820D0041AB42 /* PSDatasetAffine.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA325B257D820C0041AB42 /* PSDatasetAffine.m */; };
+		D4AA3279257D820D0041AB42 /* PSDatasetAffine.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA325D257D820C0041AB42 /* PSDatasetAffine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA327A257D820D0041AB42 /* PSDatasetApodization.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA325E257D820D0041AB42 /* PSDatasetApodization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA327B257D820D0041AB42 /* PSDatasetProjectOutDimension.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA325F257D820D0041AB42 /* PSDatasetProjectOutDimension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA327C257D820D0041AB42 /* PSDatasetTrim.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3260257D820D0041AB42 /* PSDatasetTrim.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA327D257D820D0041AB42 /* PSDatasetResponseOffsetAdjust.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3261257D820D0041AB42 /* PSDatasetResponseOffsetAdjust.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA327E257D820D0041AB42 /* PSDatasetMultiplyByScalars.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3262257D820D0041AB42 /* PSDatasetMultiplyByScalars.m */; };
+		D4AA327F257D820D0041AB42 /* PSDatasetSignalToNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3263257D820D0041AB42 /* PSDatasetSignalToNoise.m */; };
+		D4AA3280257D820D0041AB42 /* PSDatasetSignalToNoise.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3264257D820D0041AB42 /* PSDatasetSignalToNoise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32A0257D82230041AB42 /* PSDatasetApodizePIETA.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3286257D82230041AB42 /* PSDatasetApodizePIETA.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32A1257D82230041AB42 /* PSDatasetApodizeDerivative.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3287257D82230041AB42 /* PSDatasetApodizeDerivative.m */; };
+		D4AA32A2257D82230041AB42 /* PSDatasetApodizationFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3288257D82230041AB42 /* PSDatasetApodizationFunction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32A3257D82230041AB42 /* PSDatasetApodizeSinc.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3289257D82230041AB42 /* PSDatasetApodizeSinc.m */; };
+		D4AA32A4257D82230041AB42 /* PSDatasetApodizeGaussian.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA328A257D82230041AB42 /* PSDatasetApodizeGaussian.m */; };
+		D4AA32A5257D82230041AB42 /* PSDatasetApodizeHamming.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA328B257D82230041AB42 /* PSDatasetApodizeHamming.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32A6257D82230041AB42 /* PSDatasetApodizeTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA328C257D82230041AB42 /* PSDatasetApodizeTriangle.m */; };
+		D4AA32A7257D82230041AB42 /* PSDatasetApodizeExponential.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA328D257D82230041AB42 /* PSDatasetApodizeExponential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32A8257D82230041AB42 /* PSDatasetApodizeRamLak.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA328E257D82230041AB42 /* PSDatasetApodizeRamLak.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32A9257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA328F257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.m */; };
+		D4AA32AA257D82230041AB42 /* PSDatasetApodizeCosine.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3290257D82230041AB42 /* PSDatasetApodizeCosine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32AB257D82230041AB42 /* PSDatasetApodizeStretchedExponential.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3291257D82230041AB42 /* PSDatasetApodizeStretchedExponential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32AC257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3292257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32AD257D82230041AB42 /* PSDatasetApodizePIETA.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3293257D82230041AB42 /* PSDatasetApodizePIETA.m */; };
+		D4AA32AE257D82230041AB42 /* PSDatasetApodizeSinc.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3294257D82230041AB42 /* PSDatasetApodizeSinc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32AF257D82230041AB42 /* PSDatasetApodizationFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3295257D82230041AB42 /* PSDatasetApodizationFunction.m */; };
+		D4AA32B0257D82230041AB42 /* PSDatasetApodizeDerivative.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3296257D82230041AB42 /* PSDatasetApodizeDerivative.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32B1257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3297257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32B2257D82230041AB42 /* PSDatasetApodizeRamLak.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3298257D82230041AB42 /* PSDatasetApodizeRamLak.m */; };
+		D4AA32B3257D82230041AB42 /* PSDatasetApodizeExponential.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3299257D82230041AB42 /* PSDatasetApodizeExponential.m */; };
+		D4AA32B4257D82230041AB42 /* PSDatasetApodizeTriangle.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA329A257D82230041AB42 /* PSDatasetApodizeTriangle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32B5257D82230041AB42 /* PSDatasetApodizeHamming.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA329B257D82230041AB42 /* PSDatasetApodizeHamming.m */; };
+		D4AA32B6257D82230041AB42 /* PSDatasetApodizeGaussian.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA329C257D82230041AB42 /* PSDatasetApodizeGaussian.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32B7257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA329D257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.m */; };
+		D4AA32B8257D82230041AB42 /* PSDatasetApodizeStretchedExponential.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA329E257D82230041AB42 /* PSDatasetApodizeStretchedExponential.m */; };
+		D4AA32B9257D82230041AB42 /* PSDatasetApodizeCosine.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA329F257D82230041AB42 /* PSDatasetApodizeCosine.m */; };
+		D4AA32E7257D82AF0041AB42 /* PSDatasetImportTecmag.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32C2257D82AF0041AB42 /* PSDatasetImportTecmag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32E8257D82AF0041AB42 /* PSDatasetImportIFF.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32C3257D82AF0041AB42 /* PSDatasetImportIFF.m */; };
+		D4AA32E9257D82AF0041AB42 /* PSDatasetImportJOEL.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32C4257D82AF0041AB42 /* PSDatasetImportJOEL.m */; };
+		D4AA32EA257D82AF0041AB42 /* PSDatasetImportSimpson.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32C5257D82AF0041AB42 /* PSDatasetImportSimpson.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32EB257D82AF0041AB42 /* PSDatasetImportRMNClassic.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32C6257D82AF0041AB42 /* PSDatasetImportRMNClassic.m */; };
+		D4AA32EC257D82AF0041AB42 /* PSDatasetExportCSV.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32C7257D82AF0041AB42 /* PSDatasetExportCSV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32ED257D82AF0041AB42 /* MRSignalIO.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32C8257D82AF0041AB42 /* MRSignalIO.m */; };
+		D4AA32EE257D82AF0041AB42 /* PSDatasetImportMagritek.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32C9257D82AF0041AB42 /* PSDatasetImportMagritek.m */; };
+		D4AA32EF257D82AF0041AB42 /* PSDatasetImportSpinsight.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32CA257D82AF0041AB42 /* PSDatasetImportSpinsight.m */; };
+		D4AA32F0257D82AF0041AB42 /* PSDatasetImportImage.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32CB257D82AF0041AB42 /* PSDatasetImportImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32F1257D82AF0041AB42 /* PSDatasetStudiumIO.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32CC257D82AF0041AB42 /* PSDatasetStudiumIO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32F2257D82AF0041AB42 /* PSDatasetImportSPC.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32CD257D82AF0041AB42 /* PSDatasetImportSPC.m */; };
+		D4AA32F3257D82AF0041AB42 /* PSDatasetImportUCSF.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32CE257D82AF0041AB42 /* PSDatasetImportUCSF.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32F4257D82AF0041AB42 /* PSDatasetImportVarian.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32CF257D82AF0041AB42 /* PSDatasetImportVarian.m */; };
+		D4AA32F5257D82AF0041AB42 /* PSDatasetImportJCAMP.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32D0257D82AF0041AB42 /* PSDatasetImportJCAMP.m */; };
+		D4AA32F6257D82AF0041AB42 /* PSDatasetImportBruker.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32D1257D82AF0041AB42 /* PSDatasetImportBruker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32F7257D82AF0041AB42 /* PSDatasetImportRMNSim.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32D2257D82AF0041AB42 /* PSDatasetImportRMNSim.m */; };
+		D4AA32F8257D82AF0041AB42 /* PSDatasetImportRMNClassic.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32D3257D82AF0041AB42 /* PSDatasetImportRMNClassic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32F9257D82AF0041AB42 /* PSDatasetImportSimpson.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32D4257D82AF0041AB42 /* PSDatasetImportSimpson.m */; };
+		D4AA32FA257D82AF0041AB42 /* PSDatasetImportIFF.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32D5257D82AF0041AB42 /* PSDatasetImportIFF.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32FB257D82AF0041AB42 /* PSDatasetImportJOEL.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32D6257D82AF0041AB42 /* PSDatasetImportJOEL.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32FC257D82AF0041AB42 /* PSDatasetImportTecmag.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32D7257D82AF0041AB42 /* PSDatasetImportTecmag.m */; };
+		D4AA32FE257D82AF0041AB42 /* PhySyDatasetIO.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32D9257D82AF0041AB42 /* PhySyDatasetIO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA32FF257D82AF0041AB42 /* PSDatasetImportSpinsight.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32DA257D82AF0041AB42 /* PSDatasetImportSpinsight.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3300257D82AF0041AB42 /* PSDatasetImportMagritek.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32DB257D82AF0041AB42 /* PSDatasetImportMagritek.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3301257D82AF0041AB42 /* MRSignalIO.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32DC257D82AF0041AB42 /* MRSignalIO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3302257D82AF0041AB42 /* PSDatasetExportCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32DD257D82AF0041AB42 /* PSDatasetExportCSV.m */; };
+		D4AA3303257D82AF0041AB42 /* PSDatasetStudiumIO.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32DE257D82AF0041AB42 /* PSDatasetStudiumIO.m */; };
+		D4AA3304257D82AF0041AB42 /* PSDatasetImportImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32DF257D82AF0041AB42 /* PSDatasetImportImage.m */; };
+		D4AA3305257D82AF0041AB42 /* PSDatasetImportRMNSim.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32E0257D82AF0041AB42 /* PSDatasetImportRMNSim.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3306257D82AF0041AB42 /* PSDatasetImportBruker.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32E1257D82AF0041AB42 /* PSDatasetImportBruker.m */; };
+		D4AA3307257D82AF0041AB42 /* PSDatasetImportVarian.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32E2257D82AF0041AB42 /* PSDatasetImportVarian.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3308257D82AF0041AB42 /* PSDatasetImportJCAMP.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32E3257D82AF0041AB42 /* PSDatasetImportJCAMP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3309257D82AF0041AB42 /* PSDatasetImportUCSF.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA32E4257D82AF0041AB42 /* PSDatasetImportUCSF.m */; };
+		D4AA330A257D82AF0041AB42 /* PSDatasetImportSPC.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA32E5257D82AF0041AB42 /* PSDatasetImportSPC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3358257D846B0041AB42 /* PhySyQuartz.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3355257D846B0041AB42 /* PhySyQuartz.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3359257D846B0041AB42 /* PSQuartzDependentVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3356257D846B0041AB42 /* PSQuartzDependentVariable.m */; };
+		D4AA335A257D846B0041AB42 /* PSQuartzDependentVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3357257D846B0041AB42 /* PSQuartzDependentVariable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3367257D84D60041AB42 /* PSTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3360257D84D60041AB42 /* PSTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3368257D84D60041AB42 /* PSScalarTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3361257D84D60041AB42 /* PSScalarTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA3369257D84D60041AB42 /* PhySyCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3362257D84D60041AB42 /* PhySyCocoa.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4AA336A257D84D60041AB42 /* PSNewScalarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3363257D84D60041AB42 /* PSNewScalarTextField.m */; };
+		D4AA336B257D84D60041AB42 /* PSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3364257D84D60041AB42 /* PSTableView.m */; };
+		D4AA336C257D84D60041AB42 /* PSScalarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA3365257D84D60041AB42 /* PSScalarTextField.m */; };
+		D4AA336D257D84D60041AB42 /* PSNewScalarTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3366257D84D60041AB42 /* PSNewScalarTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4ACE0B71E19F00900DD4754 /* LibPhySyObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = D4ACE0A91E19F00900DD4754 /* LibPhySyObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4ACE1781E19F01800DD4754 /* CFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D4ACE0C11E19F01800DD4754 /* CFAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4F60D76267A72BE003FF608 /* fftw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44DEDA926114452008C4602 /* fftw.framework */; };
+		D4F60D77267A72C2003FF608 /* fftwf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44DEDAB26114452008C4602 /* fftwf.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D4A2D55726114DE1007D794C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D4A2D55926114DE2007D794C /* fftwf.framework in Embed Frameworks */,
+				D4A2D55626114DE1007D794C /* fftw.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D44DEDA926114452008C4602 /* fftw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = fftw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D44DEDAB26114452008C4602 /* fftwf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = fftwf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4AA30C5257D740E0041AB42 /* PSCFType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCFType.m; sourceTree = "<group>"; };
+		D4AA30C6257D740E0041AB42 /* PSCFType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCFType.h; sourceTree = "<group>"; };
+		D4AA30CB257D74A60041AB42 /* PSMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSMath.h; sourceTree = "<group>"; };
+		D4AA30CC257D74A60041AB42 /* PSMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSMath.m; sourceTree = "<group>"; };
+		D4AA30D1257D74B70041AB42 /* PSCFArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCFArray.m; sourceTree = "<group>"; };
+		D4AA30D2257D74B80041AB42 /* PSCFArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCFArray.h; sourceTree = "<group>"; };
+		D4AA30D7257D74E80041AB42 /* PSIndexSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSIndexSet.h; sourceTree = "<group>"; };
+		D4AA30D8257D74E80041AB42 /* PSIndexSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSIndexSet.m; sourceTree = "<group>"; };
+		D4AA30DD257D75100041AB42 /* PSCFNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCFNumber.h; sourceTree = "<group>"; };
+		D4AA30DE257D75100041AB42 /* PSCFNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCFNumber.m; sourceTree = "<group>"; };
+		D4AA30E3257D753D0041AB42 /* PSCFData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCFData.h; sourceTree = "<group>"; };
+		D4AA30E4257D753D0041AB42 /* PSCFData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCFData.m; sourceTree = "<group>"; };
+		D4AA30E9257D754D0041AB42 /* PSCFDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCFDictionary.m; sourceTree = "<group>"; };
+		D4AA30EA257D754D0041AB42 /* PSCFDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCFDictionary.h; sourceTree = "<group>"; };
+		D4AA30EF257D756A0041AB42 /* PSCFSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCFSet.m; sourceTree = "<group>"; };
+		D4AA30F0257D756A0041AB42 /* PSCFSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCFSet.h; sourceTree = "<group>"; };
+		D4AA3101257D760D0041AB42 /* PSCFString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCFString.h; sourceTree = "<group>"; };
+		D4AA3102257D760D0041AB42 /* PSCFString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCFString.m; sourceTree = "<group>"; };
+		D4AA3107257D76260041AB42 /* PSComplexFromString.lm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = PSComplexFromString.lm; sourceTree = "<group>"; };
+		D4AA3108257D76260041AB42 /* PSComplexFromString.ym */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = PSComplexFromString.ym; sourceTree = "<group>"; };
+		D4AA314E257D77060041AB42 /* PhySyFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhySyFoundation.h; sourceTree = "<group>"; };
+		D4AA3152257D77430041AB42 /* PSDimensionality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDimensionality.h; sourceTree = "<group>"; };
+		D4AA3153257D77430041AB42 /* PSDimensionality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDimensionality.m; sourceTree = "<group>"; };
+		D4AA3158257D775A0041AB42 /* PSDimensionalityParser.lm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = PSDimensionalityParser.lm; sourceTree = "<group>"; };
+		D4AA3159257D775A0041AB42 /* PSDimensionalityParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDimensionalityParser.h; sourceTree = "<group>"; };
+		D4AA315A257D775A0041AB42 /* PSDimensionalityParser.ym */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = PSDimensionalityParser.ym; sourceTree = "<group>"; };
+		D4AA3160257D77870041AB42 /* PSUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSUnit.m; sourceTree = "<group>"; };
+		D4AA3161257D77870041AB42 /* PSUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSUnit.h; sourceTree = "<group>"; };
+		D4AA3166257D77950041AB42 /* PSUnitParser.lm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = PSUnitParser.lm; sourceTree = "<group>"; };
+		D4AA3167257D77950041AB42 /* PSUnitParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSUnitParser.h; sourceTree = "<group>"; };
+		D4AA3168257D77950041AB42 /* PSUnitParser.ym */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = PSUnitParser.ym; sourceTree = "<group>"; };
+		D4AA316E257D78120041AB42 /* PSQuantity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSQuantity.m; sourceTree = "<group>"; };
+		D4AA316F257D78120041AB42 /* PSQuantity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSQuantity.h; sourceTree = "<group>"; };
+		D4AA317C257D7F670041AB42 /* PSScalarParser.lm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = PSScalarParser.lm; sourceTree = "<group>"; };
+		D4AA317D257D7F670041AB42 /* PSScalarParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSScalarParser.h; sourceTree = "<group>"; };
+		D4AA317E257D7F670041AB42 /* PSScalar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSScalar.m; sourceTree = "<group>"; };
+		D4AA317F257D7F670041AB42 /* PSScalarParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSScalarParser.m; sourceTree = "<group>"; };
+		D4AA3180257D7F670041AB42 /* PSScalar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSScalar.h; sourceTree = "<group>"; };
+		D4AA3181257D7F680041AB42 /* PSScalarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSScalarConstants.h; sourceTree = "<group>"; };
+		D4AA3182257D7F680041AB42 /* PSScalarParser.ym */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = PSScalarParser.ym; sourceTree = "<group>"; };
+		D4AA3183257D7F680041AB42 /* PSScalarConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSScalarConstants.m; sourceTree = "<group>"; };
+		D4AA318E257D7FFF0041AB42 /* PSFormulaParser.lm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = PSFormulaParser.lm; sourceTree = "<group>"; };
+		D4AA3192257D801A0041AB42 /* PSTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTreeNode.m; sourceTree = "<group>"; };
+		D4AA3193257D801A0041AB42 /* PSTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTreeNode.h; sourceTree = "<group>"; };
+		D4AA3198257D803B0041AB42 /* PSPList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPList.h; sourceTree = "<group>"; };
+		D4AA3199257D803B0041AB42 /* PSPList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPList.m; sourceTree = "<group>"; };
+		D4AA319F257D80620041AB42 /* PSPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPlot.h; sourceTree = "<group>"; };
+		D4AA31A0257D80620041AB42 /* PSDependentVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDependentVariable.m; sourceTree = "<group>"; };
+		D4AA31A1257D80620041AB42 /* PSDimension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDimension.m; sourceTree = "<group>"; };
+		D4AA31A2257D80620041AB42 /* PSAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAxis.h; sourceTree = "<group>"; };
+		D4AA31A3257D80620041AB42 /* PSDataset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDataset.h; sourceTree = "<group>"; };
+		D4AA31A4257D80620041AB42 /* PSIndexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSIndexArray.h; sourceTree = "<group>"; };
+		D4AA31A5257D80620041AB42 /* PSDatum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatum.h; sourceTree = "<group>"; };
+		D4AA31A6257D80620041AB42 /* PSIndexPairSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSIndexPairSet.m; sourceTree = "<group>"; };
+		D4AA31A7257D80620041AB42 /* PhySyDataset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhySyDataset.h; sourceTree = "<group>"; };
+		D4AA31A8257D80620041AB42 /* PSDataset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDataset.m; sourceTree = "<group>"; };
+		D4AA31A9257D80620041AB42 /* PSAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAxis.m; sourceTree = "<group>"; };
+		D4AA31AA257D80620041AB42 /* PSDimension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDimension.h; sourceTree = "<group>"; };
+		D4AA31AB257D80620041AB42 /* PSDependentVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDependentVariable.h; sourceTree = "<group>"; };
+		D4AA31AC257D80620041AB42 /* PSPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPlot.m; sourceTree = "<group>"; };
+		D4AA31AD257D80620041AB42 /* PSDatum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatum.m; sourceTree = "<group>"; };
+		D4AA31AE257D80620041AB42 /* PSIndexArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSIndexArray.m; sourceTree = "<group>"; };
+		D4AA31AF257D80620041AB42 /* PSIndexPairSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSIndexPairSet.h; sourceTree = "<group>"; };
+		D4AA31DD257D80C00041AB42 /* PhySyDatasetOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhySyDatasetOperations.h; sourceTree = "<group>"; };
+		D4AA3241257D81C00041AB42 /* PSDatasetAddNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetAddNoise.h; sourceTree = "<group>"; };
+		D4AA3242257D81C00041AB42 /* PSDatasetAddNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetAddNoise.m; sourceTree = "<group>"; };
+		D4AA3249257D820B0041AB42 /* PSDatasetScaleDimension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetScaleDimension.h; sourceTree = "<group>"; };
+		D4AA324A257D820B0041AB42 /* PSDatasetFourierTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetFourierTransform.h; sourceTree = "<group>"; };
+		D4AA324C257D820B0041AB42 /* PSDatasetResponseOffsetAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetResponseOffsetAdjust.m; sourceTree = "<group>"; };
+		D4AA324D257D820B0041AB42 /* PSDatasetShift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetShift.m; sourceTree = "<group>"; };
+		D4AA324E257D820B0041AB42 /* PSDatasetShift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetShift.h; sourceTree = "<group>"; };
+		D4AA324F257D820B0041AB42 /* PSDatasetFourierTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetFourierTransform.m; sourceTree = "<group>"; };
+		D4AA3250257D820B0041AB42 /* PSDatasetPhasing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetPhasing.m; sourceTree = "<group>"; };
+		D4AA3251257D820B0041AB42 /* PSDatasetFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetFill.h; sourceTree = "<group>"; };
+		D4AA3252257D820B0041AB42 /* PSDatasetFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetFill.m; sourceTree = "<group>"; };
+		D4AA3253257D820B0041AB42 /* PSDatasetScaleDimension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetScaleDimension.m; sourceTree = "<group>"; };
+		D4AA3254257D820B0041AB42 /* PSDatasetTrim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetTrim.m; sourceTree = "<group>"; };
+		D4AA3255257D820B0041AB42 /* PSDatasetMultiplyByScalars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetMultiplyByScalars.h; sourceTree = "<group>"; };
+		D4AA3256257D820C0041AB42 /* PSDatasetPhasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetPhasing.h; sourceTree = "<group>"; };
+		D4AA3258257D820C0041AB42 /* PSDatasetApodization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodization.m; sourceTree = "<group>"; };
+		D4AA325A257D820C0041AB42 /* PSDatasetProjectOutDimension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetProjectOutDimension.m; sourceTree = "<group>"; };
+		D4AA325B257D820C0041AB42 /* PSDatasetAffine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetAffine.m; sourceTree = "<group>"; };
+		D4AA325D257D820C0041AB42 /* PSDatasetAffine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetAffine.h; sourceTree = "<group>"; };
+		D4AA325E257D820D0041AB42 /* PSDatasetApodization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodization.h; sourceTree = "<group>"; };
+		D4AA325F257D820D0041AB42 /* PSDatasetProjectOutDimension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetProjectOutDimension.h; sourceTree = "<group>"; };
+		D4AA3260257D820D0041AB42 /* PSDatasetTrim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetTrim.h; sourceTree = "<group>"; };
+		D4AA3261257D820D0041AB42 /* PSDatasetResponseOffsetAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetResponseOffsetAdjust.h; sourceTree = "<group>"; };
+		D4AA3262257D820D0041AB42 /* PSDatasetMultiplyByScalars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetMultiplyByScalars.m; sourceTree = "<group>"; };
+		D4AA3263257D820D0041AB42 /* PSDatasetSignalToNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetSignalToNoise.m; sourceTree = "<group>"; };
+		D4AA3264257D820D0041AB42 /* PSDatasetSignalToNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetSignalToNoise.h; sourceTree = "<group>"; };
+		D4AA3286257D82230041AB42 /* PSDatasetApodizePIETA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizePIETA.h; sourceTree = "<group>"; };
+		D4AA3287257D82230041AB42 /* PSDatasetApodizeDerivative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeDerivative.m; sourceTree = "<group>"; };
+		D4AA3288257D82230041AB42 /* PSDatasetApodizationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizationFunction.h; sourceTree = "<group>"; };
+		D4AA3289257D82230041AB42 /* PSDatasetApodizeSinc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeSinc.m; sourceTree = "<group>"; };
+		D4AA328A257D82230041AB42 /* PSDatasetApodizeGaussian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeGaussian.m; sourceTree = "<group>"; };
+		D4AA328B257D82230041AB42 /* PSDatasetApodizeHamming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeHamming.h; sourceTree = "<group>"; };
+		D4AA328C257D82230041AB42 /* PSDatasetApodizeTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeTriangle.m; sourceTree = "<group>"; };
+		D4AA328D257D82230041AB42 /* PSDatasetApodizeExponential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeExponential.h; sourceTree = "<group>"; };
+		D4AA328E257D82230041AB42 /* PSDatasetApodizeRamLak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeRamLak.h; sourceTree = "<group>"; };
+		D4AA328F257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeTopHatBandStop.m; sourceTree = "<group>"; };
+		D4AA3290257D82230041AB42 /* PSDatasetApodizeCosine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeCosine.h; sourceTree = "<group>"; };
+		D4AA3291257D82230041AB42 /* PSDatasetApodizeStretchedExponential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeStretchedExponential.h; sourceTree = "<group>"; };
+		D4AA3292257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeTopHatBandPass.h; sourceTree = "<group>"; };
+		D4AA3293257D82230041AB42 /* PSDatasetApodizePIETA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizePIETA.m; sourceTree = "<group>"; };
+		D4AA3294257D82230041AB42 /* PSDatasetApodizeSinc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeSinc.h; sourceTree = "<group>"; };
+		D4AA3295257D82230041AB42 /* PSDatasetApodizationFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizationFunction.m; sourceTree = "<group>"; };
+		D4AA3296257D82230041AB42 /* PSDatasetApodizeDerivative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeDerivative.h; sourceTree = "<group>"; };
+		D4AA3297257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeTopHatBandStop.h; sourceTree = "<group>"; };
+		D4AA3298257D82230041AB42 /* PSDatasetApodizeRamLak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeRamLak.m; sourceTree = "<group>"; };
+		D4AA3299257D82230041AB42 /* PSDatasetApodizeExponential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeExponential.m; sourceTree = "<group>"; };
+		D4AA329A257D82230041AB42 /* PSDatasetApodizeTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeTriangle.h; sourceTree = "<group>"; };
+		D4AA329B257D82230041AB42 /* PSDatasetApodizeHamming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeHamming.m; sourceTree = "<group>"; };
+		D4AA329C257D82230041AB42 /* PSDatasetApodizeGaussian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetApodizeGaussian.h; sourceTree = "<group>"; };
+		D4AA329D257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeTopHatBandPass.m; sourceTree = "<group>"; };
+		D4AA329E257D82230041AB42 /* PSDatasetApodizeStretchedExponential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeStretchedExponential.m; sourceTree = "<group>"; };
+		D4AA329F257D82230041AB42 /* PSDatasetApodizeCosine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetApodizeCosine.m; sourceTree = "<group>"; };
+		D4AA32C2257D82AF0041AB42 /* PSDatasetImportTecmag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportTecmag.h; sourceTree = "<group>"; };
+		D4AA32C3257D82AF0041AB42 /* PSDatasetImportIFF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportIFF.m; sourceTree = "<group>"; };
+		D4AA32C4257D82AF0041AB42 /* PSDatasetImportJOEL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportJOEL.m; sourceTree = "<group>"; };
+		D4AA32C5257D82AF0041AB42 /* PSDatasetImportSimpson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportSimpson.h; sourceTree = "<group>"; };
+		D4AA32C6257D82AF0041AB42 /* PSDatasetImportRMNClassic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportRMNClassic.m; sourceTree = "<group>"; };
+		D4AA32C7257D82AF0041AB42 /* PSDatasetExportCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetExportCSV.h; sourceTree = "<group>"; };
+		D4AA32C8257D82AF0041AB42 /* MRSignalIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSignalIO.m; sourceTree = "<group>"; };
+		D4AA32C9257D82AF0041AB42 /* PSDatasetImportMagritek.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportMagritek.m; sourceTree = "<group>"; };
+		D4AA32CA257D82AF0041AB42 /* PSDatasetImportSpinsight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportSpinsight.m; sourceTree = "<group>"; };
+		D4AA32CB257D82AF0041AB42 /* PSDatasetImportImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportImage.h; sourceTree = "<group>"; };
+		D4AA32CC257D82AF0041AB42 /* PSDatasetStudiumIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetStudiumIO.h; sourceTree = "<group>"; };
+		D4AA32CD257D82AF0041AB42 /* PSDatasetImportSPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportSPC.m; sourceTree = "<group>"; };
+		D4AA32CE257D82AF0041AB42 /* PSDatasetImportUCSF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportUCSF.h; sourceTree = "<group>"; };
+		D4AA32CF257D82AF0041AB42 /* PSDatasetImportVarian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportVarian.m; sourceTree = "<group>"; };
+		D4AA32D0257D82AF0041AB42 /* PSDatasetImportJCAMP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportJCAMP.m; sourceTree = "<group>"; };
+		D4AA32D1257D82AF0041AB42 /* PSDatasetImportBruker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportBruker.h; sourceTree = "<group>"; };
+		D4AA32D2257D82AF0041AB42 /* PSDatasetImportRMNSim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportRMNSim.m; sourceTree = "<group>"; };
+		D4AA32D3257D82AF0041AB42 /* PSDatasetImportRMNClassic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportRMNClassic.h; sourceTree = "<group>"; };
+		D4AA32D4257D82AF0041AB42 /* PSDatasetImportSimpson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportSimpson.m; sourceTree = "<group>"; };
+		D4AA32D5257D82AF0041AB42 /* PSDatasetImportIFF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportIFF.h; sourceTree = "<group>"; };
+		D4AA32D6257D82AF0041AB42 /* PSDatasetImportJOEL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportJOEL.h; sourceTree = "<group>"; };
+		D4AA32D7257D82AF0041AB42 /* PSDatasetImportTecmag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportTecmag.m; sourceTree = "<group>"; };
+		D4AA32D9257D82AF0041AB42 /* PhySyDatasetIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhySyDatasetIO.h; sourceTree = "<group>"; };
+		D4AA32DA257D82AF0041AB42 /* PSDatasetImportSpinsight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportSpinsight.h; sourceTree = "<group>"; };
+		D4AA32DB257D82AF0041AB42 /* PSDatasetImportMagritek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportMagritek.h; sourceTree = "<group>"; };
+		D4AA32DC257D82AF0041AB42 /* MRSignalIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSignalIO.h; sourceTree = "<group>"; };
+		D4AA32DD257D82AF0041AB42 /* PSDatasetExportCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetExportCSV.m; sourceTree = "<group>"; };
+		D4AA32DE257D82AF0041AB42 /* PSDatasetStudiumIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetStudiumIO.m; sourceTree = "<group>"; };
+		D4AA32DF257D82AF0041AB42 /* PSDatasetImportImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportImage.m; sourceTree = "<group>"; };
+		D4AA32E0257D82AF0041AB42 /* PSDatasetImportRMNSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportRMNSim.h; sourceTree = "<group>"; };
+		D4AA32E1257D82AF0041AB42 /* PSDatasetImportBruker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportBruker.m; sourceTree = "<group>"; };
+		D4AA32E2257D82AF0041AB42 /* PSDatasetImportVarian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportVarian.h; sourceTree = "<group>"; };
+		D4AA32E3257D82AF0041AB42 /* PSDatasetImportJCAMP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportJCAMP.h; sourceTree = "<group>"; };
+		D4AA32E4257D82AF0041AB42 /* PSDatasetImportUCSF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDatasetImportUCSF.m; sourceTree = "<group>"; };
+		D4AA32E5257D82AF0041AB42 /* PSDatasetImportSPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDatasetImportSPC.h; sourceTree = "<group>"; };
+		D4AA3355257D846B0041AB42 /* PhySyQuartz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhySyQuartz.h; sourceTree = "<group>"; };
+		D4AA3356257D846B0041AB42 /* PSQuartzDependentVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSQuartzDependentVariable.m; sourceTree = "<group>"; };
+		D4AA3357257D846B0041AB42 /* PSQuartzDependentVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSQuartzDependentVariable.h; sourceTree = "<group>"; };
+		D4AA3360257D84D60041AB42 /* PSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTableView.h; sourceTree = "<group>"; };
+		D4AA3361257D84D60041AB42 /* PSScalarTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSScalarTextField.h; sourceTree = "<group>"; };
+		D4AA3362257D84D60041AB42 /* PhySyCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhySyCocoa.h; sourceTree = "<group>"; };
+		D4AA3363257D84D60041AB42 /* PSNewScalarTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSNewScalarTextField.m; sourceTree = "<group>"; };
+		D4AA3364257D84D60041AB42 /* PSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTableView.m; sourceTree = "<group>"; };
+		D4AA3365257D84D60041AB42 /* PSScalarTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSScalarTextField.m; sourceTree = "<group>"; };
+		D4AA3366257D84D60041AB42 /* PSNewScalarTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNewScalarTextField.h; sourceTree = "<group>"; };
+		D4ACE0A61E19F00900DD4754 /* LibPhySyObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LibPhySyObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4ACE0A91E19F00900DD4754 /* LibPhySyObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibPhySyObjC.h; sourceTree = "<group>"; };
+		D4ACE0AA1E19F00900DD4754 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4ACE0C11E19F01800DD4754 /* CFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFAdditions.h; sourceTree = "<group>"; };
+		D4ACE1771E19F01800DD4754 /* ToDo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ToDo; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D4ACE0A21E19F00900DD4754 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4F60D77267A72C2003FF608 /* fftwf.framework in Frameworks */,
+				D4F60D76267A72BE003FF608 /* fftw.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D4A584891F36B2E40086FF93 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D44DEDA926114452008C4602 /* fftw.framework */,
+				D44DEDAB26114452008C4602 /* fftwf.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4AA3115257D76DC0041AB42 /* PhySyFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				D4AA3198257D803B0041AB42 /* PSPList.h */,
+				D4AA3199257D803B0041AB42 /* PSPList.m */,
+				D4AA3193257D801A0041AB42 /* PSTreeNode.h */,
+				D4AA3192257D801A0041AB42 /* PSTreeNode.m */,
+				D4AA318E257D7FFF0041AB42 /* PSFormulaParser.lm */,
+				D4AA3180257D7F670041AB42 /* PSScalar.h */,
+				D4AA317E257D7F670041AB42 /* PSScalar.m */,
+				D4AA3181257D7F680041AB42 /* PSScalarConstants.h */,
+				D4AA3183257D7F680041AB42 /* PSScalarConstants.m */,
+				D4AA317D257D7F670041AB42 /* PSScalarParser.h */,
+				D4AA317C257D7F670041AB42 /* PSScalarParser.lm */,
+				D4AA317F257D7F670041AB42 /* PSScalarParser.m */,
+				D4AA3182257D7F680041AB42 /* PSScalarParser.ym */,
+				D4AA316F257D78120041AB42 /* PSQuantity.h */,
+				D4AA316E257D78120041AB42 /* PSQuantity.m */,
+				D4AA3167257D77950041AB42 /* PSUnitParser.h */,
+				D4AA3166257D77950041AB42 /* PSUnitParser.lm */,
+				D4AA3168257D77950041AB42 /* PSUnitParser.ym */,
+				D4AA3161257D77870041AB42 /* PSUnit.h */,
+				D4AA3160257D77870041AB42 /* PSUnit.m */,
+				D4AA3159257D775A0041AB42 /* PSDimensionalityParser.h */,
+				D4AA3158257D775A0041AB42 /* PSDimensionalityParser.lm */,
+				D4AA315A257D775A0041AB42 /* PSDimensionalityParser.ym */,
+				D4AA3152257D77430041AB42 /* PSDimensionality.h */,
+				D4AA3153257D77430041AB42 /* PSDimensionality.m */,
+				D4AA314E257D77060041AB42 /* PhySyFoundation.h */,
+			);
+			path = PhySyFoundation;
+			sourceTree = "<group>";
+		};
+		D4AA319E257D80620041AB42 /* PhySyDataset */ = {
+			isa = PBXGroup;
+			children = (
+				D4AA31A7257D80620041AB42 /* PhySyDataset.h */,
+				D4AA319F257D80620041AB42 /* PSPlot.h */,
+				D4AA31A0257D80620041AB42 /* PSDependentVariable.m */,
+				D4AA31A1257D80620041AB42 /* PSDimension.m */,
+				D4AA31A2257D80620041AB42 /* PSAxis.h */,
+				D4AA31A3257D80620041AB42 /* PSDataset.h */,
+				D4AA31A4257D80620041AB42 /* PSIndexArray.h */,
+				D4AA31A5257D80620041AB42 /* PSDatum.h */,
+				D4AA31A6257D80620041AB42 /* PSIndexPairSet.m */,
+				D4AA31A8257D80620041AB42 /* PSDataset.m */,
+				D4AA31A9257D80620041AB42 /* PSAxis.m */,
+				D4AA31AA257D80620041AB42 /* PSDimension.h */,
+				D4AA31AB257D80620041AB42 /* PSDependentVariable.h */,
+				D4AA31AC257D80620041AB42 /* PSPlot.m */,
+				D4AA31AD257D80620041AB42 /* PSDatum.m */,
+				D4AA31AE257D80620041AB42 /* PSIndexArray.m */,
+				D4AA31AF257D80620041AB42 /* PSIndexPairSet.h */,
+			);
+			path = PhySyDataset;
+			sourceTree = "<group>";
+		};
+		D4AA31C5257D80C00041AB42 /* PhySyDatasetOperations */ = {
+			isa = PBXGroup;
+			children = (
+				D4AA31DD257D80C00041AB42 /* PhySyDatasetOperations.h */,
+				D4AA3285257D82230041AB42 /* PSDatasetApodizeFunctions */,
+				D4AA325D257D820C0041AB42 /* PSDatasetAffine.h */,
+				D4AA325B257D820C0041AB42 /* PSDatasetAffine.m */,
+				D4AA325E257D820D0041AB42 /* PSDatasetApodization.h */,
+				D4AA3258257D820C0041AB42 /* PSDatasetApodization.m */,
+				D4AA3251257D820B0041AB42 /* PSDatasetFill.h */,
+				D4AA3252257D820B0041AB42 /* PSDatasetFill.m */,
+				D4AA324A257D820B0041AB42 /* PSDatasetFourierTransform.h */,
+				D4AA324F257D820B0041AB42 /* PSDatasetFourierTransform.m */,
+				D4AA3255257D820B0041AB42 /* PSDatasetMultiplyByScalars.h */,
+				D4AA3262257D820D0041AB42 /* PSDatasetMultiplyByScalars.m */,
+				D4AA3256257D820C0041AB42 /* PSDatasetPhasing.h */,
+				D4AA3250257D820B0041AB42 /* PSDatasetPhasing.m */,
+				D4AA325F257D820D0041AB42 /* PSDatasetProjectOutDimension.h */,
+				D4AA325A257D820C0041AB42 /* PSDatasetProjectOutDimension.m */,
+				D4AA3261257D820D0041AB42 /* PSDatasetResponseOffsetAdjust.h */,
+				D4AA324C257D820B0041AB42 /* PSDatasetResponseOffsetAdjust.m */,
+				D4AA3249257D820B0041AB42 /* PSDatasetScaleDimension.h */,
+				D4AA3253257D820B0041AB42 /* PSDatasetScaleDimension.m */,
+				D4AA324E257D820B0041AB42 /* PSDatasetShift.h */,
+				D4AA324D257D820B0041AB42 /* PSDatasetShift.m */,
+				D4AA3264257D820D0041AB42 /* PSDatasetSignalToNoise.h */,
+				D4AA3263257D820D0041AB42 /* PSDatasetSignalToNoise.m */,
+				D4AA3260257D820D0041AB42 /* PSDatasetTrim.h */,
+				D4AA3254257D820B0041AB42 /* PSDatasetTrim.m */,
+				D4AA3241257D81C00041AB42 /* PSDatasetAddNoise.h */,
+				D4AA3242257D81C00041AB42 /* PSDatasetAddNoise.m */,
+			);
+			path = PhySyDatasetOperations;
+			sourceTree = "<group>";
+		};
+		D4AA3285257D82230041AB42 /* PSDatasetApodizeFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				D4AA3295257D82230041AB42 /* PSDatasetApodizationFunction.m */,
+				D4AA3288257D82230041AB42 /* PSDatasetApodizationFunction.h */,
+				D4AA328A257D82230041AB42 /* PSDatasetApodizeGaussian.m */,
+				D4AA329C257D82230041AB42 /* PSDatasetApodizeGaussian.h */,
+				D4AA3299257D82230041AB42 /* PSDatasetApodizeExponential.m */,
+				D4AA328D257D82230041AB42 /* PSDatasetApodizeExponential.h */,
+				D4AA329E257D82230041AB42 /* PSDatasetApodizeStretchedExponential.m */,
+				D4AA3291257D82230041AB42 /* PSDatasetApodizeStretchedExponential.h */,
+				D4AA329F257D82230041AB42 /* PSDatasetApodizeCosine.m */,
+				D4AA3290257D82230041AB42 /* PSDatasetApodizeCosine.h */,
+				D4AA3289257D82230041AB42 /* PSDatasetApodizeSinc.m */,
+				D4AA3294257D82230041AB42 /* PSDatasetApodizeSinc.h */,
+				D4AA329B257D82230041AB42 /* PSDatasetApodizeHamming.m */,
+				D4AA328B257D82230041AB42 /* PSDatasetApodizeHamming.h */,
+				D4AA328C257D82230041AB42 /* PSDatasetApodizeTriangle.m */,
+				D4AA329A257D82230041AB42 /* PSDatasetApodizeTriangle.h */,
+				D4AA328F257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.m */,
+				D4AA3292257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.h */,
+				D4AA3298257D82230041AB42 /* PSDatasetApodizeRamLak.m */,
+				D4AA328E257D82230041AB42 /* PSDatasetApodizeRamLak.h */,
+				D4AA329D257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.m */,
+				D4AA3297257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.h */,
+				D4AA3287257D82230041AB42 /* PSDatasetApodizeDerivative.m */,
+				D4AA3296257D82230041AB42 /* PSDatasetApodizeDerivative.h */,
+				D4AA3293257D82230041AB42 /* PSDatasetApodizePIETA.m */,
+				D4AA3286257D82230041AB42 /* PSDatasetApodizePIETA.h */,
+			);
+			path = PSDatasetApodizeFunctions;
+			sourceTree = "<group>";
+		};
+		D4AA32C0257D82AE0041AB42 /* PhySyDatasetIO */ = {
+			isa = PBXGroup;
+			children = (
+				D4AA32D9257D82AF0041AB42 /* PhySyDatasetIO.h */,
+				D4AA32C2257D82AF0041AB42 /* PSDatasetImportTecmag.h */,
+				D4AA32C3257D82AF0041AB42 /* PSDatasetImportIFF.m */,
+				D4AA32C4257D82AF0041AB42 /* PSDatasetImportJOEL.m */,
+				D4AA32C5257D82AF0041AB42 /* PSDatasetImportSimpson.h */,
+				D4AA32C6257D82AF0041AB42 /* PSDatasetImportRMNClassic.m */,
+				D4AA32C7257D82AF0041AB42 /* PSDatasetExportCSV.h */,
+				D4AA32C9257D82AF0041AB42 /* PSDatasetImportMagritek.m */,
+				D4AA32CA257D82AF0041AB42 /* PSDatasetImportSpinsight.m */,
+				D4AA32CD257D82AF0041AB42 /* PSDatasetImportSPC.m */,
+				D4AA32CE257D82AF0041AB42 /* PSDatasetImportUCSF.h */,
+				D4AA32CF257D82AF0041AB42 /* PSDatasetImportVarian.m */,
+				D4AA32D0257D82AF0041AB42 /* PSDatasetImportJCAMP.m */,
+				D4AA32D1257D82AF0041AB42 /* PSDatasetImportBruker.h */,
+				D4AA32D2257D82AF0041AB42 /* PSDatasetImportRMNSim.m */,
+				D4AA32D3257D82AF0041AB42 /* PSDatasetImportRMNClassic.h */,
+				D4AA32D4257D82AF0041AB42 /* PSDatasetImportSimpson.m */,
+				D4AA32D5257D82AF0041AB42 /* PSDatasetImportIFF.h */,
+				D4AA32D6257D82AF0041AB42 /* PSDatasetImportJOEL.h */,
+				D4AA32D7257D82AF0041AB42 /* PSDatasetImportTecmag.m */,
+				D4AA32DA257D82AF0041AB42 /* PSDatasetImportSpinsight.h */,
+				D4AA32DB257D82AF0041AB42 /* PSDatasetImportMagritek.h */,
+				D4AA32C8257D82AF0041AB42 /* MRSignalIO.m */,
+				D4AA32DC257D82AF0041AB42 /* MRSignalIO.h */,
+				D4AA32DD257D82AF0041AB42 /* PSDatasetExportCSV.m */,
+				D4AA32DE257D82AF0041AB42 /* PSDatasetStudiumIO.m */,
+				D4AA32CC257D82AF0041AB42 /* PSDatasetStudiumIO.h */,
+				D4AA32DF257D82AF0041AB42 /* PSDatasetImportImage.m */,
+				D4AA32CB257D82AF0041AB42 /* PSDatasetImportImage.h */,
+				D4AA32E0257D82AF0041AB42 /* PSDatasetImportRMNSim.h */,
+				D4AA32E1257D82AF0041AB42 /* PSDatasetImportBruker.m */,
+				D4AA32E2257D82AF0041AB42 /* PSDatasetImportVarian.h */,
+				D4AA32E3257D82AF0041AB42 /* PSDatasetImportJCAMP.h */,
+				D4AA32E4257D82AF0041AB42 /* PSDatasetImportUCSF.m */,
+				D4AA32E5257D82AF0041AB42 /* PSDatasetImportSPC.h */,
+			);
+			path = PhySyDatasetIO;
+			sourceTree = "<group>";
+		};
+		D4AA3354257D846B0041AB42 /* PhySyQuartz */ = {
+			isa = PBXGroup;
+			children = (
+				D4AA3355257D846B0041AB42 /* PhySyQuartz.h */,
+				D4AA3356257D846B0041AB42 /* PSQuartzDependentVariable.m */,
+				D4AA3357257D846B0041AB42 /* PSQuartzDependentVariable.h */,
+			);
+			path = PhySyQuartz;
+			sourceTree = SOURCE_ROOT;
+		};
+		D4AA335F257D84D60041AB42 /* PhySyCocoa */ = {
+			isa = PBXGroup;
+			children = (
+				D4AA3360257D84D60041AB42 /* PSTableView.h */,
+				D4AA3361257D84D60041AB42 /* PSScalarTextField.h */,
+				D4AA3362257D84D60041AB42 /* PhySyCocoa.h */,
+				D4AA3363257D84D60041AB42 /* PSNewScalarTextField.m */,
+				D4AA3364257D84D60041AB42 /* PSTableView.m */,
+				D4AA3365257D84D60041AB42 /* PSScalarTextField.m */,
+				D4AA3366257D84D60041AB42 /* PSNewScalarTextField.h */,
+			);
+			path = PhySyCocoa;
+			sourceTree = "<group>";
+		};
+		D4ACE09C1E19F00900DD4754 = {
+			isa = PBXGroup;
+			children = (
+				D4ACE1771E19F01800DD4754 /* ToDo */,
+				D4AA335F257D84D60041AB42 /* PhySyCocoa */,
+				D4AA3354257D846B0041AB42 /* PhySyQuartz */,
+				D4AA32C0257D82AE0041AB42 /* PhySyDatasetIO */,
+				D4AA31C5257D80C00041AB42 /* PhySyDatasetOperations */,
+				D4AA319E257D80620041AB42 /* PhySyDataset */,
+				D4AA3115257D76DC0041AB42 /* PhySyFoundation */,
+				D4ACE0C01E19F01800DD4754 /* CFAdditions */,
+				D4ACE0A81E19F00900DD4754 /* LibPhySyObjC */,
+				D4ACE0A71E19F00900DD4754 /* Products */,
+				D4A584891F36B2E40086FF93 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D4ACE0A71E19F00900DD4754 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4ACE0A61E19F00900DD4754 /* LibPhySyObjC.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4ACE0A81E19F00900DD4754 /* LibPhySyObjC */ = {
+			isa = PBXGroup;
+			children = (
+				D4ACE0A91E19F00900DD4754 /* LibPhySyObjC.h */,
+				D4ACE0AA1E19F00900DD4754 /* Info.plist */,
+			);
+			path = LibPhySyObjC;
+			sourceTree = "<group>";
+		};
+		D4ACE0C01E19F01800DD4754 /* CFAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				D4AA3107257D76260041AB42 /* PSComplexFromString.lm */,
+				D4AA3108257D76260041AB42 /* PSComplexFromString.ym */,
+				D4AA3101257D760D0041AB42 /* PSCFString.h */,
+				D4AA3102257D760D0041AB42 /* PSCFString.m */,
+				D4AA30F0257D756A0041AB42 /* PSCFSet.h */,
+				D4AA30EF257D756A0041AB42 /* PSCFSet.m */,
+				D4AA30EA257D754D0041AB42 /* PSCFDictionary.h */,
+				D4AA30E9257D754D0041AB42 /* PSCFDictionary.m */,
+				D4AA30E3257D753D0041AB42 /* PSCFData.h */,
+				D4AA30E4257D753D0041AB42 /* PSCFData.m */,
+				D4AA30DD257D75100041AB42 /* PSCFNumber.h */,
+				D4AA30DE257D75100041AB42 /* PSCFNumber.m */,
+				D4AA30D7257D74E80041AB42 /* PSIndexSet.h */,
+				D4AA30D8257D74E80041AB42 /* PSIndexSet.m */,
+				D4AA30D2257D74B80041AB42 /* PSCFArray.h */,
+				D4AA30D1257D74B70041AB42 /* PSCFArray.m */,
+				D4AA30CB257D74A60041AB42 /* PSMath.h */,
+				D4AA30CC257D74A60041AB42 /* PSMath.m */,
+				D4AA30C6257D740E0041AB42 /* PSCFType.h */,
+				D4AA30C5257D740E0041AB42 /* PSCFType.m */,
+				D4ACE0C11E19F01800DD4754 /* CFAdditions.h */,
+			);
+			path = CFAdditions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D4ACE0A31E19F00900DD4754 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4AA314F257D77060041AB42 /* PhySyFoundation.h in Headers */,
+				D4AA31B8257D80620041AB42 /* PhySyDataset.h in Headers */,
+				D4AA3358257D846B0041AB42 /* PhySyQuartz.h in Headers */,
+				D4AA3369257D84D60041AB42 /* PhySyCocoa.h in Headers */,
+				D4AA32AA257D82230041AB42 /* PSDatasetApodizeCosine.h in Headers */,
+				D4AA3185257D7F680041AB42 /* PSScalarParser.h in Headers */,
+				D4AA31BC257D80620041AB42 /* PSDependentVariable.h in Headers */,
+				D4AA32FA257D82AF0041AB42 /* PSDatasetImportIFF.h in Headers */,
+				D4AA30D4257D74B80041AB42 /* PSCFArray.h in Headers */,
+				D4AA336D257D84D60041AB42 /* PSNewScalarTextField.h in Headers */,
+				D4AA330A257D82AF0041AB42 /* PSDatasetImportSPC.h in Headers */,
+				D4AA32FF257D82AF0041AB42 /* PSDatasetImportSpinsight.h in Headers */,
+				D4AA3195257D801A0041AB42 /* PSTreeNode.h in Headers */,
+				D4AA3188257D7F680041AB42 /* PSScalar.h in Headers */,
+				D4AA32F6257D82AF0041AB42 /* PSDatasetImportBruker.h in Headers */,
+				D4AA32B6257D82230041AB42 /* PSDatasetApodizeGaussian.h in Headers */,
+				D4AA31B3257D80620041AB42 /* PSAxis.h in Headers */,
+				D4AA32AE257D82230041AB42 /* PSDatasetApodizeSinc.h in Headers */,
+				D4AA30F2257D756A0041AB42 /* PSCFSet.h in Headers */,
+				D4AA31C0257D80620041AB42 /* PSIndexPairSet.h in Headers */,
+				D4AA32EA257D82AF0041AB42 /* PSDatasetImportSimpson.h in Headers */,
+				D4AA316A257D77950041AB42 /* PSUnitParser.h in Headers */,
+				D4AA31B0257D80620041AB42 /* PSPlot.h in Headers */,
+				D4AA32A7257D82230041AB42 /* PSDatasetApodizeExponential.h in Headers */,
+				D4AA31B6257D80620041AB42 /* PSDatum.h in Headers */,
+				D4AA31B4257D80620041AB42 /* PSDataset.h in Headers */,
+				D4AA32F8257D82AF0041AB42 /* PSDatasetImportRMNClassic.h in Headers */,
+				D4AA3189257D7F680041AB42 /* PSScalarConstants.h in Headers */,
+				D4AA32F1257D82AF0041AB42 /* PSDatasetStudiumIO.h in Headers */,
+				D4AA3265257D820D0041AB42 /* PSDatasetScaleDimension.h in Headers */,
+				D4AA327D257D820D0041AB42 /* PSDatasetResponseOffsetAdjust.h in Headers */,
+				D4AA3266257D820D0041AB42 /* PSDatasetFourierTransform.h in Headers */,
+				D4AA3272257D820D0041AB42 /* PSDatasetPhasing.h in Headers */,
+				D4AA3300257D82AF0041AB42 /* PSDatasetImportMagritek.h in Headers */,
+				D4AA326D257D820D0041AB42 /* PSDatasetFill.h in Headers */,
+				D4AA32A5257D82230041AB42 /* PSDatasetApodizeHamming.h in Headers */,
+				D4AA32AB257D82230041AB42 /* PSDatasetApodizeStretchedExponential.h in Headers */,
+				D4AA3308257D82AF0041AB42 /* PSDatasetImportJCAMP.h in Headers */,
+				D4AA32B1257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.h in Headers */,
+				D4AA326A257D820D0041AB42 /* PSDatasetShift.h in Headers */,
+				D4AA335A257D846B0041AB42 /* PSQuartzDependentVariable.h in Headers */,
+				D4AA3279257D820D0041AB42 /* PSDatasetAffine.h in Headers */,
+				D4AA327C257D820D0041AB42 /* PSDatasetTrim.h in Headers */,
+				D4AA3217257D80C00041AB42 /* PhySyDatasetOperations.h in Headers */,
+				D4AA31BB257D80620041AB42 /* PSDimension.h in Headers */,
+				D4AA32EC257D82AF0041AB42 /* PSDatasetExportCSV.h in Headers */,
+				D4AA32B4257D82230041AB42 /* PSDatasetApodizeTriangle.h in Headers */,
+				D4AA32FB257D82AF0041AB42 /* PSDatasetImportJOEL.h in Headers */,
+				D4AA30C8257D740E0041AB42 /* PSCFType.h in Headers */,
+				D4AA3103257D760D0041AB42 /* PSCFString.h in Headers */,
+				D4AA32B0257D82230041AB42 /* PSDatasetApodizeDerivative.h in Headers */,
+				D4AA3301257D82AF0041AB42 /* MRSignalIO.h in Headers */,
+				D4AA3171257D78120041AB42 /* PSQuantity.h in Headers */,
+				D4AA32AC257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.h in Headers */,
+				D4AA30DF257D75100041AB42 /* PSCFNumber.h in Headers */,
+				D4AA327B257D820D0041AB42 /* PSDatasetProjectOutDimension.h in Headers */,
+				D4AA32E7257D82AF0041AB42 /* PSDatasetImportTecmag.h in Headers */,
+				D4AA30CD257D74A60041AB42 /* PSMath.h in Headers */,
+				D4AA31B5257D80620041AB42 /* PSIndexArray.h in Headers */,
+				D4AA3368257D84D60041AB42 /* PSScalarTextField.h in Headers */,
+				D4AA3367257D84D60041AB42 /* PSTableView.h in Headers */,
+				D4AA32F0257D82AF0041AB42 /* PSDatasetImportImage.h in Headers */,
+				D4AA3243257D81C00041AB42 /* PSDatasetAddNoise.h in Headers */,
+				D4AA30E5257D753D0041AB42 /* PSCFData.h in Headers */,
+				D4AA32A2257D82230041AB42 /* PSDatasetApodizationFunction.h in Headers */,
+				D4AA319A257D803B0041AB42 /* PSPList.h in Headers */,
+				D4AA32A8257D82230041AB42 /* PSDatasetApodizeRamLak.h in Headers */,
+				D4AA3305257D82AF0041AB42 /* PSDatasetImportRMNSim.h in Headers */,
+				D4AA30D9257D74E80041AB42 /* PSIndexSet.h in Headers */,
+				D4AA3271257D820D0041AB42 /* PSDatasetMultiplyByScalars.h in Headers */,
+				D4AA3154257D77430041AB42 /* PSDimensionality.h in Headers */,
+				D4AA32A0257D82230041AB42 /* PSDatasetApodizePIETA.h in Headers */,
+				D4AA3307257D82AF0041AB42 /* PSDatasetImportVarian.h in Headers */,
+				D4AA30EC257D754D0041AB42 /* PSCFDictionary.h in Headers */,
+				D4AA32F3257D82AF0041AB42 /* PSDatasetImportUCSF.h in Headers */,
+				D4AA327A257D820D0041AB42 /* PSDatasetApodization.h in Headers */,
+				D4AA3280257D820D0041AB42 /* PSDatasetSignalToNoise.h in Headers */,
+				D4AA315C257D775A0041AB42 /* PSDimensionalityParser.h in Headers */,
+				D4AA3163257D77870041AB42 /* PSUnit.h in Headers */,
+				D4AA32FE257D82AF0041AB42 /* PhySyDatasetIO.h in Headers */,
+				D4ACE1781E19F01800DD4754 /* CFAdditions.h in Headers */,
+				D4ACE0B71E19F00900DD4754 /* LibPhySyObjC.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D4ACE0A51E19F00900DD4754 /* LibPhySyObjC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4ACE0BA1E19F00900DD4754 /* Build configuration list for PBXNativeTarget "LibPhySyObjC" */;
+			buildPhases = (
+				D4ACE0A11E19F00900DD4754 /* Sources */,
+				D4ACE0A21E19F00900DD4754 /* Frameworks */,
+				D4ACE0A31E19F00900DD4754 /* Headers */,
+				D4ACE0A41E19F00900DD4754 /* Resources */,
+				D4A2D55726114DE1007D794C /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LibPhySyObjC;
+			productName = LibPhySyObjC;
+			productReference = D4ACE0A61E19F00900DD4754 /* LibPhySyObjC.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D4ACE09D1E19F00900DD4754 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1250;
+				ORGANIZATIONNAME = "PhySy Ltd";
+				TargetAttributes = {
+					D4ACE0A51E19F00900DD4754 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D4ACE0A01E19F00900DD4754 /* Build configuration list for PBXProject "LibPhySyObjC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D4ACE09C1E19F00900DD4754;
+			productRefGroup = D4ACE0A71E19F00900DD4754 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4ACE0A51E19F00900DD4754 /* LibPhySyObjC */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4ACE0A41E19F00900DD4754 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D4ACE0A11E19F00900DD4754 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4AA3306257D82AF0041AB42 /* PSDatasetImportBruker.m in Sources */,
+				D4AA32A1257D82230041AB42 /* PSDatasetApodizeDerivative.m in Sources */,
+				D4AA30EB257D754D0041AB42 /* PSCFDictionary.m in Sources */,
+				D4AA3104257D760D0041AB42 /* PSCFString.m in Sources */,
+				D4AA3276257D820D0041AB42 /* PSDatasetProjectOutDimension.m in Sources */,
+				D4AA3359257D846B0041AB42 /* PSQuartzDependentVariable.m in Sources */,
+				D4AA31BA257D80620041AB42 /* PSAxis.m in Sources */,
+				D4AA31BF257D80620041AB42 /* PSIndexArray.m in Sources */,
+				D4AA32E9257D82AF0041AB42 /* PSDatasetImportJOEL.m in Sources */,
+				D4AA3268257D820D0041AB42 /* PSDatasetResponseOffsetAdjust.m in Sources */,
+				D4AA32B2257D82230041AB42 /* PSDatasetApodizeRamLak.m in Sources */,
+				D4AA315D257D775A0041AB42 /* PSDimensionalityParser.ym in Sources */,
+				D4AA327F257D820D0041AB42 /* PSDatasetSignalToNoise.m in Sources */,
+				D4AA3184257D7F680041AB42 /* PSScalarParser.lm in Sources */,
+				D4AA336B257D84D60041AB42 /* PSTableView.m in Sources */,
+				D4AA31BD257D80620041AB42 /* PSPlot.m in Sources */,
+				D4AA32B7257D82230041AB42 /* PSDatasetApodizeTopHatBandPass.m in Sources */,
+				D4AA30E0257D75100041AB42 /* PSCFNumber.m in Sources */,
+				D4AA336A257D84D60041AB42 /* PSNewScalarTextField.m in Sources */,
+				D4AA32AF257D82230041AB42 /* PSDatasetApodizationFunction.m in Sources */,
+				D4AA3302257D82AF0041AB42 /* PSDatasetExportCSV.m in Sources */,
+				D4AA31B9257D80620041AB42 /* PSDataset.m in Sources */,
+				D4AA32B5257D82230041AB42 /* PSDatasetApodizeHamming.m in Sources */,
+				D4AA32B3257D82230041AB42 /* PSDatasetApodizeExponential.m in Sources */,
+				D4AA318B257D7F680041AB42 /* PSScalarConstants.m in Sources */,
+				D4AA32A4257D82230041AB42 /* PSDatasetApodizeGaussian.m in Sources */,
+				D4AA326F257D820D0041AB42 /* PSDatasetScaleDimension.m in Sources */,
+				D4AA3109257D76260041AB42 /* PSComplexFromString.lm in Sources */,
+				D4AA336C257D84D60041AB42 /* PSScalarTextField.m in Sources */,
+				D4AA31B1257D80620041AB42 /* PSDependentVariable.m in Sources */,
+				D4AA30E6257D753D0041AB42 /* PSCFData.m in Sources */,
+				D4AA3169257D77950041AB42 /* PSUnitParser.lm in Sources */,
+				D4AA319B257D803B0041AB42 /* PSPList.m in Sources */,
+				D4AA32F4257D82AF0041AB42 /* PSDatasetImportVarian.m in Sources */,
+				D4AA32F9257D82AF0041AB42 /* PSDatasetImportSimpson.m in Sources */,
+				D4AA32EE257D82AF0041AB42 /* PSDatasetImportMagritek.m in Sources */,
+				D4AA3303257D82AF0041AB42 /* PSDatasetStudiumIO.m in Sources */,
+				D4AA32A9257D82230041AB42 /* PSDatasetApodizeTopHatBandStop.m in Sources */,
+				D4AA32F7257D82AF0041AB42 /* PSDatasetImportRMNSim.m in Sources */,
+				D4AA32E8257D82AF0041AB42 /* PSDatasetImportIFF.m in Sources */,
+				D4AA3304257D82AF0041AB42 /* PSDatasetImportImage.m in Sources */,
+				D4AA327E257D820D0041AB42 /* PSDatasetMultiplyByScalars.m in Sources */,
+				D4AA32B9257D82230041AB42 /* PSDatasetApodizeCosine.m in Sources */,
+				D4AA3155257D77430041AB42 /* PSDimensionality.m in Sources */,
+				D4AA32A6257D82230041AB42 /* PSDatasetApodizeTriangle.m in Sources */,
+				D4AA30CE257D74A60041AB42 /* PSMath.m in Sources */,
+				D4AA31B2257D80620041AB42 /* PSDimension.m in Sources */,
+				D4AA32FC257D82AF0041AB42 /* PSDatasetImportTecmag.m in Sources */,
+				D4AA30F1257D756A0041AB42 /* PSCFSet.m in Sources */,
+				D4AA316B257D77950041AB42 /* PSUnitParser.ym in Sources */,
+				D4AA32AD257D82230041AB42 /* PSDatasetApodizePIETA.m in Sources */,
+				D4AA32F2257D82AF0041AB42 /* PSDatasetImportSPC.m in Sources */,
+				D4AA326B257D820D0041AB42 /* PSDatasetFourierTransform.m in Sources */,
+				D4AA3170257D78120041AB42 /* PSQuantity.m in Sources */,
+				D4AA3162257D77870041AB42 /* PSUnit.m in Sources */,
+				D4AA3186257D7F680041AB42 /* PSScalar.m in Sources */,
+				D4AA30D3257D74B80041AB42 /* PSCFArray.m in Sources */,
+				D4AA32F5257D82AF0041AB42 /* PSDatasetImportJCAMP.m in Sources */,
+				D4AA326E257D820D0041AB42 /* PSDatasetFill.m in Sources */,
+				D4AA30DA257D74E80041AB42 /* PSIndexSet.m in Sources */,
+				D4AA310A257D76260041AB42 /* PSComplexFromString.ym in Sources */,
+				D4AA3244257D81C00041AB42 /* PSDatasetAddNoise.m in Sources */,
+				D4AA31B7257D80620041AB42 /* PSIndexPairSet.m in Sources */,
+				D4AA3277257D820D0041AB42 /* PSDatasetAffine.m in Sources */,
+				D4AA315B257D775A0041AB42 /* PSDimensionalityParser.lm in Sources */,
+				D4AA3270257D820D0041AB42 /* PSDatasetTrim.m in Sources */,
+				D4AA3187257D7F680041AB42 /* PSScalarParser.m in Sources */,
+				D4AA32EB257D82AF0041AB42 /* PSDatasetImportRMNClassic.m in Sources */,
+				D4AA3274257D820D0041AB42 /* PSDatasetApodization.m in Sources */,
+				D4AA32B8257D82230041AB42 /* PSDatasetApodizeStretchedExponential.m in Sources */,
+				D4AA31BE257D80620041AB42 /* PSDatum.m in Sources */,
+				D4AA326C257D820D0041AB42 /* PSDatasetPhasing.m in Sources */,
+				D4AA3269257D820D0041AB42 /* PSDatasetShift.m in Sources */,
+				D4AA32A3257D82230041AB42 /* PSDatasetApodizeSinc.m in Sources */,
+				D4AA30C7257D740E0041AB42 /* PSCFType.m in Sources */,
+				D4AA32ED257D82AF0041AB42 /* MRSignalIO.m in Sources */,
+				D4AA318A257D7F680041AB42 /* PSScalarParser.ym in Sources */,
+				D4AA3194257D801A0041AB42 /* PSTreeNode.m in Sources */,
+				D4AA32EF257D82AF0041AB42 /* PSDatasetImportSpinsight.m in Sources */,
+				D4AA318F257D7FFF0041AB42 /* PSFormulaParser.lm in Sources */,
+				D4AA3309257D82AF0041AB42 /* PSDatasetImportUCSF.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D4ACE0B81E19F00900DD4754 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D4ACE0B91E19F00900DD4754 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D4ACE0BB1E19F00900DD4754 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				EXCLUDED_ARCHS = "";
+				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/intel/mkl/include,
+				);
+				INFOPLIST_FILE = LibPhySyObjC/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/fftw/3.3.9/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				YACC_GENERATED_FILE_STEM = InputFileStem;
+			};
+			name = Debug;
+		};
+		D4ACE0BC1E19F00900DD4754 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				EXCLUDED_ARCHS = "";
+				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/intel/mkl/include,
+				);
+				INFOPLIST_FILE = LibPhySyObjC/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/fftw/3.3.9/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				YACC_GENERATED_FILE_STEM = InputFileStem;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D4ACE0A01E19F00900DD4754 /* Build configuration list for PBXProject "LibPhySyObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4ACE0B81E19F00900DD4754 /* Debug */,
+				D4ACE0B91E19F00900DD4754 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4ACE0BA1E19F00900DD4754 /* Build configuration list for PBXNativeTarget "LibPhySyObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4ACE0BB1E19F00900DD4754 /* Debug */,
+				D4ACE0BC1E19F00900DD4754 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D4ACE09D1E19F00900DD4754 /* Project object */;
+}

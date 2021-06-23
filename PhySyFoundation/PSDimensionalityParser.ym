@@ -1,0 +1,90 @@
+%{
+    #import "PhySyFoundation.h"
+void yyerror(char *s, ...);
+static PSDimensionalityRef final_dimensionality;
+CFErrorRef dimensionalityError;
+int psdlex(void);
+
+%}
+
+%name-prefix="psd"
+
+%union {
+    PSDimensionalityRef dimensionality;
+    int    iVal;
+}
+
+%token <dimensionality> DIMENSIONALITY
+%token <iVal> INTEGER
+%type <dimensionality> exp calclist
+%left '*' '/' 
+%left '^'
+%%
+calclist: /* do nothing */
+| calclist exp {final_dimensionality = $2;}
+    ;
+    
+exp: '(' exp ')' {$$ = $2;}
+    | exp '*' exp {$$ = PSDimensionalityByMultiplyingWithoutReducing($1,$3,&dimensionalityError);}
+    | exp '/' exp {$$ = PSDimensionalityByDividingWithoutReducing($1,$3);}
+    | exp '^' INTEGER {$$ = PSDimensionalityByRaisingToAPowerWithoutReducing($1,$3,&dimensionalityError);}
+    | INTEGER '/' exp {
+    if($1 == 1) {$$ = PSDimensionalityByRaisingToAPowerWithoutReducing($3,-1,&dimensionalityError);}
+    else  {
+        CFStringRef desc = CFSTR("Unknown dimensionality symbol");
+        dimensionalityError = CFErrorCreateWithUserInfoKeysAndValues(kCFAllocatorDefault,
+        kPSFoundationErrorDomain,
+        0,
+        (const void* const*)&kCFErrorLocalizedDescriptionKey,
+        (const void* const*)&desc,
+        1);
+        yyerror("Unknown unit symbol");
+        }
+    }
+    | DIMENSIONALITY
+    ;
+
+%%
+
+extern int psd_scan_string(const char *);
+extern void psdlex_destroy(void);
+
+bool psd_syntax_error;
+PSDimensionalityRef PSDimensionalityForSymbol(CFStringRef string)
+{
+    CFMutableStringRef  mutString = CFStringCreateMutableCopy (kCFAllocatorDefault,CFStringGetLength(string),string);
+    CFStringTrimWhitespace (mutString);
+    
+    if(CFStringGetLength(mutString) == 1) {
+        PSDimensionalityRef result = PSDimensionalityWithBaseDimensionSymbol(mutString);
+        CFRelease(mutString);
+        return result;
+    }
+
+    CFStringFindAndReplace (mutString,CFSTR("•"), CFSTR("*"),CFRangeMake(0,CFStringGetLength(mutString)),0);
+    CFStringFindAndReplace (mutString,CFSTR("ϴ"), CFSTR("@"),CFRangeMake(0,CFStringGetLength(mutString)),0);
+
+    final_dimensionality = NULL;
+    dimensionalityError = NULL;
+    psd_syntax_error = false;
+    CFIndex length = CFStringGetMaximumSizeForEncoding(CFStringGetLength(mutString),kCFStringEncodingUTF8) +1;
+    if(length) {
+        char *cString = malloc(length*2);
+        CFStringGetCString(mutString, cString, length, kCFStringEncodingUTF8);
+        
+        psd_scan_string(cString);               
+        psdparse();
+        psdlex_destroy();
+        free(cString);
+        CFRelease(mutString);
+    }
+    return final_dimensionality;
+}
+
+void yyerror(char *s, ...)
+{
+    fprintf(stderr, "error: %s\n",s);
+    psd_syntax_error = true;
+}
+
+

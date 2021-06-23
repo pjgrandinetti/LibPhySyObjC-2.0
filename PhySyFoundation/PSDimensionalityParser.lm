@@ -1,0 +1,37 @@
+%option noyywrap nodefault yylineno
+%option prefix = "psd"
+%{
+    #import "PhySyFoundation.h"
+    #import "PSDimensionalityParser.h"
+    #import "PSDimensionalityParser.tab.h"
+%}
+
+SYMBOL (L|M|T|I|@|N|J)
+%%
+
+[+-]?[0-9]+ {psdlval.iVal = atoi(yytext); return INTEGER;}
+
+{SYMBOL} {
+    CFStringRef string = CFStringCreateWithCString(kCFAllocatorDefault,yytext,kCFStringEncodingUTF8);
+    psdlval.dimensionality = PSDimensionalityWithBaseDimensionSymbol(string);
+    CFRelease(string);
+    return DIMENSIONALITY;
+}
+
+[\t ]+  { /* ignore whitespace */}
+
+[a-zA-Z]+ {
+    CFStringRef desc = CFSTR("Unknown dimensionality symbol");
+    dimensionalityError = CFErrorCreateWithUserInfoKeysAndValues(kCFAllocatorDefault,
+    kPSFoundationErrorDomain,
+    0,
+    (const void* const*)&kCFErrorLocalizedDescriptionKey,
+    (const void* const*)&desc,
+    1);
+}
+
+.      {return yytext[0];}
+
+%%
+
+

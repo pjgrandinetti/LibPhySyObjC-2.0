@@ -1,0 +1,57 @@
+%option noyywrap nodefault
+%option prefix = "pspc" 
+%{
+    typedef const struct __complexNode * ComplexNodeRef;
+    typedef const struct __complexNumberValue * ComplexNumberRef;
+    typedef const struct __complexNodeFunction * ComplexNumberFunctionRef;
+    typedef enum builtInMathFunctions {
+        BM_sqrt = 1,
+        BM_cbrt,
+        BM_qtrt,
+        BM_exp,
+        BM_log,
+        BM_acos,
+        BM_asin,
+        BM_cos,
+        BM_sin,
+        BM_conj,
+        BM_creal,
+        BM_cimag,
+        BM_carg
+    } builtInMathFunctions;
+
+    #include <stdio.h>
+    #include <stdarg.h>
+    #include <stdlib.h>
+    #include <complex.h>
+    #include <stdbool.h>
+    #include <unistd.h>
+    #include <math.h>
+    #include "PSComplexFromString.tab.h"
+%}
+
+/* exponent */
+EXP ([Ee][-+]?[0-9]+)
+REALNUMBER      [0-9]+"."[0-9]*{EXP}?|"."?[0-9]+{EXP}?
+%%
+
+{REALNUMBER}    {pspclval.d = atof(yytext); return NUMBER;}
+"I"             {pspclval.d = I; return NUMBER;}
+"pi"            {pspclval.d = (4*atan(1)); return NUMBER;}           
+"sqrt"          {pspclval.fn = BM_sqrt; return FUNC;}
+"cbrt"          {pspclval.fn = BM_cbrt; return FUNC;}
+"qtrt"          {pspclval.fn = BM_qtrt; return FUNC;}
+"exp"           {pspclval.fn = BM_exp; return FUNC;}
+"log"           {pspclval.fn = BM_log; return FUNC;}
+"acos"          {pspclval.fn = BM_acos; return FUNC;}
+"asin"          {pspclval.fn = BM_asin; return FUNC;}
+"cos"           {pspclval.fn = BM_cos; return FUNC;}
+"sin"           {pspclval.fn = BM_sin; return FUNC;}
+"conj"          {pspclval.fn = BM_conj; return FUNC;}
+"creal"         {pspclval.fn = BM_creal; return FUNC;}
+"cimag"         {pspclval.fn = BM_cimag; return FUNC;}
+"carg"          {pspclval.fn = BM_carg; return FUNC;}
+
+[ \t\n]         {/* do nothing */}
+.               {return(yytext[0]);}
+%%

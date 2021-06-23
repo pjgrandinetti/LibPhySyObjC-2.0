@@ -1,0 +1,25 @@
+PSAutorelease implements an autorelease pool for Core Foundation objects, 
+which employ a reference count memory management pattern.
+ 
+To use, create an autorelease pool ...
+ 
+	PSAutoreleasePoolRef thePool = PSAutoreleasePoolCreate();
+ 
+... create, retain, release, and autorelease objects.   
+Core Foundation objects can be autorelease with...
+
+	CFTypeRef PSAutorelease(CFTypeRef cf)
+
+When done, release the autorelease pool.   
+
+	PSAutoreleasePoolRelease(pool);
+ 
+The creation and release of addition autorelease pools can be nested inside.
+PSAutoreleasePool_release should always be called in the same context (invocation 
+of a method or function, or body of a loop) in which PSAutoreleasePoolCreate was 
+called.  
+
+If you release an autorelease pool that is not the top of the stack, 
+this causes all (unreleased) autorelease pools above it on the stack to 
+be released, along with all their objects.
+

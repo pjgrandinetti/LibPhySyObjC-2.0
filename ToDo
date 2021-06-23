@@ -1,0 +1,5 @@
+Make proper subclasses for LinearDimension, MonotonicDimension, and LabeledDimension
+
+
+Change PSScalar to include infinity result
+Make sure CFErrorRef terminates and propagates up everywhere
