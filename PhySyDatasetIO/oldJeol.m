@@ -308,10 +308,8 @@ static uint32_t file_offset(file_info f_info, const CFIndex position[])
     uint32_t posi = 0;
     uint32_t sub_off = 0;
     uint32_t pnt_off = 0;
-    int dimensions = 8;
     
-//    for (int i=0; i<f_info.ddn; i++) {
-    for (int i=0; i<dimensions; i++) {
+    for (int i=0; i<f_info.ddn; i++) {
         int k = f_info.translate[i]-1;
         posi = (uint32_t) position[i];
         pos[k] = posi;
@@ -321,8 +319,7 @@ static uint32_t file_offset(file_info f_info, const CFIndex position[])
     uint32_t sub_size = f_info.submatrix_size;
     uint32_t sub_mats;
     uint32_t off_start;
-//    for (int i=(f_info.ddn-1); i>=1; i--) {
-    for (int i=(dimensions-1); i>=1; i--) {
+    for (int i=(f_info.ddn-1); i>=1; i--) {
         off_start = f_info.offset_start[i];
         sub_mats = f_info.submatrices[i-1];
         posi = pos[i] + off_start;
@@ -351,11 +348,10 @@ static uint32_t data_fill_recursion(uint32_t t_range[],
         int8_t current_loop = nth_loop;
         if (t_range[current_loop]>0) {
             nth_loop--;
-            for (indexes[current_loop] = 0; indexes[current_loop]<=t_range[current_loop]; indexes[current_loop]++) {
+            for (indexes[current_loop]=0; indexes[current_loop]<=t_range[current_loop]; indexes[current_loop]++) {
                 data_fill_recursion(t_range, f_info, indexes, nth_loop, buffer, endian, component, dimensions);
             }
         } else {
-            indexes[current_loop] = 0;
             nth_loop--;
             data_fill_recursion(t_range, f_info, indexes, nth_loop, buffer, endian, component, dimensions);
         }
@@ -401,20 +397,10 @@ static uint32_t data_fill_recursion(uint32_t t_range[],
                 }
             }
         }
-
-        uint32_t pos[8] = {0,0,0,0,0,0,0,0};
-        int jeol_dimensions = 8;
-
-        for (int i=0; i<jeol_dimensions; i++) {
-            int k = f_info.translate[i]-1;
-            uint32_t posi = (uint32_t) indexes[i];
-            pos[k] = posi;
-        }
-
-        CFDataRef indexData = CFDataCreate(kCFAllocatorDefault, (const UInt8 *) pos, 8*sizeof(int32_t));
+        
+        CFDataRef indexData = CFDataCreate(kCFAllocatorDefault, (const UInt8 *) indexes, 8*sizeof(int32_t));
         PSIndexArrayRef coordinateIndexes = PSIndexArrayCreateWithData(indexData);
         CFRelease(indexData);
-        
         CFIndex memOffset = PSDimensionMemOffsetFromCoordinateIndexes(dimensions, coordinateIndexes);
         float complex *responses = (float complex *) CFDataGetMutableBytePtr(component);
         responses[memOffset] = (float complex) value;
@@ -430,7 +416,7 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     
     CFMutableDictionaryRef jeolDatasetMetaData = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
-    char file_identifier[9];
+    char file_identifier[8];
     int32_t count = 0;
     memcpy(file_identifier, &buffer[count],8);
 
@@ -451,17 +437,14 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     count = 12;
     memcpy(&data_dimension_number, &buffer[count],1);
 
-    uint8_t data_dimension_exist[8];
-    uint8_t temp;
+    uint8_t data_dimension_exist;
     count = 13;
-    memcpy(&temp, &buffer[count],1);
-    for (int i=0; i<8; i++) {
-        data_dimension_exist[7-i] = (temp & ( 1 << i )) >> i;
-    }
-
+    memcpy(&data_dimension_exist, &buffer[count],1);
+    
     file_info f_info;
 
     // *** Important value for importing data
+    uint8_t temp;
     count = 14;
     memcpy(&temp, &buffer[count],1);
     if ( 1 == (temp>>6) ) {
@@ -480,12 +463,11 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     CFDictionaryAddValue(jeolDatasetMetaData, CFSTR("instrument"), stringValue);
     CFRetain(stringValue);
     
+    uint8_t translate[8];
     count = 16;
-    f_info.translate = malloc(8*sizeof(uint8_t));
-    memcpy(f_info.translate, &buffer[count],8);
-    for(CFIndex i =0;i<8;i++) {
-        printf("translate[%ld]=%d\n",(long)i,f_info.translate[i]);
-    }
+    memcpy(translate, &buffer[count],8);
+    f_info.translate = translate;
+
     uint8_t data_axis_type[8];
     count = 24;
     memcpy(data_axis_type, &buffer[count],8);

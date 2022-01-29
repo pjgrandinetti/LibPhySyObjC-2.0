@@ -1844,12 +1844,17 @@ static bool PSQuartzDependentVariableImagePlot2DCrossSectionThroughFocus(PSQuart
     bool viewNeedsRegenerated = PSPlotGetImageViewNeedsRegenerated(thePlot);
     
     CFIndex horizontalMin = PSDimensionClosestIndexToDisplayedCoordinate(horizontalDimension, PSAxisGetMinimum(horizontalAxis));
+    CFIndex verticalMin = PSDimensionClosestIndexToDisplayedCoordinate(verticalDimension, PSAxisGetMinimum(verticalAxis));
     CFIndex horizontalMax = PSDimensionClosestIndexToDisplayedCoordinate(horizontalDimension, PSAxisGetMaximum(horizontalAxis));
-    
+    CFIndex verticalMax = PSDimensionClosestIndexToDisplayedCoordinate(verticalDimension, PSAxisGetMaximum(verticalAxis));
+
     CFIndex horizontalNpts = PSDimensionGetNpts(horizontalDimension);
+    CFIndex verticalNpts = PSDimensionGetNpts(verticalDimension);
+
     CFIndex hSpan = (horizontalMax - horizontalMin + 1);
-    
-    if(hSpan > 4*horizontalNpts) {
+    CFIndex vSpan = (verticalMax - verticalMin + 1);
+
+    if(labs(hSpan) > 4*horizontalNpts) {
         if(error) {
             CFStringRef desc = CFSTR("Plot limits exceeds 4 times dimension width.");
             *error = CFErrorCreateWithUserInfoKeysAndValues(kCFAllocatorDefault,
@@ -1861,13 +1866,8 @@ static bool PSQuartzDependentVariableImagePlot2DCrossSectionThroughFocus(PSQuart
         }
         return false;
     }
-    CFIndex verticalNpts = PSDimensionGetNpts(verticalDimension);
     
-    CFIndex verticalMin = PSDimensionClosestIndexToDisplayedCoordinate(verticalDimension, PSAxisGetMinimum(verticalAxis));
-    CFIndex verticalMax = PSDimensionClosestIndexToDisplayedCoordinate(verticalDimension, PSAxisGetMaximum(verticalAxis));
-    
-    CFIndex vSpan = (verticalMax - verticalMin + 1);
-    if(vSpan > 4*verticalNpts) {
+    if(labs(vSpan) > 4*verticalNpts) {
         if(error) {
             CFStringRef desc = CFSTR("Plot limits exceeds 4 times dimension width.");
             *error = CFErrorCreateWithUserInfoKeysAndValues(kCFAllocatorDefault,
@@ -1887,15 +1887,19 @@ static bool PSQuartzDependentVariableImagePlot2DCrossSectionThroughFocus(PSQuart
     quartzDependentVariable->verticalIncrement = 1;
     if(!plotAll) {
         while(hSpan/quartzDependentVariable->horizontalIncrement > 1024) quartzDependentVariable->horizontalIncrement++;
-        while(quartzDependentVariable->horizontalIncrement>0 && hSpan%quartzDependentVariable->horizontalIncrement !=0) quartzDependentVariable->horizontalIncrement--;
-        if(quartzDependentVariable->horizontalIncrement<1) quartzDependentVariable->horizontalIncrement =1;
-        
         while(vSpan/quartzDependentVariable->verticalIncrement > 1024) quartzDependentVariable->verticalIncrement++;
+
+        while(quartzDependentVariable->horizontalIncrement>0&&hSpan%quartzDependentVariable->horizontalIncrement !=0) quartzDependentVariable->horizontalIncrement--;
         while(quartzDependentVariable->verticalIncrement>0&&vSpan%quartzDependentVariable->verticalIncrement !=0) quartzDependentVariable->verticalIncrement--;
+
+        if(quartzDependentVariable->horizontalIncrement<1) quartzDependentVariable->horizontalIncrement =1;
+        if(quartzDependentVariable->verticalIncrement<1) quartzDependentVariable->verticalIncrement =1;
+
     }
     size_t width = hSpan/quartzDependentVariable->horizontalIncrement;
-    size_t height = vSpan;
-    if(quartzDependentVariable->verticalIncrement) height /= quartzDependentVariable->verticalIncrement;
+    size_t height = vSpan/quartzDependentVariable->verticalIncrement;
+//    size_t height = vSpan;
+//    if(quartzDependentVariable->verticalIncrement) height /= quartzDependentVariable->verticalIncrement;
     
     size_t bitsPerComponent = 8, bitsPerPixel = 24;
     size_t bytesPerRow = 3* width;
@@ -1904,14 +1908,14 @@ static bool PSQuartzDependentVariableImagePlot2DCrossSectionThroughFocus(PSQuart
     CGContextSetInterpolationQuality(context,kCGInterpolationNone);
     
     PSScalarRef horizontalIncrement = PSDimensionGetIncrement(horizontalDimension);
-    
+    PSScalarRef verticalIncrement = PSDimensionGetIncrement(verticalDimension);
+
     PSScalarRef temp = PSScalarCreateByMultiplyingByDimensionlessRealConstant(horizontalIncrement, 2.);
     double horizontalWidth = PSAxisHorizontalViewCoordinateFromAxisCoordinateInRect(horizontalAxis, temp, signalRect, error)
     - PSAxisHorizontalViewCoordinateFromAxisCoordinateInRect(horizontalAxis, horizontalIncrement, signalRect, error);
     CFRelease(temp);
     horizontalWidth = fabs(horizontalWidth);
     
-    PSScalarRef verticalIncrement = PSDimensionGetIncrement(verticalDimension);
     temp = PSScalarCreateByMultiplyingByDimensionlessRealConstant(verticalIncrement, 2.);
     double verticalWidth = PSAxisVerticalViewCoordinateFromAxisCoordinateInRect(verticalAxis, temp, signalRect, error)
     - PSAxisVerticalViewCoordinateFromAxisCoordinateInRect(verticalAxis, verticalIncrement, signalRect, error);

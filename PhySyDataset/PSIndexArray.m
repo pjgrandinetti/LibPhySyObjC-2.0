@@ -135,7 +135,7 @@ void PSIndexArrayRemoveValuesAtIndexes(PSMutableIndexArrayRef theIndexArray, PSI
     if(theIndexArray==NULL) return;
     if(theIndexSet==NULL) return;
     
-    CFIndex count = PSIndexSetGetCount(theIndexSet);
+CFIndex count = PSIndexSetGetCount(theIndexSet);
     if(count) {
         CFIndex index = PSIndexSetLastIndex(theIndexSet);
         PSIndexArrayRemoveValueAtIndex(theIndexArray, index);

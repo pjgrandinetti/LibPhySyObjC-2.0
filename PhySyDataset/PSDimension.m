@@ -1926,9 +1926,8 @@ bool PSDimensionMultiplyByScalar(PSDimensionRef theDimension, PSScalarRef theSca
 
 
 
-bool PSDimensionInverse(PSDimensionRef theDimension, CFErrorRef *error)
+bool PSDimensionInverse(PSDimensionRef theDimension)
 {
-    if(error) if(*error) return NULL;
     IF_NO_OBJECT_EXISTS_RETURN(theDimension,false);
     IF_NO_OBJECT_EXISTS_RETURN(theDimension->increment,false);
 

@@ -735,7 +735,6 @@ bool PSDependentVariableProjectOutDimension(PSDependentVariableRef theDependentV
                                             CFErrorRef *error);
 
 
-
 /*!
  @function PSDependentVariableShiftAlongDimension
  @abstract Creates a signal by shifting the signal along a specific dimension
@@ -844,8 +843,7 @@ bool PSDependentVariableAddParsedExpression(PSDependentVariableRef theDependentV
 PSDependentVariableRef PSDependentVariableReverseAlongDimension(PSDependentVariableRef theDependentVariable,
                                                                 CFArrayRef dimensions,
                                                                 CFIndex dimensionIndex,
-                                                                CFIndex level,
-                                                                CFErrorRef *error);
+                                                                CFIndex level);
 
 /*
  @function PSDependentVariableCreateByReversingAlongDimension

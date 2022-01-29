@@ -1885,12 +1885,169 @@ bool PSDatasetReplaceDepthDimensionWithDimension(PSDatasetRef theDataset, PSDime
 
 
 #pragma mark Strings and Archiving
+//
+//static void  cswap(float complex *v1, float complex *v2)
+//{
+//   float complex tmp = *v1;
+//   *v1 = *v2;
+//   *v2 = tmp;
+//}
+//
+//static void  zswap(double complex *v1, double complex *v2)
+//{
+//   double complex tmp = *v1;
+//   *v1 = *v2;
+//   *v2 = tmp;
+//}
+//
+//static void cfftshift(float complex *data, CFIndex count)
+//{
+//    CFIndex c = (CFIndex) floor((float)count/2);
+//    // For odd and for even numbers of element use different algorithm
+//    if (count % 2 == 0) {
+//        for (CFIndex k = 0; k < c; k++)
+//            cswap(&data[k], &data[k+c]);
+//    }
+//    else {
+//        float complex tmp = data[0];
+//        for (CFIndex k = 0; k < c; k++) {
+//            data[k] = data[c + k + 1];
+//            data[c + k + 1] = data[k + 1];
+//        }
+//        data[c] = tmp;
+//    }
+//}
+//
+//static void icfftshift(float complex *data, CFIndex count)
+//{
+//    CFIndex c = (CFIndex) floor((float)count/2);
+//    if (count % 2 == 0) {
+//        for (CFIndex k = 0; k < c; k++)
+//            cswap(&data[k], &data[k+c]);
+//    }
+//    else {
+//        float complex tmp = data[count - 1];
+//        for (CFIndex k = c-1; k >= 0; k--) {
+//            data[c + k + 1] = data[k];
+//            data[k] = data[c + k];
+//        }
+//        data[c] = tmp;
+//    }
+//}
+//
+//static void zfftshift(double complex *data, CFIndex count)
+//{
+//    CFIndex c = (CFIndex) floor((float)count/2);
+//    // For odd and for even numbers of element use different algorithm
+//    if (count % 2 == 0) {
+//        for (CFIndex k = 0; k < c; k++)
+//            zswap(&data[k], &data[k+c]);
+//    }
+//    else {
+//        double complex tmp = data[0];
+//        for (CFIndex k = 0; k < c; k++) {
+//            data[k] = data[c + k + 1];
+//            data[c + k + 1] = data[k + 1];
+//        }
+//        data[c] = tmp;
+//    }
+//}
+//
+//static void izfftshift(double complex *data, CFIndex count)
+//{
+//    CFIndex c = (CFIndex) floor((float)count/2);
+//    if (count % 2 == 0) {
+//        for (CFIndex k = 0; k < c; k++)
+//            zswap(&data[k], &data[k+c]);
+//    }
+//    else {
+//        double complex tmp = data[count - 1];
+//        for (CFIndex k = c-1; k >= 0; k--) {
+//            data[c + k + 1] = data[k];
+//            data[k] = data[c + k];
+//        }
+//        data[c] = tmp;
+//    }
+//}
+//
+//void PSDatasetFourierTransformShiftAlongHorizontalDimension(PSDatasetRef input)
+//{
+//    IF_NO_OBJECT_EXISTS_RETURN(input,);
+//    CFIndex dimensionsCount = PSDatasetDimensionsCount(input);
+//    if(dimensionsCount<1) return;
+//    if(dimensionsCount<1) return;
+//
+//    PSDimensionRef horizontalDimension = PSDatasetHorizontalDimension(input);
+//
+//    CFIndex size = PSDimensionCalculateSizeFromDimensions(PSDatasetGetDimensions(input));
+//    CFIndex reducedSize = size/PSDimensionGetNpts(horizontalDimension);
+//    CFIndex horizontalDimensionIndex = PSDatasetGetHorizontalDimensionIndex(input);
+//    CFIndex *npts = calloc(sizeof(CFIndex), dimensionsCount);
+//    bool *fft = calloc(sizeof(bool), dimensionsCount);
+//    for(CFIndex idim = 0; idim<dimensionsCount; idim++) {
+//        PSDimensionRef theDimension = PSDatasetGetDimensionAtIndex(input, idim);
+//        npts[idim] = PSDimensionGetNpts(theDimension);
+//        fft[idim] = PSDimensionGetFFT(theDimension);
+//    }
+//    vDSP_Length length = npts[horizontalDimensionIndex];
+//    vDSP_Stride stride = strideAlongDimensionIndex(npts, dimensionsCount, horizontalDimensionIndex);
+//
+//    CFIndex dvCount = PSDatasetDependentVariablesCount(input);
+//    double inverseIncrementValue = PSScalarDoubleValueInCoherentUnit(PSDimensionGetInverseIncrement(horizontalDimension));
+//    double incrementValue = PSScalarDoubleValueInCoherentUnit(PSDimensionGetIncrement(horizontalDimension));
+//    float complex *floatArray = NULL;
+//    double complex *doubleArray = NULL;
+//    for(CFIndex dvIndex=0; dvIndex<dvCount; dvIndex++) {
+//        PSDependentVariableRef theDV = PSDatasetGetDependentVariableAtIndex(input, dvIndex);
+//        CFIndex componentsCount = PSDependentVariableComponentsCount(theDV);
+//        numberType elementType = PSQuantityGetElementType(theDV);
+//        if(elementType==kPSNumberFloat32ComplexType) {
+//            if(floatArray == NULL) floatArray = (float complex*) malloc(sizeof(float complex) * length);
+//            for(CFIndex cIndex=0; cIndex<componentsCount; cIndex++) {
+//                CFMutableDataRef values = PSDependentVariableGetComponentAtIndex(theDV, cIndex);
+//                float complex *responses = (float complex *) CFDataGetMutableBytePtr(values);
+//                for(size_t reducedMemOffset=0;reducedMemOffset<reducedSize; reducedMemOffset++) {
+//                    CFIndex indexes[dimensionsCount];
+//                    indexes[horizontalDimensionIndex] = 0;
+//                    setIndexesForReducedMemOffsetIgnoringDimension(reducedMemOffset, indexes, dimensionsCount, npts, horizontalDimensionIndex);
+//                    CFIndex memOffset = memOffsetFromIndexes(indexes,  dimensionsCount, npts);
+//                    cblas_ccopy((int) length, &responses[memOffset], (int) stride, floatArray, 1);
+//                    icfftshift(floatArray,length);
+//                    cblas_ccopy((int) length, floatArray, 1, &responses[memOffset], (int) stride);
+//                }
+//            }
+//        }
+//        else {
+//            if(doubleArray == NULL) doubleArray = (double complex*) malloc(sizeof(double complex) * length);
+//            for(CFIndex cIndex=0; cIndex<componentsCount; cIndex++) {
+//                CFMutableDataRef values = PSDependentVariableGetComponentAtIndex(theDV, cIndex);
+//                double complex *responses = (double complex *) CFDataGetMutableBytePtr(values);
+//                for(size_t reducedMemOffset=0;reducedMemOffset<reducedSize; reducedMemOffset++) {
+//                    CFIndex indexes[dimensionsCount];
+//                    indexes[horizontalDimensionIndex] = 0;
+//                    setIndexesForReducedMemOffsetIgnoringDimension(reducedMemOffset, indexes,  dimensionsCount, npts, horizontalDimensionIndex);
+//                    CFIndex memOffset = memOffsetFromIndexes(indexes,  dimensionsCount, npts);
+//                    cblas_zcopy((int) length, &responses[memOffset], (int) stride, doubleArray, 1);
+//                    izfftshift(doubleArray,length);
+//                    cblas_zdscal((int) length, incrementValue, doubleArray,1);
+//                    cblas_zcopy((int) length, doubleArray, 1,&responses[memOffset], (int) stride);
+//                }
+//            }
+//        }
+//    }
+//    FREE(fft);
+//    FREE(npts);
+//    if(floatArray) free(floatArray);
+//    if(doubleArray) free(doubleArray);
+//
+//    return;
+//}
 
 void PSDatasetConvertToCSDM(PSDatasetRef theDataset)
 {
     CFIndex dimensionsCount = CFArrayGetCount(theDataset->dimensions);
     CFIndex dvCount = CFArrayGetCount(theDataset->dependentVariables);
-    
+
     for(CFIndex dimIndex = 0; dimIndex<dimensionsCount;dimIndex++) {
         PSDimensionRef theDimension = CFArrayGetValueAtIndex(theDataset->dimensions, dimIndex);
         if(PSDimensionGetFFT(theDimension)) {
@@ -1900,6 +2057,14 @@ void PSDatasetConvertToCSDM(PSDatasetRef theDataset)
                 PSDependentVariableRef theDV = CFArrayGetValueAtIndex(theDataset->dependentVariables, dvIndex);
                 PSDependentVariableShiftAlongDimension(theDV, theDataset->dimensions, dimIndex, -T/2, true, 0);
             }
+            for(CFIndex dvIndex=0; dvIndex<dvCount; dvIndex++) {
+                PSDependentVariableRef theDV = CFArrayGetValueAtIndex(theDataset->dependentVariables, dvIndex);
+                PSPlotRef thePlot = PSDependentVariableGetPlot(theDV);
+                PSAxisRef theAxis = PSPlotAxisAtIndex(thePlot,dimIndex);
+                PSAxisSetBipolar(theAxis, false);
+                PSAxisSetReverse(theAxis, true);
+            }
+
         }
     }
 }
@@ -2552,8 +2717,7 @@ PSDatasetRef PSDatasetCreateByReversingAlongDimension(PSDatasetRef theDataset,
         PSDependentVariableReverseAlongDimension(dV,
                                                  theDataset->dimensions,
                                                  horizontalDimensionIndex,
-                                                 level,
-                                                 error);
+                                                 level);
     }
     
     return output;

@@ -58,7 +58,7 @@ PSDatasetRef PSDatasetImportMRSignalCreateSignalWithData(CFDataRef contents, CFS
         PSDimensionSetInverseReferenceOffset(dimension, CFAutorelease(PSScalarCreateWithDouble([dim referenceFrequency], hertz)));
         PSDimensionSetFFT(dimension, [dim fftShift]);
         PSDimensionSetPeriodic(dimension, [dim periodic]);
-        if([dim quantity]==FREQ) PSDimensionInverse(dimension, error);
+        if([dim quantity]==FREQ) PSDimensionInverse(dimension);
         CFArrayAppendValue(dimensions, dimension);
         CFRelease(dimension);
     }

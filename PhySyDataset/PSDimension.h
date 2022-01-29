@@ -586,10 +586,9 @@ void PSDimensionSetInverseDescription(PSDimensionRef theDimension, CFStringRef d
  @function PSDimensionInverse
  @abstract Inverts the dimensionality of the dimension
  @param theDimension The dimension.
- @param error a pointer to a CFError type for reporting errors if method was unsuccessful.     Can be NULL.
  @result returns true if successful, false otherwise.
  */
-bool PSDimensionInverse(PSDimensionRef theDimension, CFErrorRef *error);
+bool PSDimensionInverse(PSDimensionRef theDimension);
 
 #pragma mark Coordinates and Indexes Core Mapping
 /*!

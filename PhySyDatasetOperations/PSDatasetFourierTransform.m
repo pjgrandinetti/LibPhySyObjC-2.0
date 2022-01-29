@@ -11,35 +11,31 @@
 
 @implementation PSDatasetFourierTransform
 
- void  cswap(float complex *v1, float complex *v2)
+static void  cswap(float complex *v1, float complex *v2)
 {
     float complex tmp = *v1;
     *v1 = *v2;
     *v2 = tmp;
 }
 
- void  zswap(double complex *v1, double complex *v2)
+static void  zswap(double complex *v1, double complex *v2)
 {
     double complex tmp = *v1;
     *v1 = *v2;
     *v2 = tmp;
 }
 
-void cfftshift(float complex *data, CFIndex count)
+static void cfftshift(float complex *data, CFIndex count)
 {
-    int k = 0;
-    int c = (int) floor((float)count/2);
+    CFIndex c = (CFIndex) floor((float)count/2);
     // For odd and for even numbers of element use different algorithm
-    if (count % 2 == 0)
-    {
-        for (k = 0; k < c; k++)
+    if (count % 2 == 0) {
+        for (CFIndex k = 0; k < c; k++)
             cswap(&data[k], &data[k+c]);
     }
-    else
-    {
+    else {
         float complex tmp = data[0];
-        for (k = 0; k < c; k++)
-        {
+        for (CFIndex k = 0; k < c; k++) {
             data[k] = data[c + k + 1];
             data[c + k + 1] = data[k + 1];
         }
@@ -47,20 +43,16 @@ void cfftshift(float complex *data, CFIndex count)
     }
 }
 
-void icfftshift(float complex *data, CFIndex count)
+static void icfftshift(float complex *data, CFIndex count)
 {
-    int k = 0;
-    int c = (int) floor((float)count/2);
-    if (count % 2 == 0)
-    {
-        for (k = 0; k < c; k++)
+    CFIndex c = (CFIndex) floor((float)count/2);
+    if (count % 2 == 0) {
+        for (CFIndex k = 0; k < c; k++)
             cswap(&data[k], &data[k+c]);
     }
-    else
-    {
+    else {
         float complex tmp = data[count - 1];
-        for (k = c-1; k >= 0; k--)
-        {
+        for (CFIndex k = c-1; k >= 0; k--) {
             data[c + k + 1] = data[k];
             data[k] = data[c + k];
         }
@@ -68,21 +60,17 @@ void icfftshift(float complex *data, CFIndex count)
     }
 }
 
-void zfftshift(double complex *data, CFIndex count)
+static void zfftshift(double complex *data, CFIndex count)
 {
-    int k = 0;
-    int c = (int) floor((float)count/2);
+    CFIndex c = (CFIndex) floor((float)count/2);
     // For odd and for even numbers of element use different algorithm
-    if (count % 2 == 0)
-    {
-        for (k = 0; k < c; k++)
+    if (count % 2 == 0) {
+        for (CFIndex k = 0; k < c; k++)
             zswap(&data[k], &data[k+c]);
     }
-    else
-    {
+    else {
         double complex tmp = data[0];
-        for (k = 0; k < c; k++)
-        {
+        for (CFIndex k = 0; k < c; k++) {
             data[k] = data[c + k + 1];
             data[c + k + 1] = data[k + 1];
         }
@@ -90,20 +78,16 @@ void zfftshift(double complex *data, CFIndex count)
     }
 }
 
-void izfftshift(double complex *data, CFIndex count)
+static void izfftshift(double complex *data, CFIndex count)
 {
-    int k = 0;
-    int c = (int) floor((float)count/2);
-    if (count % 2 == 0)
-    {
-        for (k = 0; k < c; k++)
+    CFIndex c = (CFIndex) floor((float)count/2);
+    if (count % 2 == 0) {
+        for (CFIndex k = 0; k < c; k++)
             zswap(&data[k], &data[k+c]);
     }
-    else
-    {
+    else {
         double complex tmp = data[count - 1];
-        for (k = c-1; k >= 0; k--)
-        {
+        for (CFIndex k = c-1; k >= 0; k--) {
             data[c + k + 1] = data[k];
             data[k] = data[c + k];
         }
@@ -327,7 +311,7 @@ PSDatasetRef PSDatasetFourierTransformWestCreateSignalFromDataset(CFDictionaryRe
 
     // Update horizontal dimension and axis
     horizontalDimension = PSDatasetHorizontalDimension(output);
-    PSDimensionInverse(horizontalDimension,error);
+    PSDimensionInverse(horizontalDimension);
     //    PSDimensionToggleFTOutputOrder(horizontalDimension);
     PSDimensionToggleFFT(horizontalDimension);
     
@@ -367,9 +351,9 @@ PSDatasetRef PSDatasetFourierTransformWestCreateSignalFromDataset(CFDictionaryRe
         PSAxisResetWithMinAndMax(PSPlotAxisAtIndex(thePlot, horizontalDimensionIndex), displayedQuantityName, minimum, maximum);
         PSAxisResetWithMinAndMax(PSPlotPreviousAxisAtIndex(thePlot, horizontalDimensionIndex), displayedQuantityName, minimum, maximum);
         
+        PSAxisToggleBipolar(PSPlotGetResponseAxis(thePlot));
         PSAxisReset(PSPlotAxisAtIndex(thePlot, -1), dVQuantityName);
         PSAxisReset(PSPlotPreviousAxisAtIndex(thePlot, -1), dVQuantityName);
-        PSAxisToggleBipolar(PSPlotGetResponseAxis(thePlot));
         
         PSAxisRef horizontalAxis = PSPlotHorizontalAxis(thePlot);
         if(dft_direction == FFTW_FORWARD) PSAxisSetReverse(horizontalAxis, reversePlotAfterFT);

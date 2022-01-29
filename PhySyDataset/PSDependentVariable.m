@@ -7,6 +7,7 @@
 
 #import <Accelerate/Accelerate.h>
 #import <LibPhySyObjC/PhySyDataset.h>
+#include <fftw3.h>
 
 @implementation PSDependentVariable
 
@@ -924,9 +925,19 @@ bool PSDependentVariableSetQuantityName(PSDependentVariableRef theDependentVaria
     
     if(PSDimensionalityForQuantityName(quantityName)) {
         if(theDependentVariable->quantityName == quantityName) return true;
-        if(theDependentVariable->quantityName) CFRelease(theDependentVariable->quantityName);
-        theDependentVariable->quantityName = CFRetain(quantityName);
-        return true;
+        
+        if(validateDependentVariableParameters(theDependentVariable->unit,
+                                                        quantityName,
+                                                        theDependentVariable->quantityType,
+                                                        theDependentVariable->componentLabels,
+                                               PSDependentVariableComponentsCount(theDependentVariable))) {
+            if(theDependentVariable->quantityName) CFRelease(theDependentVariable->quantityName);
+            theDependentVariable->quantityName = CFRetain(quantityName);
+            return true;
+
+        }
+
+        
     }
     return false;
 }
@@ -4220,7 +4231,6 @@ CFArrayRef PSDependentVariableCreateMomentAnalysis(PSDependentVariableRef theDep
 }
 
 
-
 bool PSDependentVariableShiftAlongDimension(PSDependentVariableRef theDependentVariable,
                                             CFArrayRef dimensions,
                                             CFIndex dimensionIndex,
@@ -5074,11 +5084,9 @@ bool PSDependentVariableCrossSection(PSDependentVariableRef theDependentVariable
 PSDependentVariableRef PSDependentVariableReverseAlongDimension(PSDependentVariableRef theDependentVariable,
                                                                 CFArrayRef dimensions,
                                                                 CFIndex dimensionIndex,
-                                                                CFIndex level,
-                                                                CFErrorRef *error)
+                                                                CFIndex level)
 {
 
-    if(error) if(*error) return NULL;
     CFIndex componentsCount = CFArrayGetCount(theDependentVariable->components);
     PSDependentVariableRef output = theDependentVariable;
     CFIndex dimensionsCount = CFArrayGetCount(dimensions);
@@ -7241,25 +7249,35 @@ PSDependentVariableRef PSDependentVariableCreateWithCSDMPList(CFDictionaryRef de
         NSURL *dataFileURL = [urlComponents URL];
         if(nil==urlComponents.scheme) urlComponents.scheme = @"file";
         
+        NSData *fileData = nil;
         if([urlComponents.scheme isEqualToString:@"file"]) {
             NSString *folderName = [[[(NSArray *) folderContents objectAtIndex:0] URLByDeletingLastPathComponent] absoluteString];
             NSURLComponents *folderURLComponents = [NSURLComponents componentsWithString:folderName];
             NSString *absolutePath = [[[folderURLComponents.path stringByAppendingPathComponent:urlComponents.path] stringByStandardizingPath] stringByAddingPercentEncodingWithAllowedCharacters:set];
             
-            for(NSURL *url in (NSArray *) folderContents) {
-                NSURLComponents *allowedURL = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
-                NSString *allowedPath = [allowedURL.path stringByAddingPercentEncodingWithAllowedCharacters:set];
-                
-                if([allowedPath isEqualToString:absolutePath]) {
-                    dataFileURL = url;
-                    break;
+            fileData = [[NSFileManager defaultManager] contentsAtPath: absolutePath];
+            
+            // This shouldn't be necessary
+            if(fileData==NULL) {
+                for(NSURL *url in (NSArray *) folderContents) {
+                    NSURLComponents *allowedURL = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
+                    NSString *allowedPath = [allowedURL.path stringByAddingPercentEncodingWithAllowedCharacters:set];
+
+                    if([allowedPath isEqualToString:absolutePath]) {
+                        dataFileURL = url;
+                        NSError *fileError = nil;
+                        fileData = [NSData dataWithContentsOfURL:dataFileURL options:NSDataReadingUncached error:&fileError];
+
+                        break;
+                    }
                 }
-            }
+                }
+        }
+        else {
+            NSError *fileError = nil;
+            fileData = [NSData dataWithContentsOfURL:dataFileURL options:NSDataReadingUncached error:&fileError];
         }
         
-        NSError *fileError = nil;
-        
-        NSData *fileData = [NSData dataWithContentsOfURL:dataFileURL options:NSDataReadingUncached error:&fileError];
         if(NULL==fileData) {
             if(error) *error = PSCFErrorCreate(CFSTR("Cannot read dependent variable object."), CFSTR("Could not find or open external data file."), NULL);
             return NULL;

@@ -23,7 +23,7 @@ CFMutableDictionaryRef PSDatasetApodizeSincCreateDefaultFunctionParametersForDat
     CFMutableArrayRef parametersNames = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
     CFMutableArrayRef parametersValues = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
     PSDimensionRef inverseHorizontalDimension = PSDimensionCreateCopy(PSDatasetHorizontalDimension(theDataset));
-    PSDimensionInverse(inverseHorizontalDimension,error);
+    PSDimensionInverse(inverseHorizontalDimension);
     PSScalarRef bandWidth = PSDimensionCreateRelativeCoordinateFromIndex(inverseHorizontalDimension, PSDimensionHighestIndex(inverseHorizontalDimension));
     CFRelease(inverseHorizontalDimension);
     CFArrayAppendValue(parametersNames, kPSDatasetApodizeSincBandWidth);
@@ -68,7 +68,7 @@ static PSDependentVariableRef PSDatasetApodizeSincCreateBlock(PSDatasetRef theDa
     PSScalarRef bandWidth = (PSScalarRef) CFArrayGetValueAtIndex(parametersValues, 0);
     PSDimensionRef horizontalDimension = PSDatasetHorizontalDimension(theDataset);
     PSDimensionRef inverseHorizontalDimension = PSDimensionCreateCopy(horizontalDimension);
-    PSDimensionInverse(inverseHorizontalDimension,error);
+    PSDimensionInverse(inverseHorizontalDimension);
     PSUnitRef unit = PSDimensionGetRelativeUnit(inverseHorizontalDimension);
 
     if(!PSDimensionalityHasSameReducedDimensionality(PSQuantityGetUnitDimensionality((PSQuantityRef) bandWidth),

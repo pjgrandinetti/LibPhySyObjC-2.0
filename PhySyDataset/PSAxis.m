@@ -1364,7 +1364,6 @@ bool PSAxisReset(PSAxisRef theAxis, CFStringRef quantityName)
             
         }
         
-        
         if(theAxis->bipolar) {
             if(fabs(PSScalarDoubleValue(theAxis->minimum)) > fabs(PSScalarDoubleValue(theAxis->maximum))) {
                 CFRelease(theAxis->maximum);

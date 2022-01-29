@@ -281,10 +281,9 @@ CFArrayRef PSDatasetImportBrukerCreateDimensionsFromAcqusArray(CFArrayRef acqusA
             
             /* 	Next lines are to correct for Bruker fids which must be saved in multiples of 2048 bytes */
             // But these lines no longer needed for Neo console data
-//            double n = (double) td/256;
-//            n = ceil(n);
-//            td = (int32_t) n*256;
-
+            double n = (double) td/256;
+            n = ceil(n);
+            td = (int32_t) n*256;
             CFIndex npts = td/2;
             
             PSScalarRef originOffset = PSScalarCreateWithDouble(0.0, seconds);
@@ -541,13 +540,17 @@ PSDatasetRef PSDatasetImportBrukerCreateSignalWithFolderData(CFDataRef fidData,
         return nil;
     }
     else if(size<numberOfSamplesInFile) {
-        PSIndexSetRef indexSet = PSIndexSetCreateWithIndex(0);
-        CFIndex indirectSize = PSDimensionCalculateSizeFromDimensionsIgnoreDimensions(dimensions, indexSet);
-        CFRelease(indexSet);
-        CFIndex npts = numberOfSamplesInFile/indirectSize;
-        PSDimensionSetNpts(directDimension, npts);
-        size = numberOfSamplesInFile;
+        numberOfSamplesInFile = size;
     }
+
+//    else if(size<numberOfSamplesInFile) {
+//        PSIndexSetRef indexSet = PSIndexSetCreateWithIndex(0);
+//        CFIndex indirectSize = PSDimensionCalculateSizeFromDimensionsIgnoreDimensions(dimensions, indexSet);
+//        CFRelease(indexSet);
+//        CFIndex npts = numberOfSamplesInFile/indirectSize;
+//        PSDimensionSetNpts(directDimension, npts);
+//        size = PSDimensionCalculateSizeFromDimensions(dimensions);
+//    }
     
     CFMutableDataRef values = CFDataCreateMutable(kCFAllocatorDefault, size*sizeof(float complex));
     CFDataSetLength(values, size*sizeof(float complex));
@@ -606,8 +609,9 @@ PSDatasetRef PSDatasetImportBrukerCreateSignalWithFolderData(CFDataRef fidData,
     PSDependentVariableRef dependentVariable = PSDatasetAddDefaultDependentVariable(dataset, CFSTR("scalar"), kPSNumberFloat32ComplexType, kPSDatasetSizeFromDimensions);
     PSDependentVariableSetComponentAtIndex(dependentVariable, values, 0);
     CFRelease(values);
-    
-    /*     Next lines are to correct for Bruker fids which must be saved in multiples of 2048 bytes */
+
+
+//     Next lines are to correct for Bruker fids which must be saved in multiples of 2048 bytes
     PSDimensionRef dim0 = PSDatasetGetDimensionAtIndex(dataset, 0);
     if(numberOfPointsInDim0 != PSDimensionGetNpts(dim0)) {
         dim0 = PSDimensionCreateCopy(dim0);
@@ -623,6 +627,7 @@ PSDatasetRef PSDatasetImportBrukerCreateSignalWithFolderData(CFDataRef fidData,
             CFRelease(specParMetaData);
         }
     }
+    
     
     if(shimValues) {
         CFDictionaryRef shimValuesMetaData = PSDatasetImportBrukerCreateDictionaryWithJCAMPData2(shimvaluesData);
