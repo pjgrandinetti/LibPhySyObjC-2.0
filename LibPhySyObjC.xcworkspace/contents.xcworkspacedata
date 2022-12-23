@@ -5,9 +5,9 @@
       location = "group:LibPhySyObjC.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../../fftw/fftw.xcodeproj">
+      location = "group:../fftw/fftw.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../../fftw/fftwf.xcodeproj">
+      location = "group:../fftw/fftwf.xcodeproj">
    </FileRef>
 </Workspace>

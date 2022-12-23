@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D45F274C26B63C79001F1984 /* fftw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274B26B63C79001F1984 /* fftw.framework */; };
-		D45F274E26B63C79001F1984 /* fftwf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274D26B63C79001F1984 /* fftwf.framework */; };
 		D4AA30C7257D740E0041AB42 /* PSCFType.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30C5257D740E0041AB42 /* PSCFType.m */; };
 		D4AA30C8257D740E0041AB42 /* PSCFType.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30C6257D740E0041AB42 /* PSCFType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4AA30CD257D74A60041AB42 /* PSMath.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30CB257D74A60041AB42 /* PSMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -172,6 +170,10 @@
 		D4AA336D257D84D60041AB42 /* PSNewScalarTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA3366257D84D60041AB42 /* PSNewScalarTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4ACE0B71E19F00900DD4754 /* LibPhySyObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = D4ACE0A91E19F00900DD4754 /* LibPhySyObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4ACE1781E19F01800DD4754 /* CFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D4ACE0C11E19F01800DD4754 /* CFAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4D9ABE12956114000F9870C /* fftw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274B26B63C79001F1984 /* fftw.framework */; };
+		D4D9ABE22956114000F9870C /* fftw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274B26B63C79001F1984 /* fftw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4D9ABE32956114500F9870C /* fftwf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274D26B63C79001F1984 /* fftwf.framework */; };
+		D4D9ABE42956114500F9870C /* fftwf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274D26B63C79001F1984 /* fftwf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -181,6 +183,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D4D9ABE42956114500F9870C /* fftwf.framework in Embed Frameworks */,
+				D4D9ABE22956114000F9870C /* fftw.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,8 +367,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D45F274C26B63C79001F1984 /* fftw.framework in Frameworks */,
-				D45F274E26B63C79001F1984 /* fftwf.framework in Frameworks */,
+				D4D9ABE32956114500F9870C /* fftwf.framework in Frameworks */,
+				D4D9ABE12956114000F9870C /* fftw.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,7 +757,7 @@
 		D4ACE09D1E19F00900DD4754 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1420;
 				ORGANIZATIONNAME = "PhySy Ltd";
 				TargetAttributes = {
 					D4ACE0A51E19F00900DD4754 = {
@@ -917,6 +921,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -977,6 +982,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1004,6 +1010,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = SMJ4BY39S6;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1024,7 +1031,7 @@
 					/usr/local/lib,
 					/usr/local/Cellar/fftw/3.3.9/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.physyapps.libphysyobjc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1041,6 +1048,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = SMJ4BY39S6;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1061,7 +1069,7 @@
 					/usr/local/lib,
 					/usr/local/Cellar/fftw/3.3.9/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.physyapps.libphysyobjc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
