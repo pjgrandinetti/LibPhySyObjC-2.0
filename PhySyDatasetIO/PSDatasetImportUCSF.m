@@ -301,7 +301,7 @@ PSDatasetRef PSDatasetImportUCSFCreateSignalWithData(CFDataRef contents, CFError
         originOffset = PSScalarCreateWithDouble(observe_frequency, megahertz);
         inverseOriginOffset = PSScalarCreateWithDouble(0.0, seconds);
 
-        PSDimensionRef theDimension = PSLinearDimensionCreateDefault(hdr.axis[iDim].size, increment, quantityName);
+        PSDimensionRef theDimension = PSLinearDimensionCreateDefault(hdr.axis[iDim].size, increment, quantityName,inverseQuantityName);
         PSDimensionSetInverseOriginOffset(theDimension, inverseOriginOffset);
         PSDimensionSetOriginOffset(theDimension, originOffset);
         PSDimensionSetInverseQuantityName(theDimension, inverseQuantityName);

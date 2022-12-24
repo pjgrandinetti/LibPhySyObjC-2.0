@@ -572,7 +572,7 @@ PSDatasetRef PSDatasetImportJCAMPCreateSignalWithData(CFDataRef contents, CFErro
 
     CFMutableArrayRef dimensions = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
 
-    PSDimensionRef dim = PSLinearDimensionCreateDefault(size, increment, quantityName);
+    PSDimensionRef dim = PSLinearDimensionCreateDefault(size, increment, quantityName,inverseQuantityName);
     PSDimensionSetOriginOffset(dim, originOffset);
     PSDimensionSetInverseOriginOffset(dim, inverseOriginOffset);
     PSDimensionSetReferenceOffset(dim, referenceOffset);

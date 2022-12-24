@@ -188,7 +188,7 @@ typedef PSLinearDimension *PSLinearDimensionRef;
  @functiongroup Creators
  */
 
-PSDimensionRef PSLinearDimensionCreateDefault(CFIndex npts, PSScalarRef increment, CFStringRef quantityName);
+PSDimensionRef PSLinearDimensionCreateDefault(CFIndex npts, PSScalarRef increment, CFStringRef quantityName, CFStringRef inverseQuantityName);
 PSDimensionRef PSMonotonicDimensionCreateDefault(CFArrayRef coordinates, CFStringRef quantityName);
 
 PSDimensionRef PSDImensionCreateFull(CFIndex npts,
@@ -722,6 +722,15 @@ bool PSDimensionEqual(PSDimensionRef input1, PSDimensionRef input2);
  */
 bool PSDimensionOriginOffsetIsZero(PSDimensionRef theDimension);
 
+/*!
+ @function PSLinearDimensionHasIdenticalIncrement
+ @abstract Tests if two dimension have identical sampling intervals
+ @param input1 The first dimension.
+ @param input2 The second dimension.
+ @param reason will be replaced with string giving reason if false.
+ @result returns true if equal, false otherwise.
+ */
+bool PSLinearDimensionHasIdenticalIncrement(PSDimensionRef input1, PSDimensionRef input2, CFStringRef *reason);
 
 /*!
  @function PSDimensionHasIdenticalSampling

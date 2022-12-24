@@ -8,7 +8,7 @@
 
 #import <LibPhySyObjC/PhySyDatasetIO.h>
 
-enum jeol_parameter_list {
+enum jeol_parameter_list { 
     filename,
     title,
     author,
@@ -201,25 +201,24 @@ typedef struct file_info
     uint64_t data_length;
     uint32_t data_start;
     uint8_t ddn;
-    uint8_t data_type;
 } file_info;
 
 #pragma pack(pop)   /* restore original alignment from stack */
 
 typedef enum dataAxisType {
-    joelNone = 0,
-    joelReal,
-    joelTPPI,
-    joelComplex,
+	joelNone = 0,
+	joelReal,
+	joelTPPI,
+	joelComplex,
     joelRealComplex,
     joelEnvelope
 } dataAxisType;
 
 typedef enum dataFormat {
-    joelVoid = 0,
-    joelOne_D,
-    joelTwo_D,
-    joelThree_D,
+	joelVoid = 0,
+	joelOne_D,
+	joelTwo_D,
+	joelThree_D,
     joelFour_D,
     joelFive_D,
     joelSix_D,
@@ -234,49 +233,49 @@ typedef enum dataFormat {
 } dataFormat;
 
 typedef enum dataUnitBase {
-    joelUnit_None = 0,
-    joelUnit_Abundance,
-    joelUnit_Ampere,
-    joelUnit_Candela,
-    joelUnit_dC,
-    joelUnit_Coulomb,
-    joelUnit_deg,
-    joelUnit_Electronvolt,
-    joelUnit_Farad,
-    joelUnit_Sievert,
-    joelUnit_Gram,
-    joelUnit_Gray,
-    joelUnit_Henry,
-    joelUnit_Hz,
-    joelUnit_Kelvin,
-    joelUnit_Joule,
-    joelUnit_Liter,
-    joelUnit_Lumen,
-    joelUnit_Lux,
-    joelUnit_Meter,
-    joelUnit_Mole,
-    joelUnit_Newton,
-    joelUnit_Ohm,
-    joelUnit_Pascal,
-    joelUnit_Percent,
-    joelUnit_Point,
-    joelUnit_ppm,
-    joelUnit_Radian,
-    joelUnit_s,
-    joelUnit_Siemens,
-    joelUnit_Steradian,
-    joelUnit_T,
-    joelUnit_Volt,
-    joelUnit_Watt,
-    joelUnit_Weber,
-    joelUnit_dB,
-    joelUnit_Dalton,
-    joelUnit_Thompson,
-    joelUnit_Ugeneric,
-    joelUnit_LPercent,
-    joelUnit_PPT,
-    joelUnit_PPB,
-    joelUnit_Index
+	joelUnit_None = 0,
+	joelUnit_Abundance,
+	joelUnit_Ampere,
+	joelUnit_Candela,
+	joelUnit_dC,
+	joelUnit_Coulomb,
+	joelUnit_deg,
+	joelUnit_Electronvolt,
+	joelUnit_Farad,
+	joelUnit_Sievert,
+	joelUnit_Gram,
+	joelUnit_Gray,
+	joelUnit_Henry,
+	joelUnit_Hz,
+	joelUnit_Kelvin,
+	joelUnit_Joule,
+	joelUnit_Liter,
+	joelUnit_Lumen,
+	joelUnit_Lux,
+	joelUnit_Meter,
+	joelUnit_Mole,
+	joelUnit_Newton,
+	joelUnit_Ohm,
+	joelUnit_Pascal,
+	joelUnit_Percent,
+	joelUnit_Point,
+	joelUnit_ppm,
+	joelUnit_Radian,
+	joelUnit_s,
+	joelUnit_Siemens,
+	joelUnit_Steradian,
+	joelUnit_T,
+	joelUnit_Volt,
+	joelUnit_Watt,
+	joelUnit_Weber,
+	joelUnit_dB,
+	joelUnit_Dalton,
+	joelUnit_Thompson,
+	joelUnit_Ugeneric,
+	joelUnit_LPercent,
+	joelUnit_PPT,
+	joelUnit_PPB,
+	joelUnit_Index
 } dataUnitBase;
 
 typedef enum dataUnitPrefix {
@@ -308,10 +307,8 @@ static uint32_t file_offset(file_info f_info, const CFIndex position[])
     uint32_t posi = 0;
     uint32_t sub_off = 0;
     uint32_t pnt_off = 0;
-    int dimensions = 8;
     
-//    for (int i=0; i<f_info.ddn; i++) {
-    for (int i=0; i<dimensions; i++) {
+    for (int i=0; i<f_info.ddn; i++) {
         int k = f_info.translate[i]-1;
         posi = (uint32_t) position[i];
         pos[k] = posi;
@@ -321,23 +318,21 @@ static uint32_t file_offset(file_info f_info, const CFIndex position[])
     uint32_t sub_size = f_info.submatrix_size;
     uint32_t sub_mats;
     uint32_t off_start;
-//    for (int i=(f_info.ddn-1); i>=1; i--) {
-    for (int i=(dimensions-1); i>=1; i--) {
+    for (int i=(f_info.ddn-1); i>=1; i--) {
         off_start = f_info.offset_start[i];
-        sub_mats = f_info.submatrices[i-1];
         posi = pos[i] + off_start;
         pnt_off = (pnt_off + (posi % sub_edge)) * sub_edge;
+        sub_mats = f_info.submatrices[i-1];
         sub_off = (sub_off + (posi / sub_edge)) * sub_mats;
     }
     posi = pos[0] + f_info.offset_start[0];
     pnt_off += posi % sub_edge;
     sub_off += posi / sub_edge;
-// THIS is the spot we need to identify as 32 (4 byte) or 64bit (8 byte)
-// using f_info.data_type
-    return f_info.data_type * ((sub_off * sub_size) + pnt_off);
+    return sizeof(double) * ((sub_off * sub_size) + pnt_off);
 }
 
-static uint32_t data_fill_recursion(uint32_t t_range[],
+static uint32_t data_fill_recursion(uint8 data_type,
+                                    uint32_t t_range[],
                                     file_info f_info,
                                     CFIndex indexes[],
                                     int8_t nth_loop,
@@ -351,13 +346,12 @@ static uint32_t data_fill_recursion(uint32_t t_range[],
         int8_t current_loop = nth_loop;
         if (t_range[current_loop]>0) {
             nth_loop--;
-            for (indexes[current_loop] = 0; indexes[current_loop]<=t_range[current_loop]; indexes[current_loop]++) {
-                data_fill_recursion(t_range, f_info, indexes, nth_loop, buffer, endian, component, dimensions);
+            for (indexes[current_loop]=0; indexes[current_loop]<=t_range[current_loop]; indexes[current_loop]++) {
+                data_fill_recursion(data_type, t_range, f_info, indexes, nth_loop, buffer, endian, component, dimensions);
             }
         } else {
-            indexes[current_loop] = 0;
             nth_loop--;
-            data_fill_recursion(t_range, f_info, indexes, nth_loop, buffer, endian, component, dimensions);
+            data_fill_recursion(data_type,t_range, f_info, indexes, nth_loop, buffer, endian, component, dimensions);
         }
     } else {
         uint32_t jeol_position = file_offset(f_info,indexes) + f_info.data_start;
@@ -365,18 +359,17 @@ static uint32_t data_fill_recursion(uint32_t t_range[],
         // JOEL saves responses as double complex.  We're going to convert it back to float complex
         double complex value = 0.0;
         
-        if ( 4==f_info.data_type ) {
+        if(data_type==1) {
             // This part added to handle 32 bit floating point data
             for (int i=0; i<f_info.number_of_data_sections; i++) {
                 if (jeol_position<(f_info.data_length+f_info.data_start)) {
                     UInt32 temp = 0;
                     if(endian == 0) temp = CFSwapInt32(*((UInt32 *) &(buffer[jeol_position])));
                     else temp = *((UInt32 *) &(buffer[jeol_position]));
-                    float temp_float = *((float *) &temp);
                     if (i%2) {
-                        value += ((double) temp_float)*I;
+                        value += (*((double *)&temp))*I;
                     } else {
-                        value += ((double) temp_float);
+                        value += (*((double *)&temp));
                     }
                     if (i<f_info.number_of_data_sections) {
                         jeol_position += f_info.section_spacing;
@@ -401,20 +394,10 @@ static uint32_t data_fill_recursion(uint32_t t_range[],
                 }
             }
         }
-
-        uint32_t pos[8] = {0,0,0,0,0,0,0,0};
-        int jeol_dimensions = 8;
-
-        for (int i=0; i<jeol_dimensions; i++) {
-            int k = f_info.translate[i]-1;
-            uint32_t posi = (uint32_t) indexes[i];
-            pos[k] = posi;
-        }
-
-        CFDataRef indexData = CFDataCreate(kCFAllocatorDefault, (const UInt8 *) pos, 8*sizeof(int32_t));
+        
+        CFDataRef indexData = CFDataCreate(kCFAllocatorDefault, (const UInt8 *) indexes, 8*sizeof(int32_t));
         PSIndexArrayRef coordinateIndexes = PSIndexArrayCreateWithData(indexData);
         CFRelease(indexData);
-        
         CFIndex memOffset = PSDimensionMemOffsetFromCoordinateIndexes(dimensions, coordinateIndexes);
         float complex *responses = (float complex *) CFDataGetMutableBytePtr(component);
         responses[memOffset] = (float complex) value;
@@ -430,70 +413,61 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     
     CFMutableDictionaryRef jeolDatasetMetaData = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
-    char file_identifier[9];
     int32_t count = 0;
+    char file_identifier[8];
     memcpy(file_identifier, &buffer[count],8);
-
+    count +=8;
+    
     uint8_t endian;
-    count = 8;
     memcpy(&endian, &buffer[count],1);
-
+    count++;
+    
     uint8_t major_version;
-    count = 9;
     memcpy(&major_version, &buffer[count],1);
-
+    count++;
+    
     uint16_t minor_version;
-    count = 10;
     memcpy(&minor_version, &buffer[count],2);
-
+    count += 2;
+    
     // *** Number of Dimensions
     uint8_t data_dimension_number;
-    count = 12;
     memcpy(&data_dimension_number, &buffer[count],1);
-
-    uint8_t data_dimension_exist[8];
-    uint8_t temp;
-    count = 13;
-    memcpy(&temp, &buffer[count],1);
-    for (int i=0; i<8; i++) {
-        data_dimension_exist[7-i] = (temp & ( 1 << i )) >> i;
-    }
-
-    file_info f_info;
-
+    count++;
+    
+    uint8_t data_dimension_exist;
+    memcpy(&data_dimension_exist, &buffer[count],1);
+    count++;
+    
     // *** Important value for importing data
-    count = 14;
+    uint8_t temp;
     memcpy(&temp, &buffer[count],1);
-    if ( 1 == (temp>>6) ) {
-        f_info.data_type = 4;
-    } else {
-        f_info.data_type = 8;
-    }
+    uint8_t data_type = temp>>6;
     uint8_t temp2 = temp<<2;
     temp = temp2>>2;
     dataFormat data_format = temp;
-
+    count++;
+    
     uint8_t instrument;
-    count = 15;
     memcpy(&instrument, &buffer[count],1);
+    count++;
     CFStringRef stringValue = CFStringCreateWithFormat (kCFAllocatorDefault,NULL,CFSTR("%ud"),instrument);
     CFDictionaryAddValue(jeolDatasetMetaData, CFSTR("instrument"), stringValue);
     CFRetain(stringValue);
     
-    count = 16;
-    f_info.translate = malloc(8*sizeof(uint8_t));
-    memcpy(f_info.translate, &buffer[count],8);
-    for(CFIndex i =0;i<8;i++) {
-        printf("translate[%ld]=%d\n",(long)i,f_info.translate[i]);
-    }
+    file_info f_info;
+    uint8_t translate[8];
+    memcpy(translate, &buffer[count],8);
+    f_info.translate = translate;
+    count += 8;
+    
     uint8_t data_axis_type[8];
-    count = 24;
     memcpy(data_axis_type, &buffer[count],8);
-
+    count += 8;
+    
     int8_t data_unit_prefix[8];
     int8_t data_unit_power[8];
     uint8_t data_unit[8];
-    count = 32;
     for(int8_t i=0;i<8;i++) {
         uint8_t temp;
         memcpy(&temp, &buffer[count],1);
@@ -502,42 +476,42 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
         data_unit_power[i] = LONIBBLE(temp);
         memcpy(&data_unit[i], &buffer[count],1);
         uint8_t test = data_unit[i];
+
         count ++;
     }
     
     char title[124];
-    count = 48;
     memcpy(title, &buffer[count],124);
-
+    count += 124;
+    
     uint8_t data_axis_ranged[4];
-    count = 172;
     memcpy(data_axis_ranged, &buffer[count],4);
-
+    count += 4;
+    
     // *** data_points holds the npts for each dimension
     // These need byte swap to correct endian
     uint32_t data_points[8];
-    count = 176;
     memcpy(data_points, &buffer[count],32);
+    count += 32;
     for(int8_t i = 0 ;i<8; i++) data_points[i] = CFSwapInt32(*((UInt32 *) &(data_points[i])));
     
     // These need byte swap to correct endian
     uint32_t data_offset_start[8];
-    count = 208;
     memcpy(data_offset_start, &buffer[count],32);
+    count += 32;
     for(int8_t i = 0 ;i<8; i++) data_offset_start[i] = CFSwapInt32(*((UInt32 *) &(data_offset_start[i])));
     f_info.offset_start = data_offset_start;
     
     // These need byte swap to correct endian
     uint32_t data_offset_stop[8];
-    count = 240;
     memcpy(data_offset_stop, &buffer[count],32);
+    count += 32;
     for(int8_t i = 0 ;i<8; i++) data_offset_stop[i] = CFSwapInt32(*((UInt32 *) &(data_offset_stop[i])));
     f_info.offset_stop = data_offset_stop;
     
     // *** data_points holds the first coordinate value for each dimension
     // These need byte swap to correct endian
     double data_axis_start[8];
-    count = 272;
     for(int8_t i = 0; i<8; i++) {
         UInt64 temp = CFSwapInt64(*((UInt64 *) &(buffer[count])));
         data_axis_start[i] = *((double *)&temp);
@@ -547,7 +521,6 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     // *** data_points holds the last coordinate value for each dimension
     // These need byte swap to correct endian
     double data_axis_stop[8];
-    count = 336;
     for(int8_t i = 0; i<8; i++) {
         UInt64 temp = CFSwapInt64(*((UInt64 *) &(buffer[count])));
         data_axis_stop[i] = *((double *)&temp);
@@ -555,88 +528,87 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     }
     
     uint16_t creation_data;
-    count = 400;
     memcpy(&creation_data, &buffer[count],2);
+    count += 2;
     stringValue = CFStringCreateWithFormat (kCFAllocatorDefault,NULL,CFSTR("%ud"),creation_data);
     CFDictionaryAddValue(jeolDatasetMetaData, CFSTR("creation_data"), stringValue);
     CFRelease(stringValue);
-
+    
     uint16_t creation_time;
-    count = 402;
     memcpy(&creation_time, &buffer[count],2);
+    count += 2;
     stringValue = CFStringCreateWithFormat (kCFAllocatorDefault,NULL,CFSTR("%ud"),creation_time);
     CFDictionaryAddValue(jeolDatasetMetaData, CFSTR("creation_time"), stringValue);
     CFRelease(stringValue);
     
     uint16_t revision_data;
-    count = 404;
     memcpy(&revision_data, &buffer[count],2);
-
+    count += 2;
+    
     uint16_t revision_time;
-    count = 406;
     memcpy(&revision_time, &buffer[count],2);
-
+    count += 2;
+    
     char node_name[16];
-    count = 408;
     memcpy(node_name, &buffer[count],16);
-
+    count += 16;
+    
     char site[128];
-    count = 424;
     memcpy(site, &buffer[count],128);
+    count += 128;
     stringValue = CFStringCreateWithFormat (kCFAllocatorDefault,NULL,CFSTR("%s"),site);
     CFDictionaryAddValue(jeolDatasetMetaData, CFSTR("site"), stringValue);
     CFRelease(stringValue);
     
     char author[128];
-    count = 552;
     memcpy(author, &buffer[count],128);
+    count += 128;
     stringValue = CFStringCreateWithFormat (kCFAllocatorDefault,NULL,CFSTR("%s"),author);
     CFDictionaryAddValue(jeolDatasetMetaData, CFSTR("author"), stringValue);
     CFRelease(stringValue);
     
     char comment[128];
-    count = 680;
     memcpy(comment, &buffer[count],128);
+    count += 128;
     stringValue = CFStringCreateWithFormat (kCFAllocatorDefault,NULL,CFSTR("%s"),comment);
     CFDictionaryAddValue(jeolDatasetMetaData, CFSTR("comment"), stringValue);
     CFRelease(stringValue);
     
     char data_axis_title1[32];
-    count = 808;
     memcpy(data_axis_title1, &buffer[count],32);
-
+    count += 32;
+    
     char data_axis_title2[32];
-    count = 840;
     memcpy(data_axis_title2, &buffer[count],32);
-
+    count += 32;
+    
     char data_axis_title3[32];
-    count = 872;
     memcpy(data_axis_title3, &buffer[count],32);
-
+    count += 32;
+    
     char data_axis_title4[32];
-    count = 904;
     memcpy(data_axis_title4, &buffer[count],32);
-
+    count += 32;
+    
     char data_axis_title5[32];
-    count = 936;
     memcpy(data_axis_title5, &buffer[count],32);
-
+    count += 32;
+    
     char data_axis_title6[32];
-    count = 968;
     memcpy(data_axis_title6, &buffer[count],32);
-
+    count += 32;
+    
     char data_axis_title7[32];
-    count = 1000;
     memcpy(data_axis_title7, &buffer[count],32);
-
+    count += 32;
+    
     char data_axis_title8[32];
-    count = 1032;
     memcpy(data_axis_title8, &buffer[count],32);
-
+    count += 32;
+    
     // *** data_points holds the spectrometer frequency for each dimension
     // These need byte swap to correct endian
     double base_freq[8];
-    count = 1064;
     for(int8_t i = 0; i<8; i++) {
         UInt64 temp = CFSwapInt64(*((UInt64 *) &(buffer[count])));
         base_freq[i] = *((double *)&temp);
@@ -650,7 +622,6 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     
     // These need byte swap to correct endian
     double zero_point[8];
-    count = 1128;
     for(int8_t i = 0; i<8; i++) {
         UInt64 temp = CFSwapInt64(*((UInt64 *) &(buffer[count])));
         if(endian == 0) {
@@ -661,104 +632,103 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     }
     
     uint8_t reversed[8];
-    count = 1192;
     memcpy(reversed, &buffer[count],8);
-
+    count += 8;
+    
     uint8_t reserved[3];
-    count = 1200;
     memcpy(&reserved, &buffer[count],3);
-
+    count += 3;
+    
     uint8_t annotation_ok;
-    count = 1203;
     memcpy(&annotation_ok, &buffer[count],1);
-
+    count++;
+    
     // These need byte swap to correct endian
     uint32_t history_used;
-    count = 1204;
     memcpy(&history_used, &buffer[count],4);
+    count += 4;
     history_used = CFSwapInt32(*((UInt32 *) &(history_used)));
     
     // These need byte swap to correct endian
     uint32_t history_length;
-    count = 1208;
     memcpy(&history_length, &buffer[count],4);
+    count += 4;
     history_length = CFSwapInt32(*((UInt32 *) &(history_length)));
     
     // These need byte swap to correct endian
     uint32_t param_start;
-    count = 1212;
     memcpy(&param_start, &buffer[count],4);
-
+    count += 4;
+    
     // These need byte swap to correct endian
     uint32_t param_length;
-    count = 1216;
     memcpy(&param_length, &buffer[count],4);
+    count += 4;
     param_length = CFSwapInt32(*((UInt32 *) &(param_length)));
     
     // These need byte swap to correct endian
     uint32_t list_start[8];
-    count = 1220;
     memcpy(list_start, &buffer[count],32);
+    count += 32;
     for(int8_t i = 0 ;i<8; i++) list_start[i] = CFSwapInt32(*((UInt32 *) &(list_start[i])));
     
     // These need byte swap to correct endian
     uint32_t list_length[8];
-    count = 1252;
     memcpy(list_length, &buffer[count],32);
+    count += 32;
     for(int8_t i = 0 ;i<8; i++) list_length[i] = CFSwapInt32(*((UInt32 *) &(list_length[i])));
     
     // These need byte swap to correct endian
     uint32_t data_start;
-    count = 1284;
     memcpy(&data_start, &buffer[count],4);
+    count += 4;
     data_start = CFSwapInt32(*((UInt32 *) &(data_start)));
     
     // These need byte swap to correct endian
     uint64_t data_length;
-    count = 1288;
     memcpy(&data_length, &buffer[count],8);
+    count += 8;
     data_length = CFSwapInt64(*((UInt64 *) &(data_length)));
     
     // These need byte swap to correct endian
     uint64_t context_start;
-    count = 1296;
     memcpy(&context_start, &buffer[count],8);
+    count += 8;
     context_start = CFSwapInt64(*((UInt64 *) &(context_start)));
     
     // These need byte swap to correct endian
     uint32_t context_length;
-    count = 1304;
     memcpy(&context_length, &buffer[count],4);
+    count += 4;
     context_length = CFSwapInt32(*((UInt32 *) &(context_length)));
     
     // These need byte swap to correct endian
     uint64_t annote_start;
-    count = 1308;
     memcpy(&annote_start, &buffer[count],8);
+    count += 8;
     annote_start = CFSwapInt64(*((UInt64 *) &(annote_start)));
     
     // These need byte swap to correct endian
     uint32_t annote_length;
-    count = 1316;
     memcpy(&annote_length, &buffer[count],4);
+    count += 4;
     annote_length = CFSwapInt32(*((UInt32 *) &(annote_length)));
     
     // These need byte swap to correct endian
     uint64_t total_size;
-    count = 1320;
     memcpy(&total_size, &buffer[count],8);
+    count += 8;
     total_size = CFSwapInt64(*((UInt64 *) &(total_size)));
     
     uint8_t unit_location[8];
-    count = 1328;
     memcpy(unit_location, &buffer[count],8);
-
-    uint8_t extended_units1[12];    /* 2 12-byte unit structures */
-    count = 1336;
+    count += 8;
+    
+    uint8_t extended_units1[12];	/* 2 12-byte unit structures */
     memcpy(extended_units1, &buffer[count],12);
-
+    count += 12;
+    
     uint8_t extended_units2[12];
-    count = 1348;
     memcpy(extended_units2, &buffer[count],12);
     
     CFMutableArrayRef dimensions = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
@@ -854,7 +824,7 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
         CFDictionaryAddValue(dimensionMetaData, CFSTR("NMR"), nmrDimensionMetaData);
         CFRelease(nmrDimensionMetaData);
         
-        PSDimensionRef dim = PSLinearDimensionCreateDefault(data_points[idim], increment, quantityName,inverseQuantityName);
+        PSDimensionRef dim = PSLinearDimensionCreateDefault(data_points[idim], increment, quantityName);
         
         PSDimensionSetInverseQuantityName(dim,inverseQuantityName);
         PSDimensionSetOriginOffset(dim, originOffset);
@@ -1001,7 +971,7 @@ PSDatasetRef PSDatasetImportJOELCreateSignalWithData(CFDataRef contents, CFError
     int8_t nth_loop = 7;
     
     PSDependentVariableRef theDependentVariable = PSDatasetGetDependentVariableAtIndex(dataset, 0);
-    data_fill_recursion(t_range, f_info, indexes, nth_loop, buffer, endian,
+    data_fill_recursion(data_type,t_range, f_info, indexes, nth_loop, buffer, endian,
                         PSDependentVariableGetComponentAtIndex(theDependentVariable, 0),
                         PSDatasetGetDimensions(dataset));
     

@@ -131,7 +131,7 @@ CFMutableArrayRef PSDatasetImportRMNSimCreateDimensionsWithNDParamData(CFDataRef
         CFRelease(key);
         
         
-        PSDimensionRef theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName);
+        PSDimensionRef theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName,NULL);
         CFRelease(increment);
         if(quantityName) CFRelease(quantityName);
         

@@ -130,7 +130,7 @@ PSDatasetRef PSDatasetImportRMNClassicCreateSignalWithFileBytesAndTypeCode(const
             CFDictionaryAddValue(metaData, CFSTR("NMR"), nmr);
             CFRelease(nmr);
             
-            dim0 = PSLinearDimensionCreateDefault(npts, increment, quantityName);
+            dim0 = PSLinearDimensionCreateDefault(npts, increment, quantityName,inverseQuantityName);
             PSDimensionSetOriginOffset(dim0, originOffset);
             PSDimensionSetInverseOriginOffset(dim0, inverseOriginOffset);
             PSDimensionSetReferenceOffset(dim0, referenceOffset);
@@ -243,7 +243,7 @@ PSDatasetRef PSDatasetImportRMNClassicCreateSignalWithFileBytesAndTypeCode(const
                 CFDictionaryAddValue(metaData1, CFSTR("NMR"), nmr);
                 CFRelease(nmr);
                 
-                dim1 = PSLinearDimensionCreateDefault(npt1, increment1, quantityName1);
+                dim1 = PSLinearDimensionCreateDefault(npt1, increment1, quantityName1,inverseQuantityName1);
                 PSDimensionSetOriginOffset(dim1, originOffset1);
                 PSDimensionSetInverseOriginOffset(dim1, inverseOriginOffset1);
                 PSDimensionSetReferenceOffset(dim1, referenceOffset1);
@@ -347,7 +347,7 @@ PSDatasetRef PSDatasetImportRMNClassicCreateSignalWithFileBytesAndTypeCode(const
                 CFDictionaryAddValue(metaData0, CFSTR("NMR"), nmr);
                 CFRelease(nmr);
                 
-                dim0 = PSLinearDimensionCreateDefault(npt0, increment0, quantityName0);
+                dim0 = PSLinearDimensionCreateDefault(npt0, increment0, quantityName0,inverseQuantityName0);
                 PSDimensionSetOriginOffset(dim0, originOffset0);
                 PSDimensionSetInverseOriginOffset(dim0, inverseOriginOffset0);
                 PSDimensionSetReferenceOffset(dim0, referenceOffset0);

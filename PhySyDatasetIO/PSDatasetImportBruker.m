@@ -161,10 +161,9 @@ CFArrayRef PSDatasetImportBrukerCreateDimensionsFromAcqpData(CFDataRef acqpData,
             CFDictionaryAddValue(metaData, CFSTR("NMR"), nmr);
             CFRelease(nmr);
             
-            PSDimensionRef dim = PSLinearDimensionCreateDefault(npts[0], increment, kPSQuantityTime);
+            PSDimensionRef dim = PSLinearDimensionCreateDefault(npts[0], increment, kPSQuantityTime,kPSQuantityFrequency);
             PSDimensionSetOriginOffset(dim, originOffset);
             PSDimensionSetInverseOriginOffset(dim, inverseOriginOffset);
-            PSDimensionSetInverseQuantityName(dim, kPSQuantityFrequency);
             PSDimensionSetMetaData(dim, metaData);
             PSDimensionSetInverseMadeDimensionless(dim, true);
             
@@ -234,10 +233,9 @@ CFArrayRef PSDatasetImportBrukerCreateDimensionsFromAcqpData(CFDataRef acqpData,
                 CFDictionaryAddValue(metaData, CFSTR("NMR"), nmr);
                 CFRelease(nmr);
                 
-                PSDimensionRef dim = PSLinearDimensionCreateDefault(npts[dimensionIndex], increment, kPSQuantityTime);
+                PSDimensionRef dim = PSLinearDimensionCreateDefault(npts[dimensionIndex], increment, kPSQuantityTime,kPSQuantityFrequency);
                 PSDimensionSetOriginOffset(dim, originOffset);
                 PSDimensionSetInverseOriginOffset(dim, inverseOriginOffset);
-                PSDimensionSetInverseQuantityName(dim, kPSQuantityFrequency);
                 PSDimensionSetMetaData(dim, metaData);
                 PSDimensionSetInverseMadeDimensionless(dim, true);
                 PSDimensionSetInverseMadeDimensionless(dim, true);
@@ -328,8 +326,7 @@ CFArrayRef PSDatasetImportBrukerCreateDimensionsFromAcqusArray(CFArrayRef acqusA
             if(SW_h) CFRelease(SW_h);
             if(SW) CFRelease(SW);
             
-            PSDimensionRef dim = PSLinearDimensionCreateDefault(npts, increment, kPSQuantityTime);
-            PSDimensionSetInverseQuantityName(dim, kPSQuantityFrequency);
+            PSDimensionRef dim = PSLinearDimensionCreateDefault(npts, increment, kPSQuantityTime,kPSQuantityFrequency);
             PSDimensionSetOriginOffset(dim, originOffset);
             PSDimensionSetInverseOriginOffset(dim, inverseOriginOffset);
             // Put the rest into NMR meta-data
@@ -407,8 +404,7 @@ CFArrayRef PSDatasetImportBrukerCreateDimensionsFromAcqusArray(CFArrayRef acqusA
                 if(SW) CFRelease(SW);
                 CFRelease(SFO1);
                 
-                PSDimensionRef dim = PSLinearDimensionCreateDefault(npts, increment, kPSQuantityTime);
-                PSDimensionSetInverseQuantityName(dim, kPSQuantityFrequency);
+                PSDimensionRef dim = PSLinearDimensionCreateDefault(npts, increment, kPSQuantityTime,kPSQuantityFrequency);
                 PSDimensionSetOriginOffset(dim, originOffset);
                 PSDimensionSetInverseOriginOffset(dim, inverseOriginOffset);
 

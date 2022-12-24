@@ -139,8 +139,7 @@ PSDatasetRef PSDatasetImportMagritekCreateSignalWithFolderData(CFDataRef fidData
                     CFIndex responseSize = 1;
                     for(CFIndex idim =0;idim<numberOfDimensions; idim++) {
                         responseSize *= npts[idim];
-                        PSDimensionRef dimension = PSLinearDimensionCreateDefault(npts[idim], increment, kPSQuantityTime);
-                        PSDimensionSetInverseQuantityName(dimension, kPSQuantityFrequency);
+                        PSDimensionRef dimension = PSLinearDimensionCreateDefault(npts[idim], increment, kPSQuantityTime,kPSQuantityFrequency);
                         PSDimensionSetOriginOffset(dimension, originOffset);
                         PSDimensionSetInverseOriginOffset(dimension, inverseOriginOffset);
                         PSDimensionSetMetaData(dimension, metaData);

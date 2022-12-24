@@ -7009,7 +7009,7 @@ PSDependentVariableRef PSDependentVariableCreateWithCSDMPList(CFDictionaryRef de
 
         componentsArray = CFDictionaryGetValue(dependentVariableDictionary, CFSTR("components"));
         if(componentsCount != CFArrayGetCount(componentsArray)) {
-            if(error) *error = PSCFErrorCreate(CFSTR("Cannot read dependent variable object."), CFSTR("Components count from quantity_type and inconsistent with components array are inconsistent."), NULL);
+            if(error) *error = PSCFErrorCreate(CFSTR("Cannot read dependent variable object."), CFSTR("Components count and components array are inconsistent."), NULL);
             return NULL;
         }
     }

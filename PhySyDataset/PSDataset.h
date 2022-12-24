@@ -631,6 +631,11 @@ PSDatasetRef PSDatasetCreateByTakingComplexPart(PSDatasetRef input, complexPart 
 PSDatasetRef PSDatasetCreateByCombiningMagnitudeWithArgument(PSDatasetRef magnitude, PSDatasetRef argument, CFErrorRef *error);
 
 /*!
+ @function PSDatasetCreateByAppending
+ */
+PSDatasetRef PSDatasetCreateByAppending(PSDatasetRef dataset1, PSDatasetRef dataset2, CFErrorRef *error);
+
+/*!
  @function PSDatasetCreateByAdding
  */
 PSDatasetRef PSDatasetCreateByAdding(PSDatasetRef dataset1, PSDatasetRef dataset2, CFErrorRef *error);

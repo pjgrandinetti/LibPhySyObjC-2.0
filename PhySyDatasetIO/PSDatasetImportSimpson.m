@@ -140,8 +140,7 @@ PSDatasetRef PSDatasetImportSimpsonCreateSignalWithFileData(CFDataRef contents, 
         PSScalarRef originOffset = PSScalarCreateWithFloat(0.0, seconds);
         PSScalarRef inverseOriginOffset = PSScalarCreateWithFloat(0.0, hertz);
         
-        PSDimensionRef dimX = PSLinearDimensionCreateDefault(numberOfPoints, increment, kPSQuantityTime);
-        PSDimensionSetInverseQuantityName(dimX, kPSQuantityFrequency);
+        PSDimensionRef dimX = PSLinearDimensionCreateDefault(numberOfPoints, increment, kPSQuantityTime,kPSQuantityFrequency);
         PSDimensionSetOriginOffset(dimX, originOffset);
         PSDimensionSetInverseOriginOffset(dimX, inverseOriginOffset);
         PSDimensionSetReferenceOffset(dimX, referenceOffset);
@@ -166,8 +165,7 @@ PSDatasetRef PSDatasetImportSimpsonCreateSignalWithFileData(CFDataRef contents, 
             PSScalarRef originOffset1 = PSScalarCreateWithFloat(0.0, seconds);
             PSScalarRef inverseOriginOffset1 = PSScalarCreateWithFloat(0.0, hertz);
             
-            PSDimensionRef dimY = PSLinearDimensionCreateDefault(numberOfIndirectPoints, increment1, kPSQuantityTime);
-            PSDimensionSetInverseQuantityName(dimY, kPSQuantityFrequency);
+            PSDimensionRef dimY = PSLinearDimensionCreateDefault(numberOfIndirectPoints, increment1, kPSQuantityTime,kPSQuantityFrequency);
             PSDimensionSetOriginOffset(dimY, originOffset1);
             PSDimensionSetInverseOriginOffset(dimY, inverseOriginOffset1);
             PSDimensionSetReferenceOffset(dimY, referenceOffset1);
@@ -214,8 +212,7 @@ PSDatasetRef PSDatasetImportSimpsonCreateSignalWithFileData(CFDataRef contents, 
         PSScalarRef originOffset = PSScalarCreateWithFloat(0.0, hertz);
         PSScalarRef inverseOriginOffset = PSScalarCreateWithFloat(0.0, seconds);
         
-        PSDimensionRef dimX = PSLinearDimensionCreateDefault(numberOfPoints, increment, kPSQuantityFrequency);
-        PSDimensionSetInverseQuantityName(dimX, kPSQuantityTime);
+        PSDimensionRef dimX = PSLinearDimensionCreateDefault(numberOfPoints, increment, kPSQuantityFrequency,kPSQuantityTime);
         PSDimensionSetOriginOffset(dimX, originOffset);
         PSDimensionSetInverseOriginOffset(dimX, inverseOriginOffset);
         PSDimensionSetReferenceOffset(dimX, referenceOffset);
@@ -238,8 +235,7 @@ PSDatasetRef PSDatasetImportSimpsonCreateSignalWithFileData(CFDataRef contents, 
             PSScalarRef originOffset1 = PSScalarCreateWithFloat(0.0, hertz);
             PSScalarRef inverseOriginOffset1 = PSScalarCreateWithFloat(0.0, seconds);
             
-            PSDimensionRef dimY = PSLinearDimensionCreateDefault(numberOfIndirectPoints, increment1, kPSQuantityFrequency);
-            PSDimensionSetInverseQuantityName(dimY, kPSQuantityTime);
+            PSDimensionRef dimY = PSLinearDimensionCreateDefault(numberOfIndirectPoints, increment1, kPSQuantityFrequency,kPSQuantityTime);
             PSDimensionSetOriginOffset(dimY, originOffset1);
             PSDimensionSetInverseOriginOffset(dimY, inverseOriginOffset1);
             PSDimensionSetReferenceOffset(dimY, referenceOffset1);

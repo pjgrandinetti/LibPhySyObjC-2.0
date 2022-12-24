@@ -2748,6 +2748,62 @@ PSDatasetRef PSDatasetCreateByAddingParsedExpression(PSDatasetRef input, CFStrin
 
 #pragma mark Dataset Create Operations
 
+PSDatasetRef PSDatasetCreateByAppending(PSDatasetRef dataset1, PSDatasetRef dataset2, CFErrorRef *error)
+{
+    if(error) if(*error) return NULL;
+    IF_NO_OBJECT_EXISTS_RETURN(dataset1,NULL);
+    IF_NO_OBJECT_EXISTS_RETURN(dataset2,NULL);
+    
+    CFIndex dimCount = PSDatasetDimensionsCount(dataset1);
+    if(dimCount!=PSDatasetDimensionsCount(dataset2)) {
+        if(error) {
+            CFStringRef desc = CFSTR("Cannot append because number of dimensions are unequal");
+            *error = CFErrorCreateWithUserInfoKeysAndValues(kCFAllocatorDefault,
+                                                            kPSFoundationErrorDomain,
+                                                            0,
+                                                            (const void* const*)&kCFErrorLocalizedDescriptionKey,
+                                                            (const void* const*)&desc,
+                                                            1);
+        }
+    }
+    for(CFIndex idim = 0; idim<dimCount; idim++) {
+        PSDimensionRef dim1 = PSDatasetGetDimensionAtIndex(dataset1, idim);
+        PSDimensionRef dim2 = PSDatasetGetDimensionAtIndex(dataset2, idim);
+        CFStringRef reason = NULL;
+        if(!PSLinearDimensionHasIdenticalIncrement(dim1, dim2,&reason)) {
+            if(error) {
+                *error = CFErrorCreateWithUserInfoKeysAndValues(kCFAllocatorDefault,
+                                                                kPSFoundationErrorDomain,
+                                                                0,
+                                                                (const void* const*)&kCFErrorLocalizedDescriptionKey,
+                                                                (const void* const*)&reason,
+                                                                1);
+            }
+            if(reason) CFRelease(reason);
+            return NULL;
+        }
+    }
+    PSDatasetRef output = PSDatasetCreateCopy(dataset1);
+    CFIndex dvCount = CFArrayGetCount(output->dependentVariables);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    dispatch_apply(dvCount, queue,^(size_t dvIndex) {
+        PSDependentVariableRef dV1 = CFArrayGetValueAtIndex(output->dependentVariables,dvIndex);
+        PSDependentVariableRef dV2 = CFArrayGetValueAtIndex(dataset2->dependentVariables,dvIndex);
+        PSDependentVariableAppend(dV1,dV2,error);
+    });
+    
+    PSDimensionRef lastDimension1 = PSDatasetGetDimensionAtIndex(output,dimCount-1);
+    PSDimensionRef lastDimension2 = PSDatasetGetDimensionAtIndex(dataset2,dimCount-1);
+    PSDimensionSetNpts(lastDimension1, PSDimensionGetNpts(lastDimension1)+ PSDimensionGetNpts(lastDimension2));
+    CFMutableStringRef newTitle = CFStringCreateMutable(kCFAllocatorDefault, 0);
+    CFStringAppend(newTitle, PSDatasetGetTitle(output));
+    CFStringAppend(newTitle, CFSTR(" + "));
+    CFStringAppend(newTitle, PSDatasetGetTitle(dataset2));
+    PSDatasetSetTitle(output, newTitle);
+    CFRelease(newTitle);
+    return output;
+}
+
 PSDatasetRef PSDatasetCreateByAdding(PSDatasetRef dataset1, PSDatasetRef dataset2, CFErrorRef *error)
 {
     if(error) if(*error) return NULL;

@@ -579,7 +579,7 @@ PSDatasetRef PSDatasetImportOldSPCCreateWithFileData(CFDataRef contents, CFError
     }
     
     PSScalarRef increment = PSScalarCreateWithDouble(incrementValue, xUnit);
-    PSDimensionRef dimension = PSLinearDimensionCreateDefault(mainHeader->onpts, increment, quantityName);
+    PSDimensionRef dimension = PSLinearDimensionCreateDefault(mainHeader->onpts, increment, quantityName,NULL);
     CFRelease(increment);
     PSDimensionSetLabel(dimension, label);
     CFMutableArrayRef dimensions = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);

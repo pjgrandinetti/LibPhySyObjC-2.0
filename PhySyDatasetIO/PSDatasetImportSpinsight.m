@@ -195,11 +195,10 @@ PSDatasetRef PSDatasetImportSpinSightCreateSignalWithFolderData(CFDataRef dataDa
         CFDictionaryAddValue(metaData, CFSTR("NMR"), nmr);
         CFRelease(nmr);
         
-        PSDimensionRef dim0 = PSLinearDimensionCreateDefault(npts, increment, kPSQuantityTime);
+        PSDimensionRef dim0 = PSLinearDimensionCreateDefault(npts, increment, kPSQuantityTime,kPSQuantityFrequency);
         PSDimensionSetOriginOffset(dim0, originOffset);
         PSDimensionSetInverseOriginOffset(dim0, inverseOriginOffset);
         PSDimensionSetMetaData(dim0, metaData);
-        PSDimensionSetInverseQuantityName(dim0, kPSQuantityFrequency);
         PSDimensionSetInverseMadeDimensionless(dim0, true);
 
         size *= npts;
@@ -244,11 +243,10 @@ PSDatasetRef PSDatasetImportSpinSightCreateSignalWithFolderData(CFDataRef dataDa
             CFDictionaryAddValue(metaData, CFSTR("NMR"), nmr);
             CFRelease(nmr);
             
-            PSDimensionRef dim1 = PSLinearDimensionCreateDefault(npts, increment, kPSQuantityTime);
+            PSDimensionRef dim1 = PSLinearDimensionCreateDefault(npts, increment, kPSQuantityTime,kPSQuantityFrequency);
             PSDimensionSetOriginOffset(dim1, originOffset);
             PSDimensionSetInverseOriginOffset(dim1, inverseOriginOffset);
             PSDimensionSetMetaData(dim1, metaData);
-            PSDimensionSetInverseQuantityName(dim1, kPSQuantityFrequency);
             PSDimensionSetInverseMadeDimensionless(dim1, true);
 
             size *= npts;

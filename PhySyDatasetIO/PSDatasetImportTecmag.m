@@ -1060,7 +1060,7 @@ PSDatasetRef PSDatasetImportTecmagCreateWithFileData(CFDataRef contents, CFError
     CFMutableArrayRef dimensions = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
     
     for(CFIndex iDim = 0; iDim<numberOfDimensions; iDim++) {
-        double observe_frequency =tecmag->ob_freq[iDim];
+        double observe_frequency =tecmag->ob_freq[tecmag->obs_channel-1];
         observe_frequency *= 1e7;
         observe_frequency = floor(observe_frequency);
         observe_frequency /= 1e7;
@@ -1086,7 +1086,7 @@ PSDatasetRef PSDatasetImportTecmagCreateWithFileData(CFDataRef contents, CFError
             inverseOriginOffset = PSScalarCreateWithDouble(observe_frequency, megahertz);
         }
         
-        PSDimensionRef theDimension = PSLinearDimensionCreateDefault(tecmag->actual_npts[iDim], increment, quantityName);
+        PSDimensionRef theDimension = PSLinearDimensionCreateDefault(tecmag->actual_npts[iDim], increment, quantityName,inverseQuantityName);
         PSDimensionSetOriginOffset(theDimension, originOffset);
         PSDimensionSetInverseOriginOffset(theDimension, inverseOriginOffset);
         PSDimensionSetInverseQuantityName(theDimension, inverseQuantityName);
@@ -1110,6 +1110,8 @@ PSDatasetRef PSDatasetImportTecmagCreateWithFileData(CFDataRef contents, CFError
     if(sizeFromDimensions != size) CFDataSetLength(values, sizeFromDimensions*sizeof(float complex));
     PSDependentVariableSetComponentAtIndex(theDependentVariable, values, 0);
     CFRelease(values);
+    // Needed to get frequency signs correct in rotating frame
+    PSDependentVariableConjugate(theDependentVariable, 0);
     PSPlotRef thePlot = PSDependentVariableGetPlot(theDependentVariable);
     PSPlotReset(thePlot);
     PSAxisSetBipolar(PSPlotGetResponseAxis(thePlot), true);

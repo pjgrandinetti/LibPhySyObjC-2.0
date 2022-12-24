@@ -25,8 +25,8 @@ PSDatasetRef PSDatasetImportImageCreateSignalWithCGImages(CFArrayRef images, dou
     CFIndex imageCount = CFArrayGetCount(images);
     
     PSScalarRef increment = PSScalarCreateWithDouble(1, NULL);
-    PSDimensionRef dim0 = PSLinearDimensionCreateDefault(width, increment, kPSQuantityDimensionless);
-    PSDimensionRef dim1 = PSLinearDimensionCreateDefault(height, increment, kPSQuantityDimensionless);
+    PSDimensionRef dim0 = PSLinearDimensionCreateDefault(width, increment, kPSQuantityDimensionless,kPSQuantityDimensionless);
+    PSDimensionRef dim1 = PSLinearDimensionCreateDefault(height, increment, kPSQuantityDimensionless,kPSQuantityDimensionless);
     CFRelease(increment);
     PSDimensionSetInverseQuantityName(dim0, kPSQuantityDimensionless);
     PSDimensionSetInverseQuantityName(dim1, kPSQuantityDimensionless);
@@ -39,7 +39,7 @@ PSDatasetRef PSDatasetImportImageCreateSignalWithCGImages(CFArrayRef images, dou
     CFRelease(dim1);
     if(imageCount>1) {
         PSScalarRef dwell = PSScalarCreateWithDouble((double) frameIncrementInSec, PSUnitForSymbol(CFSTR("s")));
-        PSDimensionRef dim2 = PSLinearDimensionCreateDefault(imageCount, dwell, kPSQuantityTime);
+        PSDimensionRef dim2 = PSLinearDimensionCreateDefault(imageCount, dwell, kPSQuantityTime, kPSQuantityFrequency);
         CFRelease(dwell);
         CFArrayAppendValue(dimensions, dim2);
     }

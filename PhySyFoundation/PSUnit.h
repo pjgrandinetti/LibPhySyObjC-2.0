@@ -612,7 +612,7 @@ CFArrayRef PSUnitGetUnitsSortedByNameLength(void);
  @abstract Creates an array of root units in alphabetical order according to root unit name.
  */
 CFArrayRef PSUnitCreateArrayOfRootUnits(void);
-CFArrayRef PSUnitCreateArrayOfRootUnitsForQuantityName(CFStringRef quantityName, CFErrorRef *error);
+CFArrayRef PSUnitCreateArrayOfRootUnitsForQuantityName(CFStringRef quantityName);
 CFStringRef PSUnitGuessQuantityName(PSUnitRef theUnit);
 
 

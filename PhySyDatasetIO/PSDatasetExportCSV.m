@@ -118,8 +118,7 @@ PSDatasetRef PSDatasetImportCSVCreateSignalWithFileData(CFDataRef contents, CFEr
             PSScalarRef originOffset = PSScalarCreateWithFloat(0.0, NULL);
             PSScalarRef inverseOriginOffset = PSScalarCreateWithFloat(0.0, NULL);
             
-            PSDimensionRef dimX = PSLinearDimensionCreateDefault(x_size, increment, kPSQuantityDimensionless);
-            PSDimensionSetInverseQuantityName(dimX, kPSQuantityDimensionless);
+            PSDimensionRef dimX = PSLinearDimensionCreateDefault(x_size, increment, kPSQuantityDimensionless,kPSQuantityDimensionless);
             PSDimensionSetOriginOffset(dimX, originOffset);
             PSDimensionSetInverseOriginOffset(dimX, inverseOriginOffset);
             PSDimensionSetReferenceOffset(dimX, referenceOffset);
@@ -255,8 +254,7 @@ PSDatasetRef PSDatasetImportCSVCreateSignalWithFileData(CFDataRef contents, CFEr
         PSScalarRef originOffset = PSScalarCreateWithFloat(0.0, NULL);
         PSScalarRef inverseOriginOffset = PSScalarCreateWithFloat(0.0, NULL);
         
-        PSDimensionRef dimX = PSLinearDimensionCreateDefault(x_size, increment, kPSQuantityDimensionless);
-        PSDimensionSetInverseQuantityName(dimX, kPSQuantityDimensionless);
+        PSDimensionRef dimX = PSLinearDimensionCreateDefault(x_size, increment, kPSQuantityDimensionless,kPSQuantityDimensionless);
         PSDimensionSetOriginOffset(dimX, originOffset);
         PSDimensionSetInverseOriginOffset(dimX, inverseOriginOffset);
         PSDimensionSetReferenceOffset(dimX, referenceOffset);
@@ -268,8 +266,7 @@ PSDatasetRef PSDatasetImportCSVCreateSignalWithFileData(CFDataRef contents, CFEr
         increment = PSScalarCreateWithFloat(y_delta, NULL);
         referenceOffset = PSScalarCreateWithFloat(y[0], NULL);
         
-        PSDimensionRef dimY = PSLinearDimensionCreateDefault(y_size, increment, kPSQuantityDimensionless);
-        PSDimensionSetInverseQuantityName(dimY, kPSQuantityDimensionless);
+        PSDimensionRef dimY = PSLinearDimensionCreateDefault(y_size, increment, kPSQuantityDimensionless,kPSQuantityDimensionless);
         PSDimensionSetOriginOffset(dimY, originOffset);
         PSDimensionSetInverseOriginOffset(dimY, inverseOriginOffset);
         PSDimensionSetReferenceOffset(dimY, referenceOffset);

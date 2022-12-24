@@ -311,8 +311,7 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
     PSScalarRef originOffset = PSScalarCreateWithDouble(0., xUnits);
     PSScalarRef inverseOriginOffset = PSScalarCreateWithDouble(sfrq, megahertz);
     
-    PSDimensionRef dim = PSLinearDimensionCreateDefault(npt0, increment, kPSQuantityTime);
-    PSDimensionSetInverseQuantityName(dim, kPSQuantityFrequency);
+    PSDimensionRef dim = PSLinearDimensionCreateDefault(npt0, increment, kPSQuantityTime,kPSQuantityFrequency);
     PSDimensionSetOriginOffset(dim, originOffset);
     PSDimensionSetInverseMadeDimensionless(dim, true);
     
@@ -338,7 +337,7 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
         PSScalarRef originOffset = PSScalarCreateWithDouble(0., xUnits);
         PSScalarRef inverseOriginOffset = PSScalarCreateWithDouble(0.0, inverseXUnits);
         
-        PSDimensionRef dim = PSLinearDimensionCreateDefault(npt1, increment, kPSQuantityTime);
+        PSDimensionRef dim = PSLinearDimensionCreateDefault(npt1, increment, kPSQuantityTime,kPSQuantityFrequency);
         PSDimensionSetInverseQuantityName(dim, kPSQuantityFrequency);
         PSDimensionSetOriginOffset(dim, originOffset);
         PSDimensionSetInverseOriginOffset(dim, inverseOriginOffset);

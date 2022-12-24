@@ -51,7 +51,7 @@ PSDatasetRef PSDatasetImportMRSignalCreateSignalWithData(CFDataRef contents, CFS
     for(MRDimension *dim in mrSignalDimensions) {
         PSDimensionRef dimension = PSLinearDimensionCreateDefault([dim npts],
                                                                   CFAutorelease(PSScalarCreateWithDouble([dim dw], seconds)),
-                                                                  CFSTR("time"));
+                                                              kPSQuantityTime,kPSQuantityFrequency);
         PSDimensionSetReferenceOffset(dimension, CFAutorelease(PSScalarCreateWithDouble([dim timeOriginOffset], seconds)));
         PSDimensionSetInverseQuantityName(dimension, CFSTR("frequency"));
         PSDimensionSetInverseOriginOffset(dimension, CFAutorelease(PSScalarCreateWithDouble([dim frequencyOriginOffset], hertz)));

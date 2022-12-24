@@ -907,7 +907,7 @@ CFArrayRef PSUnitCreateArrayOfUnitsWithSameRootSymbol(PSUnitRef theUnit)
         if(unitRootSymbol && CFStringCompare(unitRootSymbol, theUnitRootSymbol, 0)==kCFCompareEqualTo) {
             CFArrayAppendValue(sameRootSymbols, unit);
         }
-        CFRelease(unitRootSymbol);
+        if(unitRootSymbol) CFRelease(unitRootSymbol);
         CFRelease(theUnitRootSymbol);
     }
     CFRelease(sameDimensionalityUnits);
@@ -4633,6 +4633,7 @@ void UnitsLibraryCreate()
                                 kPSSIPrefixNone,kPSSIPrefixNone,
                                 kPSSIPrefixNone,kPSSIPrefixNone,
                                 CFSTR("joule per cubic meter"),CFSTR("joules per cubic meter"),CFSTR("J/m^3"), kPSSIPrefixNone, true, 1.,true);
+    AddNonSIUnitToLibrary(kPSQuantityEnergyDensity, CFSTR("joule per cubic centimeter"), CFSTR("joules per cubic centimeter"), CFSTR("J/cm^3"), 1000000);
 
     AddUnitForQuantityToLibrary(kPSQuantityEnergyDensity,
                                 kPSSIPrefixNone,kPSSIPrefixNone,
@@ -4643,7 +4644,8 @@ void UnitsLibraryCreate()
                                 kPSSIPrefixNone,kPSSIPrefixNone,
                                 kPSSIPrefixNone,kPSSIPrefixNone,
                                 CFSTR("joule per liter"),CFSTR("joules per liter"),CFSTR("J/L"), kPSSIPrefixNone, false, 1000.,true);
-    
+    AddNonSIUnitToLibrary(kPSQuantityEnergyDensity, CFSTR("joule per milliter"), CFSTR("joules per milliter"), CFSTR("J/mL"), 1000000);
+
     AddUnitForQuantityToLibrary(kPSQuantityElectricDipoleMoment,
                                 kPSSIPrefixNone,kPSSIPrefixNone,
                                 kPSSIPrefixKilo,kPSSIPrefixNone,
@@ -5375,7 +5377,7 @@ CFArrayRef PSUnitCreateArrayOfRootUnits(void)
     return sorted;
 }
 
-CFArrayRef PSUnitCreateArrayOfRootUnitsForQuantityName(CFStringRef quantityName, CFErrorRef *error)
+CFArrayRef PSUnitCreateArrayOfRootUnitsForQuantityName(CFStringRef quantityName)
 {
     if(NULL==quantityName) return NULL;
     CFArrayRef allUnits = PSUnitCreateArrayOfUnitsForQuantityName(quantityName);
@@ -5399,8 +5401,13 @@ CFArrayRef PSUnitCreateArrayOfRootUnitsForQuantityName(CFStringRef quantityName,
         }
     }
     CFRelease(allUnits);
-    CFMutableArrayRef sorted = CFArrayCreateMutableCopy(kCFAllocatorDefault, CFArrayGetCount(results), results);
-    CFArraySortValues(sorted, CFRangeMake(0, CFArrayGetCount(results)), unitNameSort, NULL);
+    CFIndex resultsCount = CFArrayGetCount(results);
+    if(resultsCount==0) {
+        CFRelease(results);
+        return NULL;
+    }
+    CFMutableArrayRef sorted = CFArrayCreateMutableCopy(kCFAllocatorDefault, resultsCount, results);
+    CFArraySortValues(sorted, CFRangeMake(0, resultsCount), unitNameSort, NULL);
     CFRelease(results);
     return sorted;
 }

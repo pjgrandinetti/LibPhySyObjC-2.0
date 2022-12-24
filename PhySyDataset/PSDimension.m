@@ -31,7 +31,7 @@ PSCoreDimensionRef PSCoreDimensionInitialize(PSCoreDimensionRef theDimension)
     return theDimension;
 }
 
-PSCoreDimensionRef PSCoreDimensionCreateDefault()
+PSCoreDimensionRef PSCoreDimensionCreateDefault(void)
 {
     PSCoreDimension *theDimension = [PSCoreDimension alloc];
     return PSCoreDimensionInitialize(theDimension);
@@ -614,7 +614,7 @@ void PSLinearDimensionMakeNiceUnits(PSLinearDimensionRef theDimension)
         PSScalarBestConversionForUnit((PSMutableScalarRef)theDimension->reciprocal->originOffset, unit);
         PSScalarBestConversionForUnit((PSMutableScalarRef)theDimension->reciprocal->period, unit);
     }
-    if(theDimension->increment) {
+if(theDimension->increment) {
         PSUnitRef unit = PSQuantityGetUnit(theDimension->increment);
         PSScalarBestConversionForUnit((PSMutableScalarRef)theDimension->increment, unit);
         PSScalarBestConversionForUnit((PSMutableScalarRef)theDimension->referenceOffset, unit);
@@ -981,13 +981,14 @@ PSScalarRef CreateInverseIncrementFromIncrement(PSScalarRef increment, CFIndex n
 /* Designated Creator */
 /**************************/
 
-PSDimensionRef PSLinearDimensionCreateDefault(CFIndex npts, PSScalarRef increment, CFStringRef quantityName)
+PSDimensionRef PSLinearDimensionCreateDefault(CFIndex npts, PSScalarRef increment, CFStringRef quantityName, CFStringRef inverseQuantityName)
 {
     // *** Validate input parameters ***
     IF_NO_OBJECT_EXISTS_RETURN(increment,NULL);
     if(npts<2) return NULL;
     if(PSQuantityIsComplexType(increment)) return NULL;
     PSDimensionalityRef theDimensionality = PSQuantityGetUnitDimensionality(increment);
+    PSDimensionalityRef theInverseDimensionality = PSDimensionalityByRaisingToAPower(theDimensionality, -1, NULL);
     PSUnitRef theUnit = PSQuantityGetUnit(increment);
 
     if(quantityName) {
@@ -996,6 +997,19 @@ PSDimensionRef PSLinearDimensionCreateDefault(CFIndex npts, PSScalarRef incremen
     }
     if(NULL==quantityName) quantityName = PSUnitGuessQuantityName(theUnit);
     
+    if(inverseQuantityName) {
+        PSDimensionalityRef inverseDimensionality = PSDimensionalityForQuantityName(inverseQuantityName);
+        if(!PSDimensionalityHasSameReducedDimensionality(inverseDimensionality,theInverseDimensionality)) return NULL;
+    }
+    PSScalarRef inverseIncrement = CreateInverseIncrementFromIncrement(increment, npts);
+    CFArrayRef inverseUnits = PSUnitCreateArrayOfRootUnitsForQuantityName(inverseQuantityName);
+    if(inverseUnits && CFArrayGetCount(inverseUnits)!=0) {
+        PSUnitRef newInverseUnit = CFArrayGetValueAtIndex(inverseUnits, 0);
+        PSScalarConvertToUnit((PSMutableScalarRef) inverseIncrement, newInverseUnit, NULL);
+        CFRelease(inverseUnits);
+    }
+    PSUnitRef inverseUnit = PSQuantityGetUnit(inverseIncrement);
+
     // *** Initialize object ***
     PSDimension *theDimension = [PSDimension alloc];
     theDimension->quantityName = CFStringCreateCopy(kCFAllocatorDefault, quantityName);
@@ -1015,14 +1029,15 @@ PSDimensionRef PSLinearDimensionCreateDefault(CFIndex npts, PSScalarRef incremen
     
     theDimension->inversePeriodic = false;
     theDimension->inverseMadeDimensionless = false;
-    theDimension->inverseIncrement = CreateInverseIncrementFromIncrement(theDimension->increment, theDimension->npts);
-    PSUnitRef theReciprocalUnit = PSQuantityGetUnit(theDimension->inverseIncrement);
-    theDimension->inverseOriginOffset = PSScalarCreateWithDouble(0.0, theReciprocalUnit);
-    theDimension->inverseReferenceOffset = PSScalarCreateWithDouble(0.0, theReciprocalUnit);
+    theDimension->inverseIncrement = inverseIncrement;
+    theDimension->inverseOriginOffset = PSScalarCreateWithDouble(0.0, inverseUnit);
+    theDimension->inverseReferenceOffset = PSScalarCreateWithDouble(0.0, inverseUnit);
     theDimension->inversePeriod =PSScalarCreateByRaisingToAPower(theDimension->period, -1, NULL);
-    PSScalarConvertToUnit((PSMutableScalarRef) theDimension->inversePeriod, theReciprocalUnit, NULL);
+    PSScalarConvertToUnit((PSMutableScalarRef) theDimension->inversePeriod, inverseUnit, NULL);
     theDimension->metaData = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    theDimension->inverseQuantityName = PSUnitGuessQuantityName(theReciprocalUnit);
+    theDimension->inverseQuantityName = inverseQuantityName;
+    if(NULL==theDimension->inverseQuantityName)
+        theDimension->inverseQuantityName = PSUnitGuessQuantityName(inverseUnit);
     theDimension->label = CFSTR("");
     theDimension->description = CFSTR("");
     theDimension->inverseLabel = CFSTR("");
@@ -1899,6 +1914,10 @@ bool PSDimensionMultiplyByScalar(PSDimensionRef theDimension, PSScalarRef theSca
         theUnit = PSQuantityGetUnit(coordinate);
     }
     
+    if(PSUnitIsDimensionless(PSQuantityGetUnit(theDimension->increment))) {
+        theDimension->madeDimensionless = false;
+        theDimension->inverseMadeDimensionless = false;
+    }
     PSScalarMultiplyWithoutReducingUnit((PSMutableScalarRef) theDimension->originOffset, theScalar, error);
     PSScalarMultiplyWithoutReducingUnit((PSMutableScalarRef) theDimension->referenceOffset, theScalar, error);
     if(theDimension->period) PSScalarMultiplyWithoutReducingUnit((PSMutableScalarRef) theDimension->period, theScalar, error);
@@ -1983,6 +2002,14 @@ PSUnitRef PSDimensionGetRelativeInverseUnit(PSDimensionRef theDimension)
 {
     IF_NO_OBJECT_EXISTS_RETURN(theDimension,NULL);
     if(theDimension->inverseIncrement) return PSQuantityGetUnit((PSQuantityRef) theDimension->inverseIncrement);
+    else {
+        CFArrayRef units = PSUnitCreateArrayOfRootUnitsForQuantityName(theDimension->inverseQuantityName);
+        if(units) {
+            PSUnitRef firstUnit = CFArrayGetValueAtIndex(units, 0);
+            CFRelease(units);
+            return firstUnit;
+        }
+    }
     return PSUnitByRaisingToAPower(PSQuantityGetUnit(CFArrayGetValueAtIndex(theDimension->nonUniformCoordinates, 0)), -1, NULL, NULL);
 }
 
@@ -2520,6 +2547,21 @@ bool PSDimensionOriginOffsetIsZero(PSDimensionRef theDimension)
     return false;
 }
 
+bool PSLinearDimensionHasIdenticalIncrement(PSDimensionRef input1, PSDimensionRef input2, CFStringRef *reason)
+{
+    if(PSScalarCompare(input1->increment, input2->increment)!=kPSCompareEqualTo) {
+        if(reason) {
+            CFStringRef increment1 = PSScalarCreateStringValue(input1->increment);
+            CFStringRef increment2 = PSScalarCreateStringValue(input2->increment);
+            *reason = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("Dimension sampling intervals %@ and %@ don't match"),increment1, increment2);
+            CFRelease(increment1);
+            CFRelease(increment2);
+        }
+        return false;
+    }
+    return true;
+}
+
 bool PSDimensionHasIdenticalSampling(PSDimensionRef input1, PSDimensionRef input2, CFStringRef *reason)
 {
     IF_NO_OBJECT_EXISTS_RETURN(input1,false);
@@ -2527,7 +2569,7 @@ bool PSDimensionHasIdenticalSampling(PSDimensionRef input1, PSDimensionRef input
     
     if(input1->npts!= input2->npts) {
         if(reason) {
-            *reason = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("Cannot add datasets since number of points %ld and %ld don't match"),input1->npts, input2->npts);
+            *reason = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("Dimensions number of points %ld and %ld don't match"),input1->npts, input2->npts);
         }
         return false;
     }
@@ -2536,7 +2578,7 @@ bool PSDimensionHasIdenticalSampling(PSDimensionRef input1, PSDimensionRef input
         if(reason) {
             CFStringRef increment1 = PSScalarCreateStringValue(input1->increment);
             CFStringRef increment2 = PSScalarCreateStringValue(input2->increment);
-            *reason = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("Cannot add datasets since sampling intervals %@ and %@ don't match"),increment1, increment2);
+            *reason = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("Dimensions sampling intervals %@ and %@ don't match"),increment1, increment2);
             CFRelease(increment1);
             CFRelease(increment2);
         }
@@ -2546,7 +2588,7 @@ bool PSDimensionHasIdenticalSampling(PSDimensionRef input1, PSDimensionRef input
         if(reason) {
             CFStringRef offset1 = PSScalarCreateStringValue(input1->referenceOffset);
             CFStringRef offset2 = PSScalarCreateStringValue(input2->referenceOffset);
-            *reason = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("Cannot add datasets since reference offsets %@ and %@ don't match"),offset1, offset2);
+            *reason = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("Dimensions reference offsets %@ and %@ don't match"),offset1, offset2);
             CFRelease(offset1);
             CFRelease(offset2);
         }
@@ -2810,7 +2852,7 @@ PSDimensionRef PSDimensionCreateWithCSDMPList(CFDictionaryRef dictionary, CFErro
         
         if(CFDictionaryContainsKey(dictionary, CFSTR("increment")))
             increment = PSScalarCreateWithCFString(CFDictionaryGetValue(dictionary, CFSTR("increment")),error);
-        theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName);
+        theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName,NULL);
     }
     else if(CFStringCompare(type, CFSTR("labeled"), 0)==kCFCompareEqualTo) {
         if(error) *error = PSCFErrorCreate(CFSTR("Cannot read Dimension object."), CFSTR("RMN does not support labeled dimensions."), NULL);
@@ -2946,7 +2988,7 @@ PSDimensionRef PSDimensionCreateWithPList(CFDictionaryRef dictionary, CFErrorRef
         CFRelease(nonUniformCoordinates);
     }
     else if(increment) {
-        theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName);
+        theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName,NULL);
         CFRelease(increment);
     }
     else return NULL;
@@ -3095,7 +3137,7 @@ PSDimensionRef PSDimensionCreateWithData(CFDataRef data, CFErrorRef *error)
     }
     
     if(increment) {
-        theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName);
+        theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName,NULL);
         CFRelease(increment);
     }
     else if(nonUniformCoordinates) {

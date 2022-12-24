@@ -186,7 +186,7 @@ PSDatasetRef PSDatasetImportIFFCreateSignalWithData(CFDataRef contents, CFErrorR
             
             CFIndex npts = dataChunk->size/waveFormatChunk->numberOfChannels/(bitsPerSample/8);
             
-            PSDimensionRef dim = PSLinearDimensionCreateDefault(npts, increment, quantityName);
+            PSDimensionRef dim = PSLinearDimensionCreateDefault(npts, increment, quantityName,inverseQuantityName);
             PSDimensionSetInverseQuantityName(dim, inverseQuantityName);
             PSDimensionSetOriginOffset(dim, originOffset);
             PSDimensionSetInverseOriginOffset(dim, inverseOriginOffset);

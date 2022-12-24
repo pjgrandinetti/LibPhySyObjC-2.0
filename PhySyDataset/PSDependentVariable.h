@@ -100,7 +100,7 @@ PSDependentVariableRef PSDependentVariableCreateWithComponent(CFStringRef name,
 /*!
  @function PSDependentVariableCreateCopy
  @abstract Creates a copy of a PSDependentVariable
- @param theBlock The PSDependentVariable.
+ @param theDependentVariable The PSDependentVariable.
  @result a copy of the PSDependentVariable.
  */
 PSDependentVariableRef PSDependentVariableCreateCopy(PSDependentVariableRef theDependentVariable, PSDataset *theDataset);
@@ -194,7 +194,7 @@ bool PSDependentVariableSetElementType(PSDependentVariableRef theBlock, numberTy
 /*!
  @function PSDependentVariableGetComponentAtIndex
  @abstract returns the mutable CFData holding the block values
- @param theBlock the block
+ @param theDependentVariable the dependent variable
  @result a CFMutableData.
  */
 CFMutableDataRef PSDependentVariableGetComponentAtIndex(PSDependentVariableRef theDependentVariable, CFIndex componentIndex);
@@ -441,7 +441,7 @@ CFArrayRef PSDependentVariableCreateArrayWithMinAndMaxForPart(PSDependentVariabl
 /*!
  @function PSDependentVariableTakeAbsoluteValue
  @abstract Replace every element of the block with its absolute value.
- @param theBlock the block
+ @param theDependentVariable the dependent variable
  */
 bool PSDependentVariableTakeAbsoluteValue(PSDependentVariableRef theDependentVariable, CFIndex componentIndex);
 
@@ -456,14 +456,14 @@ bool PSDependentVariableRaiseValuesToAPower(PSDependentVariableRef theDependentV
 /*!
  @function PSDependentVariableConjugate
  @abstract Replace every element of the block with its complex conjugate.
- @param theBlock the block
+ @param theDependentVariable the dependent variable
  */
 bool PSDependentVariableConjugate(PSDependentVariableRef theDependentVariable, CFIndex componentIndex);
 
 /*!
  @function PSDependentVariableTakeComplexPart
  @abstract Replace every element of the block with its complex part.
- @param theBlock the block
+ @param theDependentVariable the dependent variable
  @param part is a constant specifying the complex Part: kPSRealPart, kPSImaginaryPart, kPSMagnitudePart, or kPSArgumentPart
  */
 bool PSDependentVariableTakeComplexPart(PSDependentVariableRef theDependentVariable, CFIndex componentIndex, complexPart part);
@@ -526,7 +526,7 @@ bool PSDependentVariableAddScalarToValueAtMemOffset(PSDependentVariableRef theDe
 /*!
  @function PSDependentVariableMultiplyValuesByDimensionlessRealConstant
  @abstract Multiply all values in the block by a dimensionless real constant
- @param theBlock the block
+ @param theDependentVariable the dependent variable
  @param constant the dimensionless real constant.
  */
 bool PSDependentVariableMultiplyValuesByDimensionlessRealConstant(PSDependentVariableRef theDependentVariable,
@@ -536,7 +536,7 @@ bool PSDependentVariableMultiplyValuesByDimensionlessRealConstant(PSDependentVar
 /*!
  @function PSDependentVariableMultiplyValuesByDimensionlessComplexConstant
  @abstract Multiply all values in the block by a dimensionless complex constant
- @param theBlock the block
+ @param theDependentVariable the dependent variable
  @param constant the dimensionless complex constant.
  */
 bool PSDependentVariableMultiplyValuesByDimensionlessComplexConstant(PSDependentVariableRef theDependentVariable,
@@ -546,7 +546,7 @@ bool PSDependentVariableMultiplyValuesByDimensionlessComplexConstant(PSDependent
 /*!
  @function PSDependentVariableMultiplyByScalar
  @abstract Multiply every value in the block by a scalar
- @param theBlock the block
+ @param theDependentVariable the dependent variable
  @param theScalar the scalar multiplier
  @param error a pointer to a CFErrorRef (i.e. a pointer to a pointer).  If an error occurs a CFError will be created
  with a description of the error and returned in the error variable.   If NULL is passed then no error description
@@ -668,10 +668,10 @@ bool PSDependentVariableEqual(PSDependentVariableRef input1, PSDependentVariable
 /*!
  @function PSDependentVariableSetValueAtCoordinateIndexes
  @abstract Sets the response at the coordinate indices.
- @param theDependentVariable the signal
+ @param theDependentVariable the dependent variable
  @param dimensions a CFArray containing the dimensions for the signal
  @param theIndexes a PSIndexArray containing indices where the response is to be set.
- @param response the response to set.
+ @param value the value to set.
  @param error a pointer to a CFError type for reporting errors if method was unsuccessful. Can be NULL.
  @result true or false depending on success of operation.
  */
@@ -793,11 +793,10 @@ void PSDependentVariableRepeatAlongDimension(PSDependentVariableRef theDependent
 /*!
  @function PSDependentVariableCreateByInterleavingAlongDimension
  @abstract Creates a signal by interleaving two signals along a specific dimension
- @param signal1 the first signal
- @param signal2 the second signal
+ @param input1 the first dependent variable
+ @param input2 the second dependent variable
  @param dimensions a CFArray containing the dimensions for the signal
  @param interleavedDimensionIndex the dimension index along which the signals are interleaved.
- @result the new signal.
  */
 bool PSDependentVariableInterleaveAlongDimension(PSDependentVariableRef input1,
                                                  PSDependentVariableRef input2,

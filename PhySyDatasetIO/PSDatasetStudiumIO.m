@@ -174,7 +174,7 @@ CFMutableArrayRef PSDatasetStudiumIOCreateDimensionsFromFlatTextParameters(CFDic
 
         }
         else  {
-            theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName);
+            theDimension = PSLinearDimensionCreateDefault(npts, increment, quantityName,NULL);
         }
         CFRelease(quantityName);
         
