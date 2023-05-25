@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D48CF41B2A1FC05000A82D10 /* fftw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274B26B63C79001F1984 /* fftw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D48CF41C2A1FC05400A82D10 /* fftwf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274D26B63C79001F1984 /* fftwf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4AA30C7257D740E0041AB42 /* PSCFType.m in Sources */ = {isa = PBXBuildFile; fileRef = D4AA30C5257D740E0041AB42 /* PSCFType.m */; };
 		D4AA30C8257D740E0041AB42 /* PSCFType.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30C6257D740E0041AB42 /* PSCFType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4AA30CD257D74A60041AB42 /* PSMath.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AA30CB257D74A60041AB42 /* PSMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,9 +173,7 @@
 		D4ACE0B71E19F00900DD4754 /* LibPhySyObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = D4ACE0A91E19F00900DD4754 /* LibPhySyObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4ACE1781E19F01800DD4754 /* CFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D4ACE0C11E19F01800DD4754 /* CFAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4D9ABE12956114000F9870C /* fftw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274B26B63C79001F1984 /* fftw.framework */; };
-		D4D9ABE22956114000F9870C /* fftw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274B26B63C79001F1984 /* fftw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4D9ABE32956114500F9870C /* fftwf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274D26B63C79001F1984 /* fftwf.framework */; };
-		D4D9ABE42956114500F9870C /* fftwf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274D26B63C79001F1984 /* fftwf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -183,8 +183,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D4D9ABE42956114500F9870C /* fftwf.framework in Embed Frameworks */,
-				D4D9ABE22956114000F9870C /* fftw.framework in Embed Frameworks */,
+				D48CF41C2A1FC05400A82D10 /* fftwf.framework in Embed Frameworks */,
+				D48CF41B2A1FC05000A82D10 /* fftw.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1020,18 +1020,16 @@
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				EXCLUDED_ARCHS = "";
+				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
-					/opt/intel/mkl/include,
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = LibPhySyObjC/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib,
-					/usr/local/Cellar/fftw/3.3.9/lib,
-				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.physyapps.libphysyobjc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1059,18 +1057,16 @@
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				EXCLUDED_ARCHS = "";
+				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
-					/opt/intel/mkl/include,
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = LibPhySyObjC/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib,
-					/usr/local/Cellar/fftw/3.3.9/lib,
-				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.physyapps.libphysyobjc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
