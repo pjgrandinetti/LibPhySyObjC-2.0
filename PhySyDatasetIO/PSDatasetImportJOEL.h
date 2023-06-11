@@ -3,7 +3,7 @@
 //  PhySyDatasetIO
 //
 //  Created by Philip J. Grandinetti on 2/16/12.
-//  Copyright (c) 2012 PhySy Ltd. All rights reserved.
+//  Copyright (c) 2022 PhySy Ltd. All rights reserved.
 //
 
 bool PSDatasetImportJOELIsValidURL(CFURLRef url);
