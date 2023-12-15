@@ -7292,8 +7292,30 @@ PSDependentVariableRef PSDependentVariableCreateWithCSDMPList(CFDictionaryRef de
 
         for(CFIndex componentIndex=0;componentIndex<componentsCount;componentIndex++) {
             CFIndex componentByteSize = typeSize*numberPoints;
+            if(fileByteSize<componentByteSize) {
+                CFIndex numberDimensions = CFArrayGetCount(dimensions);
+                if(numberDimensions ==2) {
+                    // Assume there is only one component, and see if reducing the size of the last dimension
+                    // can make it work.
+                    CFIndex numberActualPoints = fileByteSize/typeSize;
+                    double fraction = (double) numberActualPoints/ (double) numberPoints;
+                    PSDimensionRef dimension = CFArrayGetValueAtIndex(dimensions, 1);
+                    PSDimensionSetNpts(dimension,PSDimensionGetNpts(dimension)*fraction);
+                    numberPoints = PSDimensionCalculateSizeFromDimensions(dimensions);
+                    componentByteSize = typeSize*numberPoints;
+                    }
+                else {
+                    if(error) *error = PSCFErrorCreate(CFSTR("Cannot read dependent variable object."), CFSTR("Could not find or open external data file."), NULL);
+                    return NULL;
+
+                }
+
+                }
+        
+
             NSRange range = {componentIndex*componentByteSize,componentByteSize};
-            NSData *componentData = [[fileData subdataWithRange:range] retain];
+            NSData *componentData = [fileData subdataWithRange:range];
+            if(componentData) [componentData retain];
             
             switch(originalType) {
                 case kCSDMNumberUInt8Type:
