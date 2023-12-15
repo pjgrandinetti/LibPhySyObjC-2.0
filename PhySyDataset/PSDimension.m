@@ -1371,6 +1371,23 @@ PSDimensionRef PSDimensionCreateCopy(PSDimensionRef theDimension)
                                  NULL);
 }
 
+PSDimensionRef PSMonotonicDimensionCreateFromLinear(PSDimensionRef linearDimension)
+{
+    PSDimensionRef theDimension = PSDimensionCreateCopy(linearDimension);
+    
+    theDimension->nonUniformCoordinates = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+    for(CFIndex index = 0; index<linearDimension->npts;index++) {
+        PSScalarRef coordinate =  PSDimensionCreateRelativeCoordinateFromIndex(linearDimension, index);
+        CFArrayAppendValue(theDimension->nonUniformCoordinates, coordinate);
+        CFRelease(coordinate);
+    }
+    CFRelease(theDimension->increment);
+    theDimension->increment = NULL;
+    CFRelease(theDimension->inverseIncrement);
+    theDimension->inverseIncrement = NULL;
+    return theDimension;
+}
+
 
 #pragma mark Accessors
 
@@ -2625,6 +2642,11 @@ bool PSDimensionIsRelativeCoordinateInRange(PSDimensionRef theDimension, PSScala
     if(coordinateIndex > maximumIndex) return false;
     if(coordinateIndex < minimumIndex) return false;
     return true;
+}
+
+bool PSDimensionIsLinear(PSDimensionRef theDimension)
+{
+    return theDimension->increment!=NULL;
 }
 
 #pragma mark Strings and Archiving

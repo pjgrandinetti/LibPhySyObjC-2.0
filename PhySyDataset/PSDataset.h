@@ -116,6 +116,11 @@ PSDatasetRef PSDatasetCreateComplexCopy(PSDatasetRef input);
 PSDatasetRef PSDatasetCreateByConvertingToNumberType(PSDatasetRef theDataset, numberType elementType);
 
 /*!
+ @function PSDatasetCreateByConvertingLinearToMonotonicDimension
+ */
+PSDatasetRef PSDatasetCreateByConvertingLinearToMonotonicDimension(PSDatasetRef theDataset, CFErrorRef *error);
+
+/*!
  @functiongroup Accessors
  */
 

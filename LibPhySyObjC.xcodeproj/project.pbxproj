@@ -176,16 +176,6 @@
 		D4D9ABE32956114500F9870C /* fftwf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F274D26B63C79001F1984 /* fftwf.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		D451206F2A365E7D00D8BE84 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D451206B2A365E7D00D8BE84 /* fftwf.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D44DEA222611430A008C4602;
-			remoteInfo = fftwf;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		D4B5BD65268607B30017DDE3 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -202,7 +192,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D451206B2A365E7D00D8BE84 /* fftwf.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = fftwf.xcodeproj; path = ../fftw/fftwf.xcodeproj; sourceTree = "<group>"; };
 		D45F274B26B63C79001F1984 /* fftw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = fftw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F274D26B63C79001F1984 /* fftwf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = fftwf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4AA30C5257D740E0041AB42 /* PSCFType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCFType.m; sourceTree = "<group>"; };
@@ -386,14 +375,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D451206C2A365E7D00D8BE84 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D45120702A365E7D00D8BE84 /* fftwf.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D4A584891F36B2E40086FF93 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -597,7 +578,6 @@
 		D4ACE09C1E19F00900DD4754 = {
 			isa = PBXGroup;
 			children = (
-				D451206B2A365E7D00D8BE84 /* fftwf.xcodeproj */,
 				D4ACE1771E19F01800DD4754 /* ToDo */,
 				D4AA335F257D84D60041AB42 /* PhySyCocoa */,
 				D4AA3354257D846B0041AB42 /* PhySyQuartz */,
@@ -798,28 +778,12 @@
 			mainGroup = D4ACE09C1E19F00900DD4754;
 			productRefGroup = D4ACE0A71E19F00900DD4754 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D451206C2A365E7D00D8BE84 /* Products */;
-					ProjectRef = D451206B2A365E7D00D8BE84 /* fftwf.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				D4ACE0A51E19F00900DD4754 /* LibPhySyObjC */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		D45120702A365E7D00D8BE84 /* fftwf.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = fftwf.framework;
-			remoteRef = D451206F2A365E7D00D8BE84 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D4ACE0A41E19F00900DD4754 /* Resources */ = {

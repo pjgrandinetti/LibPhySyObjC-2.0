@@ -382,6 +382,25 @@ PSDatasetRef PSDatasetCreateByConvertingToNumberType(PSDatasetRef theDataset, nu
     return output;
 }
 
+
+PSDatasetRef PSDatasetCreateByConvertingLinearToMonotonicDimension(PSDatasetRef theDataset, CFErrorRef *error)
+{
+    PSDatasetRef output = PSDatasetCreateCopy(theDataset);
+    CFIndex dimIndex = PSDatasetGetHorizontalDimensionIndex(theDataset);
+    PSDimensionRef theDimension = PSDatasetGetDimensionAtIndex(theDataset, dimIndex);
+    PSDimensionRef monotonicDimension = PSMonotonicDimensionCreateFromLinear(theDimension);
+    
+    PSDatasetReplaceDimensionAtIndex(output, dimIndex, monotonicDimension, error);
+    CFRelease(monotonicDimension);
+    if(*error) {
+        CFRelease(output);
+        return NULL;
+    }
+    return output;
+}
+
+
+
 #pragma mark Accessors
 bool PSDatasetHasSameReducedDimensionalities(PSDatasetRef input1, PSDatasetRef input2)
 {
@@ -2363,8 +2382,10 @@ PSDatasetRef PSDatasetCreateWithCSDMPList(CFDictionaryRef dictionary, CFArrayRef
             
             if(CFDictionaryContainsKey(RMNDictionary, CFSTR("focus"))) {
                 PSDatumRef focus = PSDatumCreateWithPList(CFDictionaryGetValue(RMNDictionary, CFSTR("focus")),error);
-                PSDatasetSetFocus(theDataset, focus);
-                CFRelease(focus);
+                if(focus) {
+                    PSDatasetSetFocus(theDataset, focus);
+                    CFRelease(focus);
+                }
             }
             
             if(CFDictionaryContainsKey(RMNDictionary, CFSTR("previous_focus"))) {

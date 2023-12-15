@@ -223,10 +223,18 @@ PSDimensionRef PSDImensionCreateFull(CFIndex npts,
  @function PSDimensionCreateCopy
  @abstract Creates a copy of a PSDimension
  @param theDimension The dimension.
- @param error a pointer to a CFError type for reporting errors if method was unsuccessful.     Can be NULL.
  @result a copy of the dimension.
  */
 PSDimensionRef PSDimensionCreateCopy(PSDimensionRef theDimension);
+
+/*!
+ @function PSMonotonicDimensionCreateFromLinear
+ @abstract Creates a PSMonotonicDimension from a PSLinearDimension
+ @param linearDimension The linear dimension.
+ @result the monotonic dimension.
+ */
+PSDimensionRef PSMonotonicDimensionCreateFromLinear(PSDimensionRef linearDimension);
+
 
 ///*!
 // @function PSDimensionCreateInverseDimension
@@ -763,6 +771,16 @@ bool PSDimensionIsDisplayedCoordinateInRange(PSDimensionRef theDimension, PSScal
  @result returns true if equal, false otherwise.
  */
 bool PSDimensionIsRelativeCoordinateInRange(PSDimensionRef theDimension, PSScalarRef coordinate, PSScalarRef minimum, PSScalarRef maximum, CFErrorRef *error);
+
+/*!
+ @function PSDimensionIsLinear
+ @abstract Tests if a dimension is linear.
+ @param theDimension The dimension.
+ @result returns boolean.
+ */
+bool PSDimensionIsLinear(PSDimensionRef theDimension);
+
+
 
 /*!
  @function PSDimensionHasSameReducedDimensionality

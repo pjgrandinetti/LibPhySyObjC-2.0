@@ -9,6 +9,7 @@
 #define kPSDatasetApodizePIETA CFSTR("PIETA")
 #define kPSDatasetApodizePIETAIntercept CFSTR("Vertical Index Intercept")
 #define kPSDatasetApodizePIETASlope CFSTR("Vertical/Horizontal Index Slope")
+#define kPSDatasetApodizePIETAOddEvenAll CFSTR("odd, even, or all")
 
 CFMutableDictionaryRef PSDatasetApodizePIETACreateDefaultFunctionParametersForDataset(PSDatasetRef theDataset,CFErrorRef *error);
 bool PSDatasetApodizePIETAValidateFunctionParametersForDataset(PSDatasetRef theDataset, CFMutableDictionaryRef functionParameters);

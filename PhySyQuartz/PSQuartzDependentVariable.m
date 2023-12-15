@@ -1278,7 +1278,9 @@ CGPathRef PSQuartzDependentVariablePlot1DCreatePathForCrossSectionThroughFocus(P
     if(hasNonUniformGrid) {
         for(CFIndex i=hCoordinateIndexMin;i<= hCoordinateIndexMax ;i++) {
             PSScalarRef coordinate = PSDimensionCreateDisplayedCoordinateFromIndex(dimension, i);
-            response = PSDependentVariableFloatValueAtMemOffsetForPart(theDependentVariable, i, memOffset, part);
+            CFIndex tempIndex = i;
+            memOffset = memOffsetFromIndexes(&tempIndex, 1, &npts);
+            response = PSDependentVariableFloatValueAtMemOffsetForPart(theDependentVariable, componentIndex, memOffset, part);
             double hpos = PSAxisHorizontalViewCoordinateFromAxisCoordinateInRect(coordinateAxis, coordinate, signalRect, error);
             vpos = verticalScale * (response - responseMin) + verticalOffset;
             if(vpos>vmax) vpos = vmax;
