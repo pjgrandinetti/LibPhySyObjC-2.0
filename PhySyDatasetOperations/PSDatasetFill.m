@@ -98,7 +98,7 @@ CFIndex PSDatasetFillGetFillLengthPerSide(CFDictionaryRef parameters)
     if(!CFDictionaryContainsKey(parameters, kPSDatasetFillLengthPerSide)) return 0;
     CFNumberRef fillLengthPerSide = CFDictionaryGetValue(parameters, kPSDatasetFillLengthPerSide);
     if(fillLengthPerSide) {
-        int fillLength;
+        CFIndex fillLength;
         CFNumberGetValue(fillLengthPerSide, kCFNumberNSIntegerType, &fillLength);
         return fillLength;
     }
@@ -200,11 +200,14 @@ PSDatasetRef PSDatasetFillCreateDatasetFromDataset(CFDictionaryRef parameters, P
             fillSide[0] = 'b';
             break;
     }
+    CFIndex dimIndex = PSDatasetGetHorizontalDimensionIndex(input);
+    CFArrayRef fillConstants = PSDatasetFillGetFillConstants(parameters);
+    CFIndex lengthPerSide = PSDatasetFillGetFillLengthPerSide(parameters);
     PSDatasetRef dataset = PSDatasetCreateByFillingAlongDimensions(input,
-                                                                   PSDatasetGetHorizontalDimensionIndex(input),
-                                                                   PSDatasetFillGetFillConstants(parameters),
+                                                                   dimIndex,
+                                                                   fillConstants,
                                                                    fillSide,
-                                                                   PSDatasetFillGetFillLengthPerSide(parameters));
+                                                                   lengthPerSide);
     return dataset;
 }
 
