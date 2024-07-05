@@ -1606,8 +1606,9 @@ void PSDimensionSetInverseReferenceOffset(PSDimensionRef theDimension, PSScalarR
 
 bool PSDimensionHasNonUniformGrid(PSDimensionRef theDimension)
 {
+    IF_NO_OBJECT_EXISTS_RETURN(theDimension,false);
     if(theDimension->increment == NULL) return true;
-    return false;
+return false;
 }
 
 bool PSDimensionGetFFT(PSDimensionRef theDimension)

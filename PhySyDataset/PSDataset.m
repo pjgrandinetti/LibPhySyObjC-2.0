@@ -3545,7 +3545,7 @@ PSDatasetRef PSDatasetCreateByFillingAlongDimensions(PSDatasetRef theDataset,
     PSDimensionRef fillDimension = (PSDimensionRef) CFArrayGetValueAtIndex(theDataset->dimensions, dimensionIndex);
     if(PSDimensionHasNonUniformGrid(fillDimension)) return NULL;
     PSDatasetRef output = PSDatasetCreateCopy(theDataset);
-    
+
     CFIndex dvCount = PSDatasetDependentVariablesCount(output);
     for(CFIndex dvIndex=0;dvIndex<dvCount;dvIndex++) {
         PSDependentVariableRef dV = CFArrayGetValueAtIndex(output->dependentVariables, dvIndex);
