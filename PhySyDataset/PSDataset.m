@@ -82,7 +82,7 @@ static bool validateDatasetParameters(CFArrayRef dimensions,
     return true;
 }
 
-PSDatasetRef PSDatasetCreateDefault()
+PSDatasetRef PSDatasetCreateDefault(void)
 {
     // *** Validate input parameters ***
     PSDatasetRef theDataset = (PSDatasetRef) [PSDataset alloc];
@@ -2694,7 +2694,7 @@ if(error) if(*error) return NULL;
     PSDimensionRef newDimension = (PSDimensionRef) CFArrayGetValueAtIndex(output->dimensions, dimensionIndex);
     
     if(shiftCoord) {
-        PSScalarRef relativeShift = PSScalarCreateByMultiplyingByDimensionlessRealConstant(PSDimensionGetIncrement(newDimension), shift);
+        PSScalarRef relativeShift = PSScalarCreateByMultiplyingByDimensionlessRealConstant(PSDimensionGetIncrement(newDimension), -shift);
         PSScalarRef newReferenceOffset = PSScalarCreateByAdding(relativeShift, PSDimensionGetReferenceOffset(newDimension), error);
         
         PSDimensionSetReferenceOffset(newDimension, newReferenceOffset);
@@ -2712,13 +2712,20 @@ if(error) if(*error) return NULL;
             CFRelease(plotMinimum);
             PSAxisSetMaximum(axis, plotMaximum, true, error);
             CFRelease(plotMaximum);
-            PSPlotSetViewNeedsRegenerated(thePlot, true);
         }
     }
+    
+    for(CFIndex dvIndex=lowerDVIndex; dvIndex<upperDVIndex; dvIndex++) {
+        PSDependentVariableRef dv = CFArrayGetValueAtIndex(output->dependentVariables, dvIndex);
+        PSPlotRef thePlot = PSDependentVariableGetPlot(dv);
+        PSAxisRef responseAxis = PSPlotGetResponseAxis(thePlot);
+        CFStringRef quantityName = PSDependentVariableGetQuantityName(dv);
+        PSAxisReset(responseAxis, quantityName);
+        PSPlotSetViewNeedsRegenerated(thePlot, true);
+    }
+
     return output;
 }
-
-
 
 
 PSDatasetRef PSDatasetCreateByReversingAlongDimension(PSDatasetRef theDataset,
