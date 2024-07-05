@@ -283,6 +283,9 @@ typedef enum {
 /*! @constant kPSQuantityMagneticFieldStrength */
 #define kPSQuantityMagneticFieldStrength                CFSTR("magnetic field strength")
 
+/*! @constant kPSQuantityMagneticVectorPotential */
+#define kPSQuantityMagneticVectorPotential              CFSTR("magnetic vector potential")
+
 /*! @constant kPSQuantityLuminance */
 #define kPSQuantityLuminance                            CFSTR("luminance")
 

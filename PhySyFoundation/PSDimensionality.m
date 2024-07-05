@@ -1528,7 +1528,10 @@ static void DimensionalityLibraryBuild(void)
     dimensionality  = AddDimensionalityToLibrary(0,1,       0,0,        0,0,       1,0,       0,0,       0,0,       0,0);
     CFDictionaryAddValue(dimensionalityQuantitiesLibrary,kPSQuantityMagneticFieldStrength,dimensionality);
     
-    
+    // Magnetic Vector Potential
+    dimensionality  = AddDimensionalityToLibrary(2,1,       1,0,       0,2,       0,1,       0,0,       0,0,       0,0);
+    CFDictionaryAddValue(dimensionalityQuantitiesLibrary,kPSQuantityMagneticVectorPotential,dimensionality);
+
 	// Luminance
     dimensionality  = AddDimensionalityToLibrary(0,2,       0,0,        0,0,       0,0,       0,0,       0,0,       1,0);
     CFDictionaryAddValue(dimensionalityQuantitiesLibrary,kPSQuantityLuminance,dimensionality);
@@ -1839,7 +1842,7 @@ static void DimensionalityLibraryBuild(void)
     // Inductance
     dimensionality  = AddDimensionalityToLibrary(2,0,       1,0,       0,2,       0,2,       0,0,       0,0,       0,0);
     CFDictionaryAddValue(dimensionalityQuantitiesLibrary,kPSQuantityInductance,dimensionality);
-    
+
     // Luminous Flux
     dimensionality  = AddDimensionalityToLibrary(2,2,       0,0,       0,0,       0,0,       0,0,       0,0,       1,0);
     CFDictionaryAddValue(dimensionalityQuantitiesLibrary,kPSQuantityLuminousFlux,dimensionality);

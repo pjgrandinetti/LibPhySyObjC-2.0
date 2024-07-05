@@ -20,9 +20,14 @@ CFMutableDictionaryRef PSDatasetShiftCreateDefaultParametersForDataset(PSDataset
     
     PSDimensionRef dimension = PSDatasetHorizontalDimension(theDataset);
     CFBooleanRef wrap = kCFBooleanFalse;
-    if(PSDimensionGetFFT(dimension)) wrap = kCFBooleanTrue;
+    CFBooleanRef shiftCoord = kCFBooleanFalse;
+    if(PSDimensionGetFFT(dimension)) {
+        wrap = kCFBooleanTrue;
+        shiftCoord = kCFBooleanTrue;
+    }
     CFDictionaryAddValue(parameters, kPSDatasetShiftWrap, wrap);
-    
+    CFDictionaryAddValue(parameters, kPSDatasetShiftCoordinates, shiftCoord);
+
     return parameters;
 }
 
@@ -31,7 +36,8 @@ bool PSDatasetShiftValidateForDataset(PSDatasetRef theDataset,CFDictionaryRef pa
 {
     if(!CFDictionaryContainsKey(parameters, kPSDatasetShiftValue)) return false;
     if(!CFDictionaryContainsKey(parameters, kPSDatasetShiftWrap)) return false;
-    
+    if(!CFDictionaryContainsKey(parameters, kPSDatasetShiftCoordinates)) return false;
+
     CFTypeRef theType = CFDictionaryGetValue(parameters, kPSDatasetShiftValue);
     if(CFGetTypeID(theType) != CFNumberGetTypeID()) return false;
     CFIndex shiftValue;
@@ -41,6 +47,9 @@ bool PSDatasetShiftValidateForDataset(PSDatasetRef theDataset,CFDictionaryRef pa
     theType = CFDictionaryGetValue(parameters, kPSDatasetShiftWrap);
     if(CFGetTypeID(theType) != CFBooleanGetTypeID()) return false;
     
+    theType = CFDictionaryGetValue(parameters, kPSDatasetShiftCoordinates);
+    if(CFGetTypeID(theType) != CFBooleanGetTypeID()) return false;
+
     return true;
 }
 
@@ -91,7 +100,16 @@ void PSDatasetShiftSetWrap(CFMutableDictionaryRef parameters, bool wrap)
     else CFDictionaryAddValue(parameters, kPSDatasetShiftWrap, wrapValue);
 }
 
-bool PSDatasetShiftGetWrap(CFDictionaryRef parameters) 
+void PSDatasetShiftSetShiftCoordinates(CFMutableDictionaryRef parameters, bool shiftCoord)
+{
+    CFBooleanRef shiftCoordValue = kCFBooleanFalse;
+    if(shiftCoord) shiftCoordValue = kCFBooleanTrue;
+
+    if(CFDictionaryContainsKey(parameters, kPSDatasetShiftCoordinates)) CFDictionaryReplaceValue(parameters, kPSDatasetShiftCoordinates, shiftCoordValue);
+    else CFDictionaryAddValue(parameters, kPSDatasetShiftCoordinates, shiftCoordValue);
+}
+
+bool PSDatasetShiftGetWrap(CFDictionaryRef parameters)
 {
     IF_NO_OBJECT_EXISTS_RETURN(parameters,0);
     if(!CFDictionaryContainsKey(parameters, kPSDatasetShiftWrap)) return NULL;
@@ -99,6 +117,19 @@ bool PSDatasetShiftGetWrap(CFDictionaryRef parameters)
     if(CFDictionaryContainsKey(parameters, kPSDatasetShiftWrap)) {
         CFBooleanRef wrap = (CFBooleanRef) CFDictionaryGetValue(parameters, kPSDatasetShiftWrap);
         if(wrap == kCFBooleanTrue) return true;
+        else return false;
+    }
+    return false;
+}
+
+bool PSDatasetShiftGetShiftCoordinates(CFDictionaryRef parameters)
+{
+    IF_NO_OBJECT_EXISTS_RETURN(parameters,0);
+    if(!CFDictionaryContainsKey(parameters, kPSDatasetShiftCoordinates)) return NULL;
+    
+    if(CFDictionaryContainsKey(parameters, kPSDatasetShiftCoordinates)) {
+        CFBooleanRef shiftCoordValue = (CFBooleanRef) CFDictionaryGetValue(parameters, kPSDatasetShiftCoordinates);
+        if(shiftCoordValue == kCFBooleanTrue) return true;
         else return false;
     }
     return false;
@@ -112,8 +143,9 @@ PSDatasetRef PSDatasetShiftCreateDatasetFromDataset(CFDictionaryRef parameters, 
     CFIndex shift = PSDatasetShiftGetShiftValue(parameters);
     if(shift==0) return NULL;
     bool wrap = PSDatasetShiftGetWrap(parameters);
-    
+    bool shiftCoord = PSDatasetShiftGetShiftCoordinates(parameters);
+
     CFIndex horizontalDimensionIndex = PSDatasetGetHorizontalDimensionIndex(input);
-    PSDatasetRef dataset = PSDatasetCreateByShiftingAlongDimension(input,horizontalDimensionIndex, shift, wrap, level, error);
+    PSDatasetRef dataset = PSDatasetCreateByShiftingAlongDimension(input,horizontalDimensionIndex, shift, wrap, shiftCoord, level, error);
     return dataset;
 }

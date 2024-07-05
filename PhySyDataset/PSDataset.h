@@ -725,6 +725,7 @@ PSDatasetRef PSDatasetCreateByShiftingAlongDimension(PSDatasetRef theDataset,
                                                      CFIndex dimensionIndex,
                                                      CFIndex shift,
                                                      bool wrap,
+                                                     bool shiftCoord,
                                                      CFIndex level,
                                                      CFErrorRef *error);
 
