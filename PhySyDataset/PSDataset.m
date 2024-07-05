@@ -2657,14 +2657,16 @@ PSDatasetRef PSDatasetCreateByTakingComplexPart(PSDatasetRef input, complexPart 
     return output;
 }
 
+
 PSDatasetRef PSDatasetCreateByShiftingAlongDimension(PSDatasetRef theDataset,
                                                      CFIndex dimensionIndex,
                                                      CFIndex shift,
                                                      bool wrap,
+                                                     bool shiftCoord,
                                                      CFIndex level,
                                                      CFErrorRef *error)
 {
-    if(error) if(*error) return NULL;
+if(error) if(*error) return NULL;
     IF_NO_OBJECT_EXISTS_RETURN(theDataset,NULL);
     PSDimensionRef theDimension = (PSDimensionRef) CFArrayGetValueAtIndex(theDataset->dimensions, dimensionIndex);
     if(PSDimensionHasNonUniformGrid(theDimension)) return NULL;
@@ -2691,28 +2693,33 @@ PSDatasetRef PSDatasetCreateByShiftingAlongDimension(PSDatasetRef theDataset,
     
     PSDimensionRef newDimension = (PSDimensionRef) CFArrayGetValueAtIndex(output->dimensions, dimensionIndex);
     
-    PSScalarRef relativeShift = PSScalarCreateByMultiplyingByDimensionlessRealConstant(PSDimensionGetIncrement(newDimension), shift);
-    PSScalarRef newReferenceOffset = PSScalarCreateByAdding(relativeShift, PSDimensionGetReferenceOffset(newDimension), error);
-    
-    PSDimensionSetReferenceOffset(newDimension, newReferenceOffset);
-    CFRelease(newReferenceOffset);
-    
-    PSScalarRef displayedShift = PSDimensionCreateIncrementInDisplayedCoordinate(theDimension);
-    PSScalarMultiplyByDimensionlessRealConstant((PSMutableScalarRef) displayedShift, -shift);
-    
-    for(CFIndex dvIndex=lowerDVIndex; dvIndex<upperDVIndex; dvIndex++) {
-        PSPlotRef thePlot = PSDependentVariableGetPlot(CFArrayGetValueAtIndex(output->dependentVariables, dvIndex));
-        PSAxisRef axis = PSPlotAxisAtIndex(thePlot, dimensionIndex);
-        PSScalarRef plotMinimum = PSScalarCreateByAdding(displayedShift, PSAxisGetMinimum(axis), error);
-        PSScalarRef plotMaximum = PSScalarCreateByAdding(displayedShift, PSAxisGetMaximum(axis), error);
-        PSAxisSetMinimum(axis, plotMinimum, true, error);
-        CFRelease(plotMinimum);
-        PSAxisSetMaximum(axis, plotMaximum, true, error);
-        CFRelease(plotMaximum);
-        PSPlotSetViewNeedsRegenerated(thePlot, true);
+    if(shiftCoord) {
+        PSScalarRef relativeShift = PSScalarCreateByMultiplyingByDimensionlessRealConstant(PSDimensionGetIncrement(newDimension), shift);
+        PSScalarRef newReferenceOffset = PSScalarCreateByAdding(relativeShift, PSDimensionGetReferenceOffset(newDimension), error);
+        
+        PSDimensionSetReferenceOffset(newDimension, newReferenceOffset);
+        CFRelease(newReferenceOffset);
+        
+        PSScalarRef displayedShift = PSDimensionCreateIncrementInDisplayedCoordinate(theDimension);
+        PSScalarMultiplyByDimensionlessRealConstant((PSMutableScalarRef) displayedShift, -shift);
+        
+        for(CFIndex dvIndex=lowerDVIndex; dvIndex<upperDVIndex; dvIndex++) {
+            PSPlotRef thePlot = PSDependentVariableGetPlot(CFArrayGetValueAtIndex(output->dependentVariables, dvIndex));
+            PSAxisRef axis = PSPlotAxisAtIndex(thePlot, dimensionIndex);
+            PSScalarRef plotMinimum = PSScalarCreateByAdding(displayedShift, PSAxisGetMinimum(axis), error);
+            PSScalarRef plotMaximum = PSScalarCreateByAdding(displayedShift, PSAxisGetMaximum(axis), error);
+            PSAxisSetMinimum(axis, plotMinimum, true, error);
+            CFRelease(plotMinimum);
+            PSAxisSetMaximum(axis, plotMaximum, true, error);
+            CFRelease(plotMaximum);
+            PSPlotSetViewNeedsRegenerated(thePlot, true);
+        }
     }
     return output;
 }
+
+
+
 
 PSDatasetRef PSDatasetCreateByReversingAlongDimension(PSDatasetRef theDataset,
                                                       CFIndex level,
