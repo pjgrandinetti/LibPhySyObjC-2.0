@@ -231,7 +231,7 @@ PSDatasetRef PSDatasetImportIFFCreateSignalWithData(CFDataRef contents, CFErrorR
                 CFArrayAppendValue(components, channelValues);
                 CFRelease(channelValues);
             }
-            CFStringRef quantityType = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("audio_%d"),waveFormatChunk->numberOfChannels);
+            CFStringRef quantityType = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("vector_%d"),waveFormatChunk->numberOfChannels);
 
             PSDependentVariableRef signal =  PSDependentVariableCreate(NULL,
                                                                        NULL,

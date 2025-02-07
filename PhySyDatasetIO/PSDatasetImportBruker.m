@@ -7,7 +7,10 @@
 //
 // Bruker needs complex conjugate
 
+
 #import <LibPhySyObjC/PhySyDatasetIO.h>
+
+bool neo = true;
 
 CFDictionaryRef PSDatasetImportBrukerCreateDictionaryWithJCAMPData(CFDataRef resourceData)
 {
@@ -80,6 +83,11 @@ CFArrayRef PSDatasetImportBrukerCreateDimensionsFromAcqpData(CFDataRef acqpData,
     CFStringRef byteOrderString = CFDictionaryGetValue(dimensionsMetaData, CFSTR("$BYTORDA"));
     if(CFStringCompare(byteOrderString, CFSTR("little"), 0)==kCFCompareEqualTo) *byteOrder = 0;
     else *byteOrder = 1;
+    CFStringRef title = CFDictionaryGetValue(dimensionsMetaData,CFSTR("TITLE"));
+    if(CFStringCompare(title, CFSTR("Parameter file, TopSpin 4.4.1"), 0) == kCFCompareEqualTo) neo = true;
+    else neo = false;
+
+        
     PSUnitRef megahertz = PSUnitByParsingSymbol(CFSTR("MHz"), NULL,error);
     PSUnitRef hertz = PSUnitByParsingSymbol(CFSTR("Hz"), NULL,error);
     PSUnitRef seconds = PSUnitByParsingSymbol(CFSTR("s"), NULL,error);
@@ -100,12 +108,19 @@ CFArrayRef PSDatasetImportBrukerCreateDimensionsFromAcqpData(CFDataRef acqpData,
         if(dimensionIndex == 0) {
             *numberOfPointsInDim0 = npts[0]/2;
             /* 	Next lines are to correct for Bruker fids which must be saved in multiples of 2048 bytes */
-            double n = (double) npts[0]/256;
-            n = ceil(n);
-            CFIndex td = (int32_t) n*256;
-            
-            npts[0] = td/2;
-            
+            if(!neo) {
+                double n = (double) npts[0]/256;
+                n = ceil(n);
+                CFIndex td = (int32_t) n*256;
+                npts[0] = td/2;
+            }
+            else {
+                double n = (double) npts[0]/128;
+                n = ceil(n);
+                CFIndex td = (int32_t) n*128;
+                npts[0] = td/2;
+            }
+
             
             PSScalarRef originOffset = PSScalarCreateWithDouble(0.0, seconds);
             PSScalarRef SFO1 = PSScalarCreateWithDouble(CFStringGetDoubleValue(CFDictionaryGetValue(dimensionsMetaData, CFSTR("$SFO1"))), megahertz);
@@ -277,11 +292,22 @@ CFArrayRef PSDatasetImportBrukerCreateDimensionsFromAcqusArray(CFArrayRef acqusA
             CFIndex td = CFStringGetIntValue(CFDictionaryGetValue(dimensionMetaData, CFSTR("$TD")));
             *numberOfPointsInDim0 = td/2;
             
+            CFStringRef title = CFDictionaryGetValue(dimensionMetaData,CFSTR("TITLE"));
+            if(CFStringCompare(title, CFSTR(" Parameter file, TopSpin 4.4.1"), 0) == kCFCompareEqualTo) neo = true;
+            else neo = false;
+
             /* 	Next lines are to correct for Bruker fids which must be saved in multiples of 2048 bytes */
             // But these lines no longer needed for Neo console data
-            double n = (double) td/256;
-            n = ceil(n);
-            td = (int32_t) n*256;
+            if(!neo) {
+                double n = (double) td/256;
+                n = ceil(n);
+                td = (int32_t) n*256;
+            }
+            else {
+                double n = (double) td/128;
+                n = ceil(n);
+                td = (int32_t) n*128;
+            }
             CFIndex npts = td/2;
             
             PSScalarRef originOffset = PSScalarCreateWithDouble(0.0, seconds);
