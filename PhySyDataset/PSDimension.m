@@ -985,7 +985,7 @@ PSDimensionRef PSLinearDimensionCreateDefault(CFIndex npts, PSScalarRef incremen
 {
     // *** Validate input parameters ***
     IF_NO_OBJECT_EXISTS_RETURN(increment,NULL);
-    if(npts<2) return NULL;
+    if(npts<1) return NULL;
     if(PSQuantityIsComplexType(increment)) return NULL;
     PSDimensionalityRef theDimensionality = PSQuantityGetUnitDimensionality(increment);
     PSDimensionalityRef theInverseDimensionality = PSDimensionalityByRaisingToAPower(theDimensionality, -1, NULL);

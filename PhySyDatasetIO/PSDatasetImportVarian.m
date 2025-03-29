@@ -96,7 +96,7 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
     bool text = false;
     
     if(fidData) fid = true;
-        if(logData) log = true;
+    if(logData) log = true;
     if(procparData) procpar = true;
     if(textData) text = true;
     
@@ -106,6 +106,7 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
     CFMutableDictionaryRef varianDatasetMetaData = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     CFStringRef temp = NULL;
     
+    // Extract log file contents and place into the metadata dictionary
     if(log) {
         temp = CFStringCreateFromExternalRepresentation (kCFAllocatorDefault,logData,kCFStringEncodingUTF8);
         CFMutableStringRef logString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, temp);
@@ -114,6 +115,7 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
         CFRelease(logString);
     }
     
+    // Extract text file contents and place into the metadata dictionary
     CFMutableStringRef textString = NULL;
     if(text) {
         temp = CFStringCreateFromExternalRepresentation (kCFAllocatorDefault,textData,kCFStringEncodingUTF8);
@@ -122,6 +124,7 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
         CFDictionaryAddValue(varianDatasetMetaData, CFSTR("text"), textString);
     }
     
+    // Extract procpar file contents and place it in procparDictionary
     temp = CFStringCreateFromExternalRepresentation (kCFAllocatorDefault,procparData,kCFStringEncodingUTF8);
     CFMutableStringRef procparString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, temp);
     CFRelease(temp);
@@ -133,9 +136,13 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
     CFRelease(procparString);
     
     CFMutableDictionaryRef procparDictionary = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    
+    // We'll need sw, sw1, and sfrq for later
     double sw =  0.0;
     double sw1 = 0.0;
     double sfrq = 0.0;
+    
+    // Parse the procpar text file for parameters and values
     for(CFIndex index=0; index<CFArrayGetCount(array); index++) {
         CFStringRef line = CFArrayGetValueAtIndex(array, index);
         CFArrayRef lineArray = (CFArrayRef) [(NSString *) line componentsSeparatedByString:@" "];
@@ -220,10 +227,13 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
     CFDictionaryAddValue(varianDatasetMetaData, CFSTR("procpar"), procparDictionary);
     CFRelease(procparDictionary);
     
+    
+    // populate VarianFileHeader struct from fidData binary file
     const UInt8 *buffer = CFDataGetBytePtr(fidData);
     VarianFileHeader *fileHeader = malloc(sizeof(struct VarianFileHeader));
     fileHeader = memcpy(fileHeader, (buffer), sizeof(struct VarianFileHeader));
     
+    // Swap byte orders
     fileHeader->nblocks = CFSwapInt32(*((UInt32 *) &(fileHeader->nblocks)));
     fileHeader->ntraces = CFSwapInt32(*((UInt32 *) &(fileHeader->ntraces)));
     fileHeader->np = CFSwapInt32(*((UInt32 *) &(fileHeader->np)));
@@ -234,6 +244,7 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
     fileHeader->status = CFSwapInt16(*((UInt16 *) &(fileHeader->status)));
     fileHeader->nblockheaders = CFSwapInt32(*((UInt32 *) &(fileHeader->nblockheaders)));
     
+    // Extract status flags
     bool dataIsHyperComplex = fileHeader->status & 0x20;
     bool dataIs32BitFloat = fileHeader->status & 0x08;
     bool dataIsPresent = fileHeader->status & 0x01;
@@ -249,8 +260,11 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
     bool dataNI = fileHeader->status & 0x2000;
     bool dataNI2 = fileHeader->status & 0x4000;
     
+    // populate VarianDatablockheader struct from fidData binary file
     VarianDatablockheader *blockHeader = malloc(sizeof(struct VarianDatablockheader));
     blockHeader = memcpy(blockHeader, (buffer+sizeof(struct VarianFileHeader)), sizeof(struct VarianDatablockheader));
+    
+    // Swap byte orders
     blockHeader->scale = CFSwapInt16(*((UInt16 *) &(blockHeader->scale)));
     blockHeader->status = CFSwapInt16(*((UInt16 *) &(blockHeader->status)));
     blockHeader->index = CFSwapInt16(*((UInt16 *) &(blockHeader->index)));
@@ -267,10 +281,13 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
     ptr = &tltTemp;
     blockHeader->tlt = *((float *)ptr);
     
+    // populate VarianHypercomplexHeader struct from fidData binary file
     VarianHypercomplexHeader *hypercomplexBlockHeader = NULL;
     if(dataIsHyperComplex) {
         hypercomplexBlockHeader = malloc(sizeof(struct VarianHypercomplexHeader));
         hypercomplexBlockHeader = memcpy(hypercomplexBlockHeader, (buffer+sizeof(struct VarianFileHeader) + sizeof(struct VarianDatablockheader)), sizeof(struct VarianHypercomplexHeader));
+        
+        // Swap byte orders
         hypercomplexBlockHeader->s_spare1 =CFSwapInt16(*((UInt16 *) &(hypercomplexBlockHeader->s_spare1)));
         hypercomplexBlockHeader->status =CFSwapInt16(*((UInt16 *) &(hypercomplexBlockHeader->status)));
         hypercomplexBlockHeader->s_spare2 =CFSwapInt16(*((UInt16 *) &(hypercomplexBlockHeader->s_spare2)));
@@ -294,17 +311,46 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
         hypercomplexBlockHeader->f_spare2 = *((float *)ptr);
     }
     
+    // Extract signal
+    CFIndex npt0 =fileHeader->np/2;
+    CFIndex npt1 =fileHeader->nblocks;
+    CFIndex size = npt1* npt0;
     
+    float complex data[size];
+    
+    CFIndex memOffset = sizeof(struct VarianFileHeader);
+    
+    for(CFIndex index1=0;index1<npt1;index1++) {
+        memOffset += sizeof(struct VarianDatablockheader);
+        for(CFIndex index0 = 0; index0<npt0; index0++) {
+            UInt32 datum = CFSwapInt32(*((UInt32 *) &(buffer[memOffset])));
+            void *ptr = &datum;
+            float realPart;
+            if(dataIs32BitFloat) realPart = *((float *)ptr);
+            else realPart =  (float) *((int32_t *)ptr);
+            
+            memOffset  += fileHeader->ebytes;
+            
+            datum = CFSwapInt32(*((UInt32 *) &(buffer[memOffset])));
+            ptr = &datum;
+            float imagPart;
+            if(dataIs32BitFloat) imagPart = *((float *)ptr);
+            else imagPart =  (float) *((int32_t *)ptr);
+            
+            memOffset  += fileHeader->ebytes;
+            
+            data[index0 + index1*npt0] = realPart + I*imagPart;
+        }
+    }
+
+    
+    // Create CSDM
     CFMutableArrayRef dimensions = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
     
     PSUnitRef xUnits = PSUnitForSymbol(CFSTR("s"));
     PSUnitRef inverseXUnits = PSUnitForSymbol(CFSTR("Hz"));
     PSUnitRef megahertz = PSUnitForSymbol(CFSTR("MHz"));
     
-    
-    CFIndex npt0 =fileHeader->np/2;
-    CFIndex npt1 =fileHeader->nblocks;
-    CFIndex size = npt1* npt0;
     
     // First dimension
     PSScalarRef increment = PSScalarCreateWithDouble(1./sw, xUnits);
@@ -357,34 +403,7 @@ PSDatasetRef PSDatasetImportVarianCreateSignalWithFolderData(CFDataRef fidData,
         CFArrayAppendValue(dimensions, dim);
         CFRelease(dim);
     }
-    
-    float complex data[size];
-    
-    CFIndex memOffset = sizeof(struct VarianFileHeader);
-    
-    for(CFIndex index1=0;index1<npt1;index1++) {
-        memOffset += sizeof(struct VarianDatablockheader);
-        for(CFIndex index0 = 0; index0<npt0; index0++) {
-            UInt32 datum = CFSwapInt32(*((UInt32 *) &(buffer[memOffset])));
-            void *ptr = &datum;
-            float realPart;
-            if(dataIs32BitFloat) realPart = *((float *)ptr);
-            else realPart =  (float) *((int32_t *)ptr);
-            
-            memOffset  += fileHeader->ebytes;
-            
-            datum = CFSwapInt32(*((UInt32 *) &(buffer[memOffset])));
-            ptr = &datum;
-            float imagPart;
-            if(dataIs32BitFloat) imagPart = *((float *)ptr);
-            else imagPart =  (float) *((int32_t *)ptr);
-            
-            memOffset  += fileHeader->ebytes;
-            
-            data[index0 + index1*npt0] = realPart + I*imagPart;
-        }
-    }
-    
+        
     PSDatasetRef dataset = PSDatasetCreateDefault();
     PSDatasetSetDimensions(dataset, dimensions, NULL);
     CFRelease(dimensions);
