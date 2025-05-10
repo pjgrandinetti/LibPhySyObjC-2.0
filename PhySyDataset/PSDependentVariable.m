@@ -7305,7 +7305,7 @@ PSDependentVariableRef PSDependentVariableCreateWithCSDMPList(CFDictionaryRef de
                     componentByteSize = typeSize*numberPoints;
                     }
                 else {
-                    if(error) *error = PSCFErrorCreate(CFSTR("Cannot read dependent variable object."), CFSTR("Could not find or open external data file."), NULL);
+                    if(error) *error = PSCFErrorCreate(CFSTR("Cannot read dependent variable object."), CFSTR("dependent variable inconsistent with dimensions."), NULL);
                     return NULL;
 
                 }
